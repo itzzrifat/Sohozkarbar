@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Private / app pages — keep out of search results
+Disallow: /mainfiles/
+Disallow: /workstation/code.enc.json
+Disallow: /workstation/
+Disallow: /workstation
+Disallow: /mainfiles
+Disallow: /mainfiles/code.enc.json
+Disallow: /vault.html
+Disallow: /recovery.html
+Disallow: /portal.html
+Disallow: /admin.html
+Disallow: /erp.html
+
+Disallow: /backup-82b853abe67ce2f901e5d4e223a31d32/
+
+Sitemap: https://www.sohozkarbar.pro.bd/sitemap.xml

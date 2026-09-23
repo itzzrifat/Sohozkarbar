@@ -1,0 +1,135 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>আরোগ্য হাসপাতাল ও ক্লিনিক — মেডিকেল ওয়েবসাইট ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--t:#0c8599;--td:#3bc9db;--b:#1864ab;--g:#2f9e44;--y:#f59f00;--ink:#16303a;--mut:#5b727b;--bg:#f0fafb;--card:#fff;--line:#dcf0f3}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:var(--t);color:#fff;text-align:center;font-weight:700;padding:8px;font-size:13px}
+.topbar{background:#0b5563;color:#dff6fa;font-size:13px}
+.tbin{max-width:1140px;margin:0 auto;padding:7px 20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.tbin .em{background:var(--y);color:#16303a;font-weight:800;padding:2px 10px;border-radius:999px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.hin{max-width:1140px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}
+.bd{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--t),var(--td));display:flex;align-items:center;justify-content:center;font-size:28px}
+.logo{font-size:21px;font-weight:800;color:var(--t);line-height:1.2}
+.logo small{display:block;font-size:11px;color:var(--mut);font-weight:600}
+.nav{margin-left:auto;display:flex;gap:18px;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--t)}
+.hbtn{background:var(--g);color:#fff;padding:11px 22px;border-radius:999px;font-weight:800;font-size:14px}
+.hero{background:linear-gradient(120deg,#0b5563,#0c8599 60%,#3bc9db);color:#fff;position:relative;overflow:hidden}
+.hero .wrap{max-width:1140px;margin:0 auto;padding:64px 20px;display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center}
+.hero .kicker{background:rgba(255,255,255,.18);display:inline-block;padding:6px 16px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:18px}
+.hero h1{font-size:42px;line-height:1.22;margin-bottom:14px}
+.hero h1 em{color:#ffe08a;font-style:normal}
+.hero p{font-size:16px;opacity:.95;line-height:1.7;margin-bottom:24px;max-width:470px}
+.hero .acts{display:flex;gap:14px;flex-wrap:wrap}
+.btn1{background:#fff;color:var(--t);font-weight:800;padding:13px 26px;border-radius:999px}
+.btn2{background:var(--y);color:#16303a;font-weight:800;padding:13px 26px;border-radius:999px}
+.hcard{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:18px;padding:26px;backdrop-filter:blur(4px)}
+.hcard h3{font-size:19px;margin-bottom:16px}
+.hcard .row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14px}
+.hcard .row:last-child{border-bottom:0}
+.hcard .row .e{font-size:22px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.sec{padding:56px 0}
+.shead{text-align:center;margin-bottom:34px}
+.shead .kick{color:var(--t);font-weight:800;letter-spacing:2px;font-size:13px}
+.shead h2{font-size:30px;margin:8px 0}
+.shead p{color:var(--mut);max-width:600px;margin:0 auto;line-height:1.6}
+.serv{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.sv{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;text-align:center;transition:.2s}
+.sv:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(12,133,153,.14)}
+.sv .e{width:66px;height:66px;margin:0 auto 14px;border-radius:50%;background:#e0f7fa;display:flex;align-items:center;justify-content:center;font-size:32px}
+.sv h3{font-size:18px;margin-bottom:8px}.sv p{font-size:14px;color:var(--mut);line-height:1.6}
+.docs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.dc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;text-align:center}
+.dc .av{width:76px;height:76px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:36px;background:linear-gradient(135deg,#e0f7fa,#c5f6fa)}
+.dc h4{font-size:16px}.dc p{font-size:13px;color:var(--t);font-weight:700;margin-top:4px}.dc small{color:var(--mut);font-size:12px}
+.steps{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.st{text-align:center}
+.st .n{width:54px;height:54px;margin:0 auto 12px;border-radius:50%;background:var(--t);color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.st h4{font-size:17px;margin-bottom:6px}.st p{font-size:13px;color:var(--mut);line-height:1.5}
+.cta{background:linear-gradient(120deg,#0b5563,#3bc9db);color:#fff;border-radius:24px;padding:46px 26px;text-align:center}
+.cta h2{font-size:28px;margin-bottom:10px}.cta p{opacity:.94;margin-bottom:22px}
+.cta .btn2{display:inline-block}
+footer{background:#0b5563;color:#cdeff3;margin-top:50px;padding:44px 0 22px;font-size:14px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:13px}.fg a{display:block;padding:5px 0;color:#cdeff3}
+.fbot{text-align:center;border-top:1px solid #147083;margin-top:30px;padding-top:18px;font-size:13px}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.serv{grid-template-columns:1fr}.docs,.stgrid{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr}.nav{display:none}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/clinic.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="হাসপাতাল-ক্লিনিক ওয়েবসাইট-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="ক্লিনিক ওয়েবসাইট ডিজাইন, hospital website bd, হাসপাতাল ওয়েবসাইট ডেমো, ডাক্তারের ওয়েবসাইট, মেডিকেল সেন্টার ওয়েবসাইট, অ্যাপয়েন্টমেন্ট ডেমো, রোগী সেবা ওয়েবসাইট, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">🏥 এটি একটি DEMO ওয়েবসাইট — Sohoz Karbar Tech Solutions কর্তৃক নমুনা হিসেবে তৈরি</div>
+<div class="topbar"><div class="tbin"><span>🚑 জরুরি অ্যাম্বুলেন্স: <b style="color:#fff">১৬২xx</b> &nbsp;•&nbsp; 📞 01625-914562 (২৪/৭)</span><span class="em">🟢 এখন অ্যাপয়েন্টমেন্ট চালু</span></div></div>
+<header><div class="hin">
+<a class="brand" href="#"><span class="bd">🩺</span><span class="logo">আরোগ্য হাসপাতাল<small>AROGYA HOSPITAL &amp; DIAGNOSTIC</small></span></a>
+<nav class="nav"><a href="#">হোম</a><a href="#services">সেবা</a><a href="#doctors">ডাক্তার</a><a href="#">ল্যাব রিপোর্ট</a><a href="#">অ্যাপয়েন্টমেন্ট</a><a href="#">যোগাযোগ</a></nav>
+<a class="hbtn" href="#">📅 অ্যাপয়েন্টমেন্ট</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+<div><span class="kicker">💙 আপনার সুস্থতাই আমাদের অঙ্গীকার</span>
+<h1>বিশ্বস্ত স্বাস্থ্যসেবা, এখন <em>অনলাইনেই</em> অ্যাপয়েন্টমেন্ট</h1>
+<p>৫০+ অভিজ্ঞ বিশেষজ্ঞ ডাক্তার, আধুনিক ডায়াগনস্টিক ল্যাব, জরুরি বিভাগ ও ইনডোর কেবিন — সবকিছু এক জায়গায়। ঘরে বসে ডাক্তার দেখানোর সময় বুক করুন।</p>
+<div class="acts"><a class="btn1" href="#doctors">👨‍⚕️ ডাক্তার খুঁজুন</a><a class="btn2" href="#">📞 ২৪/৭ হটলাইন</a></div>
+</div>
+<div class="hcard"><h3>🕒 আজকের সেবাসমূহ</h3>
+<div class="row"><span class="e">🩺</span> কনসালটেশন — সকাল ৯টা–রাত ৯টা</div>
+<div class="row"><span class="e">🧪</span> ডায়াগনস্টিক ল্যাব — ২৪ ঘণ্টা</div>
+<div class="row"><span class="e">🚑</span> জরুরি বিভাগ — সার্বক্ষণিক</div>
+<div class="row"><span class="e">📄</span> অনলাইন রিপোর্ট — যেকোনো সময়</div>
+</div></div></section>
+
+<section class="sec" id="services"><div class="wrap">
+<div class="shead"><div class="kick">আমাদের সেবা</div><h2>যেসব বিভাগ ও সুবিধা</h2><p>আধুনিক যন্ত্রপাতি ও অভিজ্ঞ টিম নিয়ে সার্বক্ষণিক স্বাস্থ্যসেবা</p></div>
+<div class="serv">
+<div class="sv"><div class="e">🫀</div><h3>কার্ডিওলজি</h3><p>হৃদরোগ বিশেষজ্ঞ, ইসিজি, ইকো ও কার্ডিয়াক কেয়ার।</p></div>
+<div class="sv"><div class="e">👶</div><h3>গাইনি ও শিশু</h3><p>মা ও শিশুর স্বাস্থ্য, নরমাল ডেলিভারি ও নবজাতক কেয়ার।</p></div>
+<div class="sv"><div class="e">🦴</div><h3>অর্থোপেডিক্স</h3><p>হাড়-জয়েন্ট চিকিৎসা, ফ্র্যাকচার ও ফিজিওথেরাপি।</p></div>
+<div class="sv"><div class="e">🧪</div><h3>ডায়াগনস্টিক ল্যাব</h3><p>রক্ত পরীক্ষা, আল্ট্রাসাউন্ড, এক্স-রে ও সিটি স্ক্যান।</p></div>
+<div class="sv"><div class="e">🦷</div><h3>ডেন্টাল</h3><p>দাঁতের চিকিৎসা, রুট ক্যানাল ও ওরাল সার্জারি।</p></div>
+<div class="sv"><div class="e">👁️</div><h3>চক্ষু</h3><p>চোখ পরীক্ষা, ছানি অপারেশন ও ভিশন কেয়ার।</p></div>
+</div></div></section>
+
+<section class="sec" id="doctors" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+<div class="shead"><div class="kick">বিশেষজ্ঞ ডাক্তার</div><h2>অভিজ্ঞ চিকিৎসকমণ্ডলী</h2></div>
+<div class="docs">
+<div class="dc"><div class="av">👨‍⚕️</div><h4>ডা. মাহমুদ হাসান</h4><p>কার্ডিওলজিস্ট</p><small>এমবিবিএস, এমডি (হৃদরোগ)</small></div>
+<div class="dc"><div class="av">👩‍⚕️</div><h4>ডা. তানিয়া আক্তার</h4><p>গাইনোকোলজিস্ট</p><small>এমবিবিএস, এফসিপিএস</small></div>
+<div class="dc"><div class="av">🧑‍⚕️</div><h4>ডা. রিয়াদ চৌধুরী</h4><p>অর্থোপেডিক সার্জন</p><small>এমবিবিএস, এমএস (অর্থো)</small></div>
+<div class="dc"><div class="av">👨‍🔬</div><h4>ডা. সাদমান কবির</h4><p>মেডিসিন ও ডায়াবেটিস</p><small>এমবিবিএস, এফসিপিএস</small></div>
+</div></div></section>
+
+<section class="sec steps"><div class="wrap">
+<div class="shead"><div class="kick">অ্যাপয়েন্টমেন্ট</div><h2>৪ ধাপে সহজে সিরিয়াল</h2></div>
+<div class="stgrid">
+<div class="st"><div class="n">১</div><h4>বিভাগ বাছুন</h4><p>কোন বিশেষজ্ঞ দরকার তা নির্বাচন করুন</p></div>
+<div class="st"><div class="n">২</div><h4>তারিখ-সময়</h4><p>সুবিধাজনক স্লট বেছে নিন</p></div>
+<div class="st"><div class="n">৩</div><h4>তথ্য দিন</h4><p>রোগীর নাম ও মোবাইল নম্বর</p></div>
+<div class="st"><div class="n">৪</div><h4>কনফার্ম</h4><p>এসএমএসে কনফার্মেশন পেয়ে যান</p></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="cta">
+<h2>আজই স্বাস্থ্যসেবা নিন — অ্যাপয়েন্টমেন্ট বুক করুন</h2>
+<p>জরুরি প্রয়োজনে কল করুন, অথবা অনলাইনে সিরিয়াল নিশ্চিত করুন।</p>
+<a class="btn2" href="#">📅 অ্যাপয়েন্টমেন্ট বুক করুন</a>
+</div></div></section>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:#fff;font-size:18px">🩺 আরোগ্য হাসপাতাল</div><p style="margin-top:10px;line-height:1.7">মানসম্মত, সহজলভ্য ও মানবিক স্বাস্থ্যসেবার প্রতিশ্রুতি।</p></div>
+<div><h4>সেবা</h4><a href="#">কার্ডিওলজি</a><a href="#">ডায়াগনস্টিক</a><a href="#">জরুরি বিভাগ</a></div>
+<div><h4>রোগীদের জন্য</h4><a href="#">অ্যাপয়েন্টমেন্ট</a><a href="#">ল্যাব রিপোর্ট</a><a href="#">কেবিন ভাড়া</a></div>
+<div><h4>যোগাযোগ</h4><a href="#">📞 01625-914562</a><a href="#">📍 মিরপুর ১০, ঢাকা</a><a href="#">🕐 ২৪ ঘণ্টা</a></div>
+</div><div class="fbot">© ২০২৬ আরোগ্য হাসপাতাল — DEMO মেডিকেল সাইট (নমুনা)। কন্টেন্ট কাল্পনিক।</div></div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

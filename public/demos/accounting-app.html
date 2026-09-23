@@ -1,0 +1,179 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HisabBook — অ্যাকাউন্টিং ও হিসাব-নিকাশ অ্যাপ ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--bg:#f2f8f5;--card:#fff;--line:#e0ece6;--g:#0b8a5f;--gd:#12b886;--o:#f08c00;--r:#e03131;--b:#3b5bdb;--ink:#16302a;--mut:#6b8379}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:linear-gradient(90deg,#0b8a5f,#12b886);color:#03211a;text-align:center;font-weight:800;padding:8px;font-size:13px}
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+.side{background:#0e2b24;color:#9fc4b6;padding:22px 16px;position:sticky;top:0;height:100vh}
+.logo{font-size:21px;font-weight:800;color:#fff;margin-bottom:26px;display:flex;align-items:center;gap:8px}
+.logo b{color:var(--gd)}
+.snav a{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:10px;color:#9fc4b6;font-weight:600;font-size:14px;margin-bottom:4px}
+.snav a.on{background:var(--g);color:#fff}.snav a:hover{background:#143a31;color:#fff}
+.snav .e{width:20px;text-align:center}
+.main{padding:22px 26px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.top h1{font-size:21px}.top .sub{color:var(--mut);font-size:13px}
+.range{margin-left:auto;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:10px 16px;font-size:13px;font-weight:700}
+.tbtn{background:var(--g);color:#fff;border:0;padding:11px 20px;border-radius:9px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
+.av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .l{font-size:13px;color:var(--mut);margin-bottom:8px}
+.kpi .v{font-size:25px;font-weight:800}
+.kpi .d{font-size:12px;margin-top:6px;font-weight:700}
+.up{color:var(--g)}.down{color:var(--r)}
+.dual{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;margin-bottom:20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.panel h3{font-size:16px;margin-bottom:16px}
+.cash{display:flex;align-items:flex-end;gap:12px;height:180px}
+.cash .m{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%}
+.cash .bars{display:flex;gap:4px;align-items:flex-end;height:100%;width:100%}
+.cash .in{flex:1;background:linear-gradient(180deg,var(--gd),var(--g));border-radius:5px 5px 0 0;min-height:8px}
+.cash .ex{flex:1;background:linear-gradient(180deg,#ffc078,var(--o));border-radius:5px 5px 0 0;min-height:8px}
+.cash .xl{font-size:11px;color:var(--mut)}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);float:right}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.cat{margin-bottom:14px}
+.cat .topr{display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px}
+.cat .topr b{font-weight:700}.cat .topr span{color:var(--mut)}
+.track{height:9px;background:#eef5f1;border-radius:6px;overflow:hidden}
+.track i{display:block;height:100%;border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--mut);font-weight:600;font-size:12px;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:13px 12px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.tcell{display:flex;align-items:center;gap:10px;font-weight:700}
+.tcell .ic{width:34px;height:34px;border-radius:9px;background:#eef5f1;display:flex;align-items:center;justify-content:center;font-size:17px}
+.amt-in{color:var(--g);font-weight:800}.amt-ex{color:var(--r);font-weight:800}
+.pill{padding:4px 11px;border-radius:999px;font-size:11px;font-weight:800}
+.p-done{background:rgba(11,138,95,.13);color:var(--g)}.p-pend{background:rgba(240,140,0,.15);color:var(--o)}
+@media(max-width:1100px){.app{grid-template-columns:1fr}.side{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.dual{grid-template-columns:1fr}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/accounting-app.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="অ্যাকাউন্টিং অ্যাপ-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="হিসাব রাখার অ্যাপ, accounting app bd, লাভ-ক্ষতি হিসাব, ledger app bangladesh, অ্যাকাউন্টিং ডেমো, bookkeeping app, hisab app demo, ছোট ব্যবসার হিসাব, expense tracker bd, আয় ব্যয়ের হিসাব, অ্যাকাউন্ট্স সফটওয়্যার ডেমো, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">💹 এটি একটি DEMO কাস্টম সফটওয়্যার (অ্যাকাউন্টিং/হিসাব অ্যাপ) — Sohoz Karbar Tech Solutions</div>
+<div class="app">
+<aside class="side">
+<div class="logo">💹 হিসাব<b>বুক</b></div>
+<nav class="snav">
+<a class="on" href="#"><span class="e">📊</span> ড্যাশবোর্ড</a>
+<a href="#"><span class="e">💰</span> আয়</a>
+<a href="#"><span class="e">💸</span> খরচ</a>
+<a href="#"><span class="e">🧾</span> ভাউচার/ইনভয়েস</a>
+<a href="#"><span class="e">📒</span> খাতা-বাকি</a>
+<a href="#"><span class="e">🏦</span> ব্যাংক হিসাব</a>
+<a href="#"><span class="e">📄</span> রিপোর্ট</a>
+<a href="#"><span class="e">⚙️</span> সেটিংস</a>
+</nav></aside>
+<main class="main">
+<div class="top">
+<div><h1>আর্থিক ড্যাশবোর্ড</h1><div class="sub">সেপ্টেম্বর ২০২৬ · চলমান মাস</div></div>
+<span class="range">📅 এই মাস ▾</span>
+<button class="tbtn">＋ নতুন লেনদেন</button>
+<span class="av">SK</span>
+</div>
+
+<div class="kpis">
+<div class="kpi"><div class="l">💰 মোট আয়</div><div class="v">৳৯.৪২L</div><div class="d up">▲ ১৮% গত মাসে</div></div>
+<div class="kpi"><div class="l">💸 মোট খরচ</div><div class="v">৳৫.১৮L</div><div class="d down">▼ ৬% সাশ্রয়</div></div>
+<div class="kpi"><div class="l">📈 নিট মুনাফা</div><div class="v">৳৪.২৪L</div><div class="d up">▲ ২৭%</div></div>
+<div class="kpi"><div class="l">📒 বাকি পাওনা</div><div class="v">৳৮৬,৫০০</div><div class="d" style="color:var(--o)">১২ জন গ্রাহক</div></div>
+</div>
+
+<div class="dual">
+<div class="panel">
+<span class="legend"><span><i style="background:var(--g)"></i>আয়</span><span><i style="background:var(--o)"></i>খরচ</span></span>
+<h3>মাসিক আয় বনাম খরচ (হাজার ৳)</h3>
+<div class="cash">
+<div class="m"><div class="bars"><div class="ex" style="height:48%"></div><div class="in" style="height:62%"></div></div><div class="xl">এপ্রি</div></div>
+<div class="m"><div class="bars"><div class="ex" style="height:52%"></div><div class="in" style="height:70%"></div></div><div class="xl">মে</div></div>
+<div class="m"><div class="bars"><div class="ex" style="height:46%"></div><div class="in" style="height:66%"></div></div><div class="xl">জুন</div></div>
+<div class="m"><div class="bars"><div class="ex" style="height:55%"></div><div class="in" style="height:78%"></div></div><div class="xl">জুলা</div></div>
+<div class="m"><div class="bars"><div class="ex" style="height:50%"></div><div class="in" style="height:74%"></div></div><div class="xl">আগ</div></div>
+<div class="m"><div class="bars"><div class="ex" style="height:58%"></div><div class="in" style="height:88%"></div></div><div class="xl">ভাদ্র</div></div>
+<div class="m"><div class="bars"><div class="ex" style="height:44%"></div><div class="in" style="height:95%"></div></div><div class="xl">আশ্বিন</div></div>
+</div></div>
+<div class="panel">
+<h3>খরচের খাতসমূহ</h3>
+<div class="cat"><div class="topr"><b>🛒 পণ্য ক্রয়</b><span>৳২.১L · ৪১%</span></div><div class="track"><i style="width:41%;background:var(--g)"></i></div></div>
+<div class="cat"><div class="topr"><b>🏭 ভাড়া ও ইউটিলিটি</b><span>৳১.১L · ২২%</span></div><div class="track"><i style="width:22%;background:var(--b)"></i></div></div>
+<div class="cat"><div class="topr"><b>👥 বেতন</b><span>৳১.৩L · ২৫%</span></div><div class="track"><i style="width:25%;background:var(--o)"></i></div></div>
+<div class="cat"><div class="topr"><b>📦 ডেলিভারি</b><span>৳০.৪L · ৮%</span></div><div class="track"><i style="width:8%;background:#9775fa"></i></div></div>
+<div class="cat"><div class="topr"><b>📣 মার্কেটিং</b><span>৳০.২৮L · ৪%</span></div><div class="track"><i style="width:4%;background:#f06595"></i></div></div>
+</div>
+</div>
+
+<div class="panel">
+<h3>সাম্প্রতিক লেনদেন</h3>
+<table>
+<thead><tr><th>বিবরণ</th><th>খাত</th><th>তারিখ</th><th>স্ট্যাটাস</th><th>পরিমাণ</th></tr></thead>
+<tbody>
+<tr><td class="tcell"><span class="ic">🛒</span> পাইকারি পণ্য বিক্রি — রহিম ট্রেডার্স</td><td>বিক্রয়</td><td>আজ</td><td><span class="pill p-done">✔ পরিশোধিত</span></td><td class="amt-in">+৳৮৫,০০০</td></tr>
+<tr><td class="tcell"><span class="ic">🏪</span> গুদাম ভাড়া (সেপ্টেম্বর)</td><td>ভাড়া</td><td>আজ</td><td><span class="pill p-done">✔ পরিশোধিত</span></td><td class="amt-ex">−৳৪৫,০০০</td></tr>
+<tr><td class="tcell"><span class="ic">🚚</span> ঢাকা-চট্টগ্রাম ডেলিভারি</td><td>ডেলিভারি</td><td>গতকাল</td><td><span class="pill p-pend">◷ বাকি</span></td><td class="amt-ex">−৳৭,২০০</td></tr>
+<tr><td class="tcell"><span class="ic">📦</span> স্টক ক্রয় — নতুন চালান</td><td>ক্রয়</td><td>গতকাল</td><td><span class="pill p-done">✔ পরিশোধিত</span></td><td class="amt-ex">−৳১,২০,০০০</td></tr>
+<tr><td class="tcell"><span class="ic">💵</span> খুচরা বিক্রয় (কাউন্টার)</td><td>বিক্রয়</td><td>২ দিন আগে</td><td><span class="pill p-done">✔ পরিশোধিত</span></td><td class="amt-in">+৳৩৮,৫০০</td></tr>
+</tbody></table>
+</div>
+</main></div>
+<script>
+(function(){
+'use strict';
+const bn=x=>String(x).replace(/[0-9]/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+const pb=x=>parseInt(String(x).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/[^0-9]/g,''),10)||0;
+const tk=n=>'৳'+bn(Number(n).toLocaleString('en-IN'));
+const pill=document.createElement('div');
+pill.textContent='🧪 ডেমো মোড — আপনার দেওয়া হিসাব শুধু এই ট্যাবের মেমোরিতে থাকে; রিফ্রেশ বা পেজ বন্ধ করলেই মুছে যায়, কোথাও সেভ হয় না।';
+pill.style.cssText='position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:#0b3d2e;color:#fff;padding:9px 16px;border-radius:999px;font-size:12px;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:94vw;text-align:center';
+document.body.appendChild(pill);
+function toast(msg,bad){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;top:64px;left:50%;transform:translateX(-50%);background:'+(bad?'#e03131':'#0b9e6f')+';color:#fff;padding:12px 24px;border-radius:12px;font-weight:800;z-index:10000;box-shadow:0 12px 32px rgba(0,0,0,.28);font-size:14px';document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+function modal(title,fields,onSave){
+ const ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(20,40,30,.55);z-index:10001;display:flex;align-items:center;justify-content:center';
+ const box=document.createElement('div');box.style.cssText='background:#fff;border-radius:16px;padding:22px;width:460px;max-width:92vw;box-shadow:0 24px 60px rgba(0,0,0,.4)';
+ box.innerHTML='<h3 style="margin-bottom:14px;font-size:17px">'+title+'</h3>';
+ fields.forEach(f=>{const w=document.createElement('div');w.style.margin='10px 0';
+  w.innerHTML='<label style="font-size:13px;font-weight:700;color:#555;display:block;margin-bottom:5px">'+f.l+'</label>';
+  const inp=document.createElement(f.t==='select'?'select':'input');inp.style.cssText='width:100%;border:1.5px solid #dfeae4;border-radius:10px;padding:11px 12px;font-size:14px;font-family:inherit';
+  if(f.t==='select'){f.opts.forEach(o=>{const o2=document.createElement('option');o2.value=o;o2.textContent=o;inp.appendChild(o2);});}
+  else{inp.placeholder=f.ph||'';inp.type=f.t==='num'?'number':'text';}
+  w.appendChild(inp);box.appendChild(w);f.el=inp;});
+ const btns=document.createElement('div');btns.style.cssText='display:flex;gap:10px;margin-top:18px';
+ btns.innerHTML='<button class="sv" style="flex:1;background:#0b9e6f;color:#fff;border:0;border-radius:10px;padding:12px;font-weight:800;font-family:inherit;cursor:pointer;font-size:14px">সেভ করুন (ডেমো)</button><button class="cx" style="flex:1;background:#eef3f0;color:#333;border:0;border-radius:10px;padding:12px;font-weight:800;font-family:inherit;cursor:pointer;font-size:14px">বাতিল</button>';
+ box.appendChild(btns);ov.appendChild(box);document.body.appendChild(ov);
+ btns.querySelector('.cx').onclick=()=>ov.remove();
+ btns.querySelector('.sv').onclick=()=>{const vals=fields.map(f=>(f.t==='num'?pb(f.el.value||'0'):f.el.value.trim()));if(onSave(vals)!==false)ov.remove();};
+ ov.onclick=e=>{if(e.target===ov)ov.remove();};
+}
+const tbody=document.querySelector('.panel table tbody');
+const kvs=document.querySelectorAll('.kpi .v');
+let inc=942000, exp=518000, recv=86500;
+function L(n){return '৳'+bn((n/100000).toFixed(2))+'L';}
+function renderKpis(){kvs[0].textContent=L(inc);kvs[1].textContent=L(exp);kvs[2].textContent=L(inc-exp);kvs[3].textContent=tk(recv);}
+function addRow(d){const tr=document.createElement('tr');
+ const paid=d.paid;
+ tr.innerHTML='<td class="tcell"><span class="ic">'+d.ic+'</span> '+d.desc+'</td><td>'+d.cat+'</td><td>এইমাত্র</td><td><span class="pill '+(paid?'p-done':'p-pend')+'">'+(paid?'✔ পরিশোধিত':'◷ বাকি')+'</span></td><td class="'+(d.income?'amt-in':'amt-ex')+'">'+(d.income?'+':'−')+tk(d.amt)+'</td>';
+ tr.style.cursor='pointer';tr.title='স্ট্যাটাস বদলাতে ক্লিক করুন';
+ tr.onclick=()=>{const cell=tr.querySelectorAll('td')[3];const isPaid=cell.textContent.indexOf('পরিশোধিত')>=0;
+  if(isPaid){cell.innerHTML='<span class="pill p-pend">◷ বাকি</span>';if(d.income)recv+=d.amt;toast('◷ বাকি হিসেবে চিহ্নিত — পাওনা বেড়েছে');}
+  else{cell.innerHTML='<span class="pill p-done">✔ পরিশোধিত</span>';if(d.income)recv=Math.max(recv-d.amt,0);toast('✔ পরিশোধিত হিসেবে চিহ্নিত');}
+  renderKpis();};
+ tbody.prepend(tr);while(tbody.querySelectorAll('tr').length>9)tbody.lastChild.remove();}
+document.querySelector('.tbtn').onclick=()=>modal('＋ নতুন লেনদেন',[{l:'ধরন',t:'select',opts:['💰 আয় (ইনকাম)','💸 খরচ (এক্সপেন্স)']},{l:'বিবরণ',t:'text',ph:'যেমন: পাইকারি বিক্রি — গ্রাহক'},{l:'খাত',t:'select',opts:['বিক্রয়','ক্রয়','ভাড়া','বেতন','ডেলিভারি','মার্কেটিং','অন্যান্য']},{l:'পরিমাণ (৳)',t:'num',ph:'যেমন: ১৫০০০'},{l:'স্ট্যাটাস',t:'select',opts:['✔ পরিশোধিত','◷ বাকি']}],v=>{if(!v[1]||!v[3]){toast('বিবরণ ও পরিমাণ দিন',true);return false;}
+ const income=v[0].indexOf('আয়')>=0,paid=v[4].indexOf('পরিশোধিত')>=0;const ic=income?'💰':'💸';
+ if(income){inc+=v[3];if(!paid)recv+=v[3];}else{exp+=v[3];if(!paid)recv+=v[3];}
+ addRow({desc:v[1],cat:v[2],amt:v[3],income,paid,ic});
+ toast((income?'💰 আয় ':'💸 খরচ ')+tk(v[3])+' হিসাবে যোগ হয়েছে');renderKpis();});
+document.querySelectorAll('.snav a').forEach(a=>{a.href='javascript:void(0)';a.onclick=()=>{document.querySelectorAll('.snav a').forEach(x=>x.classList.remove('on'));a.classList.add('on');toast(a.textContent.trim()+' (ডেমো নেভিগেশন)');};});
+renderKpis();
+})();
+</script>
+</body></html>

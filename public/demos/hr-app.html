@@ -1,0 +1,183 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PeopleHub — HR ও পে-রোল ম্যানেজমেন্ট অ্যাপ ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--bg:#f5f4fb;--card:#fff;--line:#e7e5f3;--p:#7048e8;--p2:#9775fa;--b:#3b5bdb;--g:#2f9e44;--o:#f08c00;--r:#e03131;--ink:#232136;--mut:#77758f}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:linear-gradient(90deg,#7048e8,#3b5bdb);color:#fff;text-align:center;font-weight:800;padding:8px;font-size:13px}
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+.side{background:#211e3a;color:#b7b3d6;padding:22px 16px;position:sticky;top:0;height:100vh}
+.logo{font-size:21px;font-weight:800;color:#fff;margin-bottom:26px;display:flex;align-items:center;gap:8px}
+.logo b{color:var(--p2)}
+.snav a{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:10px;color:#b7b3d6;font-weight:600;font-size:14px;margin-bottom:4px}
+.snav a.on{background:var(--p);color:#fff}.snav a:hover{background:#2e2a52;color:#fff}
+.snav .e{width:20px;text-align:center}
+.snav .badge{margin-left:auto;background:var(--o);color:#fff;font-size:11px;padding:1px 8px;border-radius:999px;font-weight:700}
+.main{padding:22px 26px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.top h1{font-size:21px}.top .sub{color:var(--mut);font-size:13px}
+.tbtn{margin-left:auto;background:var(--p);color:#fff;border:0;padding:11px 20px;border-radius:9px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
+.av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--b));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .l{font-size:13px;color:var(--mut);margin-bottom:8px}
+.kpi .v{font-size:25px;font-weight:800}
+.kpi .d{font-size:12px;margin-top:6px;font-weight:700}
+.up{color:var(--g)}.warn{color:var(--o)}
+.dual{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-bottom:20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.panel h3{font-size:16px;margin-bottom:16px}
+.att{display:flex;align-items:flex-end;gap:12px;height:180px}
+.att .d{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%}
+.att .bar{width:70%;background:linear-gradient(180deg,var(--p2),var(--p));border-radius:6px 6px 0 0;min-height:10px}
+.att .xl{font-size:11px;color:var(--mut)}
+.att .vl{font-size:12px;font-weight:800}
+.leave{display:flex;flex-direction:column;gap:10px}
+.lv{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:11px;padding:11px 13px;font-size:13px}
+.lv .who{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;flex:0 0 auto}
+.lv b{display:block}.lv small{color:var(--mut)}
+.lv .ap{margin-left:auto;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap}
+.ap-pend{background:#fff0db;color:var(--o)}.ap-ok{background:#e3f6e8;color:var(--g)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--mut);font-weight:600;font-size:12px;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:13px 12px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.emp{display:flex;align-items:center;gap:11px;font-weight:700}
+.emp .who{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px}
+.emp small{display:block;color:var(--mut);font-weight:500}
+.sal{font-weight:800}
+.pill{padding:4px 12px;border-radius:999px;font-size:11px;font-weight:800}
+.p-in{background:rgba(47,158,68,.13);color:var(--g)}.p-off{background:rgba(224,49,49,.12);color:var(--r)}.p-lv{background:rgba(240,140,0,.15);color:var(--o)}
+@media(max-width:1100px){.app{grid-template-columns:1fr}.side{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.dual{grid-template-columns:1fr}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/hr-app.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="HR ও পে-রোল অ্যাপ-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="hr software bd, পে-রোল সফটওয়্যার, কর্মচারী ম্যানেজমেন্ট অ্যাপ, attendance payroll demo, এইচআর ম্যানেজমেন্ট, বেতনের হিসাব সফটওয়্যার, leave management demo, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">👥 এটি একটি DEMO কাস্টম সফটওয়্যার (HR/পে-রোল অ্যাপ) — Sohoz Karbar Tech Solutions</div>
+<div class="app">
+<aside class="side">
+<div class="logo">👥 People<b>Hub</b></div>
+<nav class="snav">
+<a class="on" href="#"><span class="e">📊</span> ড্যাশবোর্ড</a>
+<a href="#"><span class="e">🧑‍💼</span> কর্মী</a>
+<a href="#"><span class="e">🕒</span> উপস্থিতি</a>
+<a href="#"><span class="e">🏖</span> ছুটি <span class="badge">৫</span></a>
+<a href="#"><span class="e">💵</span> পে-রোল</a>
+<a href="#"><span class="e">🗓</span> শিফট ও রোস্টার</a>
+<a href="#"><span class="e">📄</span> রিপোর্ট</a>
+<a href="#"><span class="e">⚙️</span> সেটিংস</a>
+</nav></aside>
+<main class="main">
+<div class="top">
+<div><h1>HR ওভারভিউ</h1><div class="sub">সেপ্টেম্বর ২০২৬ · পে-রোল মাস</div></div>
+<button class="tbtn">＋ কর্মী যোগ করুন</button>
+<span class="av">SK</span>
+</div>
+
+<div class="kpis">
+<div class="kpi"><div class="l">🧑‍💼 মোট কর্মী</div><div class="v">৪৮</div><div class="d up">▲ ৩ নতুন</div></div>
+<div class="kpi"><div class="l">✅ আজ হাজির</div><div class="v">৪৪</div><div class="d up">উপস্থিতি ৯২%</div></div>
+<div class="kpi"><div class="l">🏖 ছুটিতে</div><div class="v">৩</div><div class="d warn">অনুমোদিত</div></div>
+<div class="kpi"><div class="l">💵 মাসিক পে-রোল</div><div class="v">৳৮.২L</div><div class="d up">২৫ তারিখে</div></div>
+</div>
+
+<div class="dual">
+<div class="panel">
+<h3>🕒 এই সপ্তাহের উপস্থিতি (%)</h3>
+<div class="att">
+<div class="d"><div class="vl">৯৪%</div><div class="bar" style="height:94%"></div><div class="xl">শনি</div></div>
+<div class="d"><div class="vl">৯৬%</div><div class="bar" style="height:96%"></div><div class="xl">রবি</div></div>
+<div class="d"><div class="vl">৯১%</div><div class="bar" style="height:91%"></div><div class="xl">সোম</div></div>
+<div class="d"><div class="vl">৯৩%</div><div class="bar" style="height:93%"></div><div class="xl">মঙ্গল</div></div>
+<div class="d"><div class="vl">৮৯%</div><div class="bar" style="height:89%"></div><div class="xl">বুধ</div></div>
+<div class="d"><div class="vl">৯২%</div><div class="bar" style="height:92%"></div><div class="xl">বৃহঃ</div></div>
+</div></div>
+<div class="panel">
+<h3>🏖 ছুটির অনুরোধ</h3>
+<div class="leave">
+<div class="lv"><span class="who" style="background:#7048e8">রা</span><div><b>রাফিকুল ইসলাম</b><small>অসুস্থতা · ২ দিন</small></div><span class="ap ap-pend">◷ অপেক্ষমাণ</span></div>
+<div class="lv"><span class="who" style="background:#3b5bdb">ফা</span><div><b>ফারজানা হক</b><small>পারিবারিক · ১ দিন</small></div><span class="ap ap-ok">✔ অনুমোদিত</span></div>
+<div class="lv"><span class="who" style="background:#f08c00">সা</span><div><b>সাকিব আহমেদ</b><small>জরুরি · ৩ দিন</small></div><span class="ap ap-pend">◷ অপেক্ষমাণ</span></div>
+</div></div>
+</div>
+
+<div class="panel">
+<h3>💵 কর্মী ও পে-রোল</h3>
+<table>
+<thead><tr><th>কর্মী</th><th>পদ</th><th>ডিপার্টমেন্ট</th><th>আজকের স্ট্যাটাস</th><th>মূল বেতন</th></tr></thead>
+<tbody>
+<tr><td class="emp"><span class="who" style="background:#7048e8">রা</span><div>রফিকুল ইসলাম<small>EMP-0142</small></div></td><td>সিনিয়র সেলস</td><td>বিক্রয়</td><td><span class="pill p-in">● হাজির</span></td><td class="sal">৳৪২,০০০</td></tr>
+<tr><td class="emp"><span class="who" style="background:#3b5bdb">ফা</span><div>ফারজানা হক<small>EMP-0088</small></div></td><td>অ্যাকাউন্টস</td><td>হিসাব</td><td><span class="pill p-in">● হাজির</span></td><td class="sal">৳৩৮,০০০</td></tr>
+<tr><td class="emp"><span class="who" style="background:#f08c00">সা</span><div>সাকিব আহমেদ<small>EMP-0205</small></div></td><td>ওয়্যারহাউস</td><td>অপারেশন</td><td><span class="pill p-lv">🏖 ছুটিতে</span></td><td class="sal">৳২৬,০০০</td></tr>
+<tr><td class="emp"><span class="who" style="background:#2f9e44">নু</span><div>নুসরাত জাহান<small>EMP-0311</small></div></td><td>কাস্টমার সাপোর্ট</td><td>সেবা</td><td><span class="pill p-in">● হাজির</span></td><td class="sal">৳৩০,০০০</td></tr>
+<tr><td class="emp"><span class="who" style="background:#e03131">তা</span><div>তানভীর করিম<small>EMP-0057</small></div></td><td>ডেলিভারি</td><td>লজিস্টিকস</td><td><span class="pill p-off">● অনুপস্থিত</span></td><td class="sal">৳২৪,০০০</td></tr>
+</tbody></table>
+</div>
+</main></div>
+<script>
+(function(){
+'use strict';
+const bn=x=>String(x).replace(/[0-9]/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+const pb=x=>parseInt(String(x).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/[^0-9]/g,''),10)||0;
+const tk=n=>'৳'+bn(Number(n).toLocaleString('en-IN'));
+const pill=document.createElement('div');
+pill.textContent='🧪 ডেমো মোড — আপনার যোগ/অনুমোদন করা তথ্য শুধু এই ট্যাবের মেমোরিতে থাকে; রিফ্রেশ বা পেজ বন্ধ করলেই মুছে যায়, কোথাও সেভ হয় না।';
+pill.style.cssText='position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:#22175c;color:#fff;padding:9px 16px;border-radius:999px;font-size:12px;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:94vw;text-align:center';
+document.body.appendChild(pill);
+function toast(msg,bad){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;top:64px;left:50%;transform:translateX(-50%);background:'+(bad?'#e03131':'#7048e8')+';color:#fff;padding:12px 24px;border-radius:12px;font-weight:800;z-index:10000;box-shadow:0 12px 32px rgba(0,0,0,.28);font-size:14px';document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+function modal(title,fields,onSave){
+ const ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(34,23,92,.55);z-index:10001;display:flex;align-items:center;justify-content:center';
+ const box=document.createElement('div');box.style.cssText='background:#fff;border-radius:16px;padding:22px;width:460px;max-width:92vw;box-shadow:0 24px 60px rgba(0,0,0,.4)';
+ box.innerHTML='<h3 style="margin-bottom:14px;font-size:17px">'+title+'</h3>';
+ fields.forEach(f=>{const w=document.createElement('div');w.style.margin='10px 0';
+  w.innerHTML='<label style="font-size:13px;font-weight:700;color:#555;display:block;margin-bottom:5px">'+f.l+'</label>';
+  const inp=document.createElement(f.t==='select'?'select':'input');inp.style.cssText='width:100%;border:1.5px solid #e4e0f0;border-radius:10px;padding:11px 12px;font-size:14px;font-family:inherit';
+  if(f.t==='select'){f.opts.forEach(o=>{const o2=document.createElement('option');o2.value=o;o2.textContent=o;inp.appendChild(o2);});}
+  else{inp.placeholder=f.ph||'';inp.type=f.t==='num'?'number':'text';}
+  w.appendChild(inp);box.appendChild(w);f.el=inp;});
+ const btns=document.createElement('div');btns.style.cssText='display:flex;gap:10px;margin-top:18px';
+ btns.innerHTML='<button class="sv" style="flex:1;background:#7048e8;color:#fff;border:0;border-radius:10px;padding:12px;font-weight:800;font-family:inherit;cursor:pointer;font-size:14px">সেভ করুন (ডেমো)</button><button class="cx" style="flex:1;background:#efedf7;color:#333;border:0;border-radius:10px;padding:12px;font-weight:800;font-family:inherit;cursor:pointer;font-size:14px">বাতিল</button>';
+ box.appendChild(btns);ov.appendChild(box);document.body.appendChild(ov);
+ btns.querySelector('.cx').onclick=()=>ov.remove();
+ btns.querySelector('.sv').onclick=()=>{const vals=fields.map(f=>(f.t==='num'?pb(f.el.value||'0'):f.el.value.trim()));if(onSave(vals)!==false)ov.remove();};
+ ov.onclick=e=>{if(e.target===ov)ov.remove();};
+}
+const colors=['#7048e8','#3b5bdb','#f08c00','#2f9e44','#e03131','#1098ad','#e64980'];
+const tbody=document.querySelector('.panel table tbody');
+const kvs=document.querySelectorAll('.kpi .v');
+let staff=48, present=44, onLeave=3, payroll=820000;
+let emps=[...tbody.querySelectorAll('tr')].map(tr=>{const who=tr.querySelector('.who');const b=tr.querySelector('td div');return{init:who.textContent.trim(),nm:b.childNodes[0].textContent.trim(),emp:b.querySelector('small').textContent.trim(),post:tr.querySelectorAll('td')[1].textContent.trim(),dept:tr.querySelectorAll('td')[2].textContent.trim(),status:tr.querySelectorAll('td')[3].textContent.trim(),sal:pb(tr.querySelectorAll('td')[4].textContent),color:who.style.background};});
+let empSeq=205;
+function stInfo(s){if(s==='p-in')return{cls:'p-in',tx:'● হাজির'};if(s==='p-lv')return{cls:'p-lv',tx:'🏖 ছুটিতে'};return{cls:'p-off',tx:'● অনুপস্থিত'};}
+function renderKpis(){kvs[0].textContent=bn(staff);kvs[1].textContent=bn(present);kvs[2].textContent=bn(onLeave);kvs[3].textContent='৳'+bn((payroll/100000).toFixed(1))+'L';}
+function renderEmp(e){const s=stInfo(e.status);return'<td class="emp"><span class="who" style="background:'+e.color+'">'+e.init+'</span><div>'+e.nm+'<small>'+e.emp+'</small></div></td><td>'+e.post+'</td><td>'+e.dept+'</td><td><span class="pill '+s.cls+'">'+s.tx+'</span></td><td class="sal">'+tk(e.sal)+'</td>';}
+function renderTable(){tbody.innerHTML='';emps.forEach(e=>{const tr=document.createElement('tr');tr.style.cursor='pointer';tr.innerHTML=renderEmp(e);
+ tr.title='আজকের স্ট্যাটাস বদলাতে ক্লিক করুন';
+ tr.onclick=()=>{const order=['p-in','p-lv','p-off'];const ni=order[(order.indexOf(e.status)+1)%3];
+  if(e.status==='p-in')present--;else if(e.status==='p-lv')onLeave--;
+  e.status=ni;
+  if(ni==='p-in')present++;else if(ni==='p-lv')onLeave++;
+  tr.innerHTML=renderEmp(e);rebind(tr,e);renderKpis();toast(e.nm+' — স্ট্যাটাস: '+stInfo(ni).tx.replace(/^[●🏖]\s?/,''));};
+ tbody.appendChild(tr);});}
+function rebind(tr,e){tr.onclick=()=>{const order=['p-in','p-lv','p-off'];const ni=order[(order.indexOf(e.status)+1)%3];
+  if(e.status==='p-in')present--;else if(e.status==='p-lv')onLeave--;e.status=ni;
+  if(ni==='p-in')present++;else if(ni==='p-lv')onLeave++;
+  tr.innerHTML=renderEmp(e);rebind(tr,e);renderKpis();toast(e.nm+' — স্ট্যাটাস আপডেট');};}
+const leaveBox=document.querySelector('.leave');
+leaveBox.querySelectorAll('.lv').forEach(lv=>{const ap=lv.querySelector('.ap');if(ap.textContent.indexOf('অপেক্ষমাণ')>=0){ap.style.cursor='pointer';ap.title='অনুমোদন করতে ক্লিক করুন';
+ ap.onclick=()=>{ap.className='ap ap-ok';ap.textContent='✔ অনুমোদিত';onLeave++;present=Math.max(present-1,0);renderKpis();toast('🏖 ছুটির অনুরোধ অনুমোদিত');};};});
+document.querySelector('.tbtn').onclick=()=>modal('＋ নতুন কর্মী',[{l:'পূর্ণ নাম',t:'text',ph:'যেমন: মো. রায়হান উদ্দিন'},{l:'পদ',t:'text',ph:'যেমন: সেলস এক্সিকিউটিভ'},{l:'ডিপার্টমেন্ট',t:'select',opts:['বিক্রয়','হিসাব','অপারেশন','সেবা','লজিস্টিকস','মার্কেটিং']},{l:'মূল বেতন (৳)',t:'num',ph:'যেমন: ২৫০০০'}],v=>{if(!v[0]||!v[3]){toast('নাম ও বেতন দিন',true);return false;}
+ empSeq++;const e={init:v[0].trim().slice(-2).slice(0,1)||'ন',nm:v[0],emp:'EMP-'+String(empSeq).padStart(4,'0'),post:v[1]||'কর্মী',dept:v[2],status:'p-in',sal:v[3],color:colors[emps.length%colors.length]};
+ emps.push(e);staff++;present++;payroll+=v[3];
+ const tr=document.createElement('tr');tr.innerHTML=renderEmp(e);tbody.prepend(tr);rebind(tr,e);renderKpis();toast('✅ নতুন কর্মী যোগ হয়েছে: '+e.nm);});
+document.querySelectorAll('.snav a').forEach(a=>{const badge=a.querySelector('.badge');a.href='javascript:void(0)';a.onclick=()=>{document.querySelectorAll('.snav a').forEach(x=>x.classList.remove('on'));a.classList.add('on');toast(a.textContent.trim()+' (ডেমো নেভিগেশন)');};});
+renderKpis();
+})();
+</script>
+</body></html>

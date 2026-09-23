@@ -1,0 +1,125 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>দৈনিক খবর Dainik Khobor — অনলাইন সংবাদপত্র ডেমো</title>
+<style>@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--red:#c92a2a;--d:#141a20;--ink:#1c2733;--mut:#66768a;--line:#e3e8ee;--bg:#f2f4f7;--acc:#1864ab}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Hind Siliguri","Segoe UI",Georgia,serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{text-align:center;background:var(--red);color:#fff;font-weight:800;padding:8px;font-size:13px;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.datebar{background:var(--d);color:#cbd6e0;font-size:13px;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.dbin{max-width:1180px;margin:0 auto;padding:9px 20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.masthead{background:#fff;border-bottom:3px solid var(--red)}
+.min{max-width:1180px;margin:0 auto;padding:20px;display:flex;align-items:center;gap:20px}
+.mastlogo{font-family:"Hind Siliguri",Georgia,serif;font-weight:900;font-size:42px;color:var(--d);line-height:1;white-space:nowrap}
+.mastlogo span{color:var(--red)}
+.mastlogo small{display:block;font-size:12px;letter-spacing:3px;color:var(--mut);font-weight:600;margin-top:6px;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.msearch{margin-left:auto;display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.msearch input{border:0;padding:10px 12px;font-size:14px;outline:none;width:180px}
+.msearch button{background:var(--red);color:#fff;border:0;padding:0 16px;cursor:pointer;font-size:15px}
+nav.mainnav{background:var(--red)}
+.nin{max-width:1180px;margin:0 auto;padding:0 20px;display:flex;gap:2px;overflow:auto}
+.nin a{color:#fff;padding:13px 15px;font-size:15px;font-weight:700;white-space:nowrap;border-bottom:3px solid transparent;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.nin a:hover{background:#a61e1e;border-bottom-color:#ffd43b}
+.ticker{background:#fff8f8;border-bottom:1px solid #f0d8d8}
+.tin{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.tin .bl{background:var(--red);color:#fff;font-weight:800;font-size:12px;padding:5px 10px;border-radius:4px;white-space:nowrap}
+.tin .msg{color:var(--red);font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px}
+.layout{display:grid;grid-template-columns:2.1fr 1fr;gap:28px}
+.lead{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.lead .ph{height:340px;background:linear-gradient(135deg,#1864ab,#74c0fc);display:flex;align-items:center;justify-content:center;font-size:120px}
+.lead .body{padding:22px}
+.lead .cat{display:inline-block;background:var(--red);color:#fff;font-size:12px;font-weight:800;padding:4px 11px;border-radius:3px;font-family:"Hind Siliguri","Segoe UI",sans-serif;margin-bottom:12px}
+.lead h1{font-size:30px;line-height:1.35;margin-bottom:12px;font-family:"Hind Siliguri",Georgia,serif}
+.lead p{color:var(--mut);font-size:16px;line-height:1.7}
+.byline{font-size:13px;color:#8a97a5;margin-top:14px;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.newsgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.news{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.news .ph{height:130px;display:flex;align-items:center;justify-content:center;font-size:48px}
+.news .body{padding:14px}
+.news .cat{font-size:11px;font-weight:800;color:var(--red);font-family:"Hind Siliguri","Segoe UI",sans-serif;text-transform:uppercase;letter-spacing:.5px}
+.news h3{font-size:16px;line-height:1.4;margin:6px 0 8px;font-family:"Hind Siliguri",Georgia,serif}
+.news p{font-size:13px;color:var(--mut);line-height:1.6}
+.p1{background:linear-gradient(135deg,#2f9e44,#8ce99a)}.p2{background:linear-gradient(135deg,#e8590c,#ffc078)}
+.p3{background:linear-gradient(135deg,#9c36b5,#e599f7)}.p4{background:linear-gradient(135deg,#1971c2,#a5d8ff)}
+.side h2{background:var(--d);color:#fff;padding:12px 16px;font-size:17px;border-radius:6px 6px 0 0;font-family:"Hind Siliguri",Georgia,serif}
+.sidebox{background:#fff;border:1px solid var(--line);border-top:0;border-radius:0 0 6px 6px;margin-bottom:24px}
+.latest{padding:6px 16px}
+.latest li{list-style:none;padding:13px 0;border-bottom:1px dashed var(--line);font-size:14px;line-height:1.5}
+.latest li:last-child{border-bottom:0}
+.latest li::before{content:"▸ ";color:var(--red);font-weight:900}
+.latest .t{display:block;font-size:11px;color:#9aa5b1;margin-top:4px;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.epaper{background:linear-gradient(160deg,#141a20,#2b3a47);border-radius:8px;padding:22px;color:#fff;text-align:center;margin-bottom:24px}
+.epaper .e{font-size:42px}.epaper h3{margin:8px 0;font-size:18px}
+.epaper p{font-size:13px;opacity:.8;margin-bottom:14px}
+.epaper a{background:#ffd43b;color:#141a20;font-weight:800;padding:10px 20px;border-radius:6px;font-size:14px;font-family:"Hind Siliguri","Segoe UI",sans-serif;display:inline-block}
+.polls{background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px}
+.polls h3{font-size:16px;margin-bottom:12px;font-family:"Hind Siliguri",Georgia,serif}
+.polls .opt{display:flex;align-items:center;gap:8px;padding:8px 0;font-size:14px;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.bar{height:8px;background:#eef2f5;border-radius:4px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--red);border-radius:4px}
+footer{background:var(--d);color:#9fb0c0;margin-top:36px;padding:40px 0 0;font-family:"Hind Siliguri","Segoe UI",sans-serif}
+.fg{max-width:1180px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:14px;font-size:15px}
+footer a{display:block;padding:5px 0;color:#9fb0c0;font-size:14px}
+.fbot{border-top:1px solid #26323d;margin-top:34px;padding:16px 20px;text-align:center;font-size:13px}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/newspaper.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="অনলাইন সংবাদপত্র-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="অনলাইন নিউজ পোর্টাল, news portal design bd, সংবাদপত্র ওয়েবসাইট ডেমো, পত্রিকার ওয়েবসাইট, মিডিয়া ওয়েবসাইট ডিজাইন, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">📰 এটি একটি DEMO ওয়েবসাইট — Sohoz Karbar Tech Solutions কর্তৃক নমুনা হিসেবে তৈরি</div>
+<div class="datebar"><div class="dbin"><span>📅 রবিবার, ০৭ সেপ্টেম্বর ২০২৬</span><span>🌤 ঢাকা ৩২°C &nbsp;|&nbsp; 🔥 ভরা গ্রীষ্ম</span><span>📞 নিউজ: ০১৭xx-xxxxxx</span></div></div>
+<div class="masthead"><div class="min">
+<div class="mastlogo">দৈনিক<span>খবর</span><small>DAINIK KHOBOR • সত্যের সন্ধানে প্রতিদিন</small></div>
+<div class="msearch"><input placeholder="খবর খুঁজুন..."><button>🔍</button></div>
+</div></div>
+<nav class="mainnav"><div class="nin">
+<a href="#">প্রচ্ছদ</a><a href="#">জাতীয়</a><a href="#">রাজনীতি</a><a href="#">অর্থনীতি</a><a href="#">আন্তর্জাতিক</a><a href="#">খেলা</a><a href="#">বিনোদন</a><a href="#">প্রযুক্তি</a><a href="#">মতামত</a>
+</div></nav>
+<div class="ticker"><div class="tin"><span class="bl">ব্রেকিং</span><span class="msg">⚡ ঢাকায় নতুন মেট্রোরেল রুট চালু হতে যাচ্ছে • রপ্তানি আয়ে নতুন রেকর্ড • জাতীয় ক্রিকেট দলের সিরিজ জয়</span></div></div>
+
+<div class="wrap"><div class="layout">
+<div>
+<article class="lead">
+<div class="ph">🏙️</div>
+<div class="body">
+<span class="cat">জাতীয়</span>
+<h1>রাজধানীর যানজট নিরসনে নতুন মেট্রোরেল রুটের কাজ দ্রুত এগোচ্ছে</h1>
+<p>নগর পরিবহন উন্নয়নে সরকারের সর্ববৃহৎ প্রকল্পের অংশ হিসেবে নতুন রুটটি চালু হলে উপশহর থেকে কেন্দ্রে যাতায়াত সময় প্রায় অর্ধেকে নেমে আসবে বলে জানিয়েছেন সংশ্লিষ্ট কর্মকর্তারা। প্রকল্পের আশি শতাংশ কাজ সম্পন্ন হয়েছে...</p>
+<div class="byline">✍️ নিজস্ব প্রতিবেদক • আপডেট: ৩৫ মিনিট আগে</div>
+</div></article>
+<div class="newsgrid">
+<article class="news"><div class="ph p1">📈</div><div class="body"><div class="cat">অর্থনীতি</div><h3>পোশাক রপ্তানিতে নতুন রেকর্ড, প্রবৃদ্ধি ১৪%</h3><p>সদ্য সমাপ্ত অর্থবছরে তৈরি পোশাক খাতে রপ্তানি আয় আগের সব রেকর্ড ছাড়িয়ে গেছে।</p></div></article>
+<article class="news"><div class="ph p2">🏏</div><div class="body"><div class="cat">খেলা</div><h3>শেষ ওভারের রোমাঞ্চে সিরিজ জিতল বাংলাদেশ</h3><p>ব্যাটসম্যানদের দারুণ ফিফটি আর শেষ ওভারের ছক্কায় দল পেয়েছে নাটকীয় জয়।</p></div></article>
+<article class="news"><div class="ph p3">🎬</div><div class="body"><div class="cat">বিনোদন</div><h3>ঢালিউডে মুক্তি পেল বছরের সবচেয়ে আলোচিত ছবি</h3><p>প্রথম দিনেই হলে দর্শকের ঢল; সমালোচকদের কাছ থেকে পাচ্ছে ইতিবাচক সাড়া।</p></div></article>
+<article class="news"><div class="ph p4">💻</div><div class="body"><div class="cat">প্রযুক্তি</div><h3>দেশে তৈরি নতুন অ্যাপে সহজ হচ্ছে ক্ষুদ্র ব্যবসা ব্যবস্থাপনা</h3><p>ইনভয়েস, বাকি ও স্টক রাখার স্থানীয় সফটওয়্যার জনপ্রিয় হচ্ছে ছোট উদ্যোক্তাদের মাঝে।</p></div></article>
+</div>
+</div>
+<aside class="side">
+<h2>🔴 সর্বশেষ খবর</h2>
+<div class="sidebox"><ul class="latest">
+<li>শিক্ষাঙ্গনে নতুন কারিগরি প্রশিক্ষণ কেন্দ্র চালু<span class="t">১৫ মিনিট আগে</span></li>
+<li>ব্যাংকঋণের সুদহারে পরিবর্তনের ঘোষণা<span class="t">৪০ মিনিট আগে</span></li>
+<li>চট্টগ্রাম বন্দরে কন্টেইনার হ্যান্ডলিং রেকর্ড<span class="t">১ ঘণ্টা আগে</span></li>
+<li>আবহাওয়া: তিন বিভাগে বৃষ্টির সম্ভাবনা<span class="t">১ ঘণ্টা আগে</span></li>
+<li>যুব উন্নয়নে ডিজিটাল স্কিল প্রশিক্ষণ শুরু<span class="t">২ ঘণ্টা আগে</span></li>
+</ul></div>
+<div class="epaper"><div class="e">📰</div><h3>ই-পেপার</h3><p>আজকের পত্রিকার পিডিএফ সংস্করণ পড়ুন</p><a href="#">পড়ুন →</a></div>
+<div class="polls"><h3>📊 আজকের জরিপ</h3>
+<div class="opt"><span>যানজট নিরসনে মেট্রোরেল কতটা কার্যকর?</span></div>
+<div class="opt" style="display:block"><span>অনেক কার্যকর — ৬৪%</span><div class="bar"><i style="width:64%"></i></div></div>
+<div class="opt" style="display:block"><span>মাঝারি — ২৮%</span><div class="bar"><i style="width:28%;background:#1864ab"></i></div></div>
+<div class="opt" style="display:block"><span>যথেষ্ট নয় — ৮%</span><div class="bar"><i style="width:8%;background:#868e96"></i></div></div>
+</div>
+</aside>
+</div></div>
+
+<footer><div class="fg">
+<div><div class="mastlogo" style="color:#fff;font-size:30px">দৈনিক<span>খবর</span></div><p style="margin-top:12px;line-height:1.7;font-size:14px">নিরপেক্ষ ও বস্তুনিষ্ঠ সংবাদ পরিবেশনে প্রতিশ্রুতিবদ্ধ একটি অনলাইন গণমাধ্যম।</p></div>
+<div><h4>বিভাগ</h4><a href="#">জাতীয়</a><a href="#">আন্তর্জাতিক</a><a href="#">অর্থনীতি</a><a href="#">খেলা</a></div>
+<div><h4>প্রতিষ্ঠান</h4><a href="#">আমাদের সম্পর্কে</a><a href="#">সম্পাদকীয় নীতি</a><a href="#">যোগাযোগ</a></div>
+<div><h4>ফলো করুন</h4><a href="#">📘 Facebook</a><a href="#">▶️ YouTube</a><a href="#">🐦 X / Twitter</a></div>
+</div><div class="fbot">© ২০২৬ দৈনিক খবর — DEMO পত্রিকা (নমুনা)। সব তথ্য কাল্পনিক।</div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

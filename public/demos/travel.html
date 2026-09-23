@@ -1,0 +1,125 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ভ্রমণসঙ্গী VromonSongi — ট্রাভেল এজেন্সি ও ট্যুর প্যাকেজ ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--p:#0ca678;--pd:#12b886;--sea:#1c7ed6;--sun:#f59f00;--ink:#13322b;--mut:#58756e;--bg:#f2faf7;--card:#fff;--line:#dcf0e9}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:var(--p);color:#fff;text-align:center;font-weight:700;padding:8px;font-size:13px}
+header{background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.05);position:sticky;top:0;z-index:30}
+.hin{max-width:1160px;margin:0 auto;padding:15px 20px;display:flex;align-items:center;gap:22px}
+.logo{font-size:24px;font-weight:800;color:var(--p);white-space:nowrap}
+.nav{margin-left:auto;display:flex;gap:20px;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--pd)}
+.hbtn{background:var(--sun);color:#13322b;padding:11px 22px;border-radius:999px;font-weight:800;font-size:14px}
+.hero{background:linear-gradient(120deg,rgba(6,80,62,.82),rgba(28,126,214,.72)),linear-gradient(160deg,#0ca678,#1c7ed6);color:#fff;padding:80px 20px;text-align:center;position:relative}
+.hero .kicker{background:rgba(255,255,255,.2);display:inline-block;padding:6px 16px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:18px}
+.hero h1{font-size:48px;line-height:1.18;margin-bottom:14px}
+.hero h1 em{color:#ffe08a;font-style:normal}
+.hero p{font-size:18px;opacity:.95;margin-bottom:28px}
+.searchbar{background:#fff;border-radius:14px;max-width:860px;margin:0 auto;padding:10px;display:flex;gap:8px;box-shadow:0 20px 50px rgba(0,0,0,.25);text-align:left}
+.searchbar .fi{flex:1;display:flex;flex-direction:column;padding:6px 12px}
+.searchbar label{font-size:11px;font-weight:700;color:var(--mut);margin-bottom:3px}
+.searchbar input,.searchbar select{border:0;font-size:15px;font-family:inherit;outline:none;color:var(--ink)}
+.searchbar button{background:var(--pd);color:#fff;border:0;border-radius:10px;padding:0 30px;font-weight:800;font-size:15px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.sec{padding:56px 0}
+.shead{text-align:center;margin-bottom:34px}
+.shead .kick{color:var(--p);font-weight:800;letter-spacing:2px;font-size:13px}
+.shead h2{font-size:32px;margin:8px 0}.shead p{color:var(--mut);max-width:580px;margin:0 auto;line-height:1.6}
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tour{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s}
+.tour:hover{transform:translateY(-6px);box-shadow:0 20px 42px rgba(12,166,120,.18)}
+.tour .ph{height:180px;display:flex;align-items:center;justify-content:center;font-size:78px;position:relative}
+.t1{background:linear-gradient(160deg,#c3fae8,#63e6be)}.t2{background:linear-gradient(160deg,#d0ebff,#74c0fc)}.t3{background:linear-gradient(160deg,#fff3bf,#ffd43b)}
+.tour .days{position:absolute;top:12px;right:12px;background:#fff;color:var(--ink);font-size:12px;font-weight:800;padding:5px 12px;border-radius:999px}
+.tour .b{padding:20px}
+.tour .dest{font-size:13px;color:var(--p);font-weight:800}
+.tour h3{font-size:20px;margin:4px 0 8px}
+.tour p{font-size:14px;color:var(--mut);line-height:1.6;margin-bottom:12px}
+.tour .inc{font-size:13px;color:var(--ink);margin-bottom:14px}
+.tour .inc span{margin-right:12px}
+.tour .row{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:14px}
+.tour .pr{font-size:22px;font-weight:800;color:var(--p)}
+.tour .pr small{font-size:12px;color:var(--mut);font-weight:500}
+.tour .bk{background:var(--p);color:#fff;padding:9px 18px;border-radius:9px;font-weight:700;font-size:14px}
+.serv{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:34px}
+.serv div{text-align:center}.serv .e{font-size:40px;display:block;margin-bottom:10px}
+.serv h4{font-size:16px;margin-bottom:5px}.serv p{font-size:13px;color:var(--mut);line-height:1.5}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.wc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px}
+.wc h4{font-size:18px;margin-bottom:8px}.wc p{font-size:14px;color:var(--mut);line-height:1.6}
+.cta{background:linear-gradient(120deg,#0ca678,#1c7ed6);color:#fff;border-radius:24px;padding:48px 26px;text-align:center}
+.cta h2{font-size:30px;margin-bottom:10px}.cta p{opacity:.94;margin-bottom:22px}
+.cta a{background:var(--sun);color:#13322b;font-weight:800;padding:14px 30px;border-radius:999px;display:inline-block}
+footer{background:#083a2d;color:#bfe0d6;margin-top:50px;padding:44px 0 22px;font-size:14px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:13px}.fg a{display:block;padding:5px 0;color:#bfe0d6}
+.fbot{text-align:center;border-top:1px solid #14604a;margin-top:30px;padding-top:18px;font-size:13px}
+@media(max-width:860px){.packs,.why{grid-template-columns:1fr}.serv{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:36px}.searchbar{flex-wrap:wrap}.fg{grid-template-columns:1fr 1fr}.nav{display:none}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/travel.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="ট্রাভেল এজেন্সি-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="ট্রাভেল এজেন্সি ওয়েবসাইট, tour package website bd, ট্যুর বুকিং ডেমো, ভ্রমণ এজেন্সি ডিজাইন, হলিডে প্যাকেজ ওয়েবসাইট, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">✈️ এটি একটি DEMO ওয়েবসাইট — Sohoz Karbar Tech Solutions কর্তৃক নমুনা হিসেবে তৈরি</div>
+<header><div class="hin">
+<a class="logo" href="#">🧭 ভ্রমণ<b>সঙ্গী</b></a>
+<nav class="nav"><a href="#">হোম</a><a href="#packs">প্যাকেজ</a><a href="#">ভিসা</a><a href="#">হোটেল</a><a href="#">বিমান টিকিট</a><a href="#">যোগাযোগ</a></nav>
+<a class="hbtn" href="#">📞 বুক করুন</a>
+</div></header>
+
+<section class="hero">
+<span class="kicker">🌍 ঘুরে আসুন স্বপ্নের গন্তব্য</span>
+<h1>দেশে-বিদেশে ভ্রমণ হোক <em>সহজ ও নিরাপদ</em></h1>
+<p>কক্সবাজার, বান্দরবান, সেন্টমার্টিন থেকে থাইল্যান্ড, মালয়েশিয়া, সিঙ্গাপুর — সব-ইনক্লুসিভ প্যাকেজ, ভিসা ও টিকিট এক জায়গায়।</p>
+<div class="searchbar">
+<div class="fi"><label>গন্তব্য</label><select><option>যেখানে যাবেন</option><option>কক্সবাজার</option><option>বান্দরবান</option><option>থাইল্যান্ড</option></select></div>
+<div class="fi"><label>যাত্রার তারিখ</label><input type="date"></div>
+<div class="fi"><label>জন</label><select><option>২ জন</option><option>৪ জন</option><option>গ্রুপ</option></select></div>
+<button>🔍 খুঁজুন</button>
+</div>
+</section>
+
+<section class="sec" id="packs"><div class="wrap">
+<div class="shead"><div class="kick">জনপ্রিয় প্যাকেজ</div><h2>সেরা ট্যুর প্যাকেজসমূহ</h2><p>থাকা, খাওয়া, গাইড ও পরিবহনসহ নিশ্চিন্ত ভ্রমণ</p></div>
+<div class="packs">
+<div class="tour"><div class="ph t1">🏖️<span class="days">৪ দিন ৩ রাত</span></div><div class="b"><div class="dest">কক্সবাজার</div><h3>সমুদ্রসৈকত ট্যুর</h3><p>হোটেল, নৌ-ভ্রমণ, হিমছড়ি-ইনানী ও সেন্টমার্টিন অপশনসহ পূর্ণাঙ্গ সমুদ্র ভ্রমণ।</p><div class="inc"><span>🏨 হোটেল</span><span>🚌 পরিবহন</span><span>🍽 খাবার</span></div><div class="row"><div class="pr">৳৭,৫০০ <small>/জন</small></div><a class="bk" href="#">বুক করুন</a></div></div></div>
+<div class="tour"><div class="ph t2">⛰️<span class="days">৩ দিন ২ রাত</span></div><div class="b"><div class="dest">বান্দরবান</div><h3>পাহাড়-ঝর্ণা অ্যাডভেঞ্চার</h3><p>নীলগিরি, চিম্বুক, নাফাখুম ঝর্ণা ও আদিবাসী গ্রাম — গাইডসহ নিরাপদ ট্রেকিং।</p><div class="inc"><span>🏕 থাকা</span><span>🚙 জিপ</span><span>🧭 গাইড</span></div><div class="row"><div class="pr">৳৫,৯০০ <small>/জন</small></div><a class="bk" href="#">বুক করুন</a></div></div></div>
+<div class="tour"><div class="ph t3">🛕<span class="days">৫ দিন ৪ রাত</span></div><div class="b"><div class="dest">থাইল্যান্ড</div><h3>ব্যাংকক-পাটায়া ট্যুর</h3><p>ভিসা প্রসেসিং, বিমান টিকিট, হোটেল, সিটি ট্যুর ও দ্বীপ ভ্রমণসহ আন্তর্জাতিক প্যাকেজ।</p><div class="inc"><span>✈️ টিকিট</span><span>🛂 ভিসা</span><span>🏨 হোটেল</span></div><div class="row"><div class="pr">৳৪২,০০০ <small>/জন</small></div><a class="bk" href="#">বুক করুন</a></div></div></div>
+</div></div></section>
+
+<section class="sec" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+<div class="serv">
+<div><span class="e">✈️</span><h4>বিমান টিকিট</h4><p>দেশি-বিদেশি সব রুটের সাশ্রয়ী টিকিট</p></div>
+<div><span class="e">🛂</span><h4>ভিসা প্রসেসিং</h4><p>পরামর্শ থেকে ভিসা অনুমোদন পর্যন্ত</p></div>
+<div><span class="e">🏨</span><h4>হোটেল বুকিং</h4><p>দেশ-বিদেশের যাচাই করা হোটেল</p></div>
+<div><span class="e">🚐</span><h4>গ্রুপ ট্যুর</h4><p>অফিস-পরিবারের কাস্টম ট্যুর পরিকল্পনা</p></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap">
+<div class="shead"><div class="kick">কেন আমরা</div><h2>নির্ভরযোগ্য ভ্রমণসঙ্গী</h2></div>
+<div class="why">
+<div class="wc"><h4>✅ সরকার-নিবন্ধিত এজেন্সি</h4><p>বৈধ লাইসেন্স ও হাজারো সফল ভ্রমণের অভিজ্ঞতা।</p></div>
+<div class="wc"><h4>💰 স্বচ্ছ মূল্য</h4><p>লুকানো খরচ নেই — প্যাকেজে যা থাকার কথা, সবই থাকে।</p></div>
+<div class="wc"><h4>📞 ২৪/৭ সাপোর্ট</h4><p>ভ্রমণকালীন যেকোনো প্রয়োজনে সার্বক্ষণিক সহায়তা।</p></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="cta">
+<h2>এবারের ছুটিতে কোথায় যাচ্ছেন?</h2>
+<p>বাজেট ও গন্তব্য বলুন, আমরা সাজিয়ে দিই আপনার স্বপ্নের ট্যুর।</p>
+<a href="#">📞 ফ্রি কনসালটেশন নিন</a>
+</div></div></section>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:#fff">🧭 ভ্রমণসঙ্গী</div><p style="margin-top:10px;line-height:1.7">ভ্রমণ হোক আনন্দের, পরিকল্পনার ঝামেলা থাকুক আমাদের কাছে।</p></div>
+<div><h4>সেবা</h4><a href="#">ট্যুর প্যাকেজ</a><a href="#">ভিসা</a><a href="#">টিকিট</a></div>
+<div><h4>কোম্পানি</h4><a href="#">আমাদের সম্পর্কে</a><a href="#">রিভিউ</a><a href="#">যোগাযোগ</a></div>
+<div><h4>যোগাযোগ</h4><a href="#">📞 01625-914562</a><a href="#">📍 মতিঝিল, ঢাকা</a><a href="#">✉️ tour@vromon.demo</a></div>
+</div><div class="fbot">© ২০২৬ ভ্রমণসঙ্গী — DEMO ট্রাভেল এজেন্সি সাইট (নমুনা)। কন্টেন্ট কাল্পনিক।</div></div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

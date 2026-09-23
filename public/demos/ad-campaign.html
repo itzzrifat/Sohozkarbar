@@ -1,0 +1,141 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BrightBoost — ফেসবুক অ্যাড ক্যাম্পেইন ও ক্রিয়েটিভ ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--fb:#1877f2;--ig:#e1306c;--v:#7048e8;--g:#12b886;--o:#f76707;--ink:#1f2430;--mut:#687085;--bg:#f4f6fc;--card:#fff;--line:#e6e9f5}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:linear-gradient(90deg,var(--fb),var(--ig));color:#fff;text-align:center;font-weight:700;padding:8px;font-size:13px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.hin{max-width:1160px;margin:0 auto;padding:15px 20px;display:flex;align-items:center;gap:22px}
+.logo{font-size:23px;font-weight:800;color:var(--v);white-space:nowrap}
+.nav{margin-left:auto;display:flex;gap:20px;font-weight:600;font-size:15px;color:var(--mut)}
+.nav a:hover{color:var(--v)}
+.hbtn{background:linear-gradient(90deg,var(--fb),var(--v));color:#fff;padding:11px 22px;border-radius:10px;font-weight:800;font-size:14px}
+.hero{background:linear-gradient(120deg,#2b1a6b,#7048e8 60%,#1877f2);color:#fff;padding:74px 20px;text-align:center}
+.hero .kick{background:rgba(255,255,255,.18);display:inline-block;padding:6px 16px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:18px}
+.hero h1{font-size:44px;line-height:1.2;margin-bottom:14px}
+.hero h1 em{color:#ffd43b;font-style:normal}
+.hero p{font-size:17px;opacity:.95;max-width:560px;margin:0 auto 26px;line-height:1.7}
+.hero .acts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn1{background:#ffd43b;color:#2b1a6b;font-weight:800;padding:13px 28px;border-radius:10px}
+.btn2{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;font-weight:700;padding:12px 26px;border-radius:10px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.sec{padding:60px 0}
+.shead{text-align:center;margin-bottom:38px}
+.shead .kick{color:var(--v);font-weight:800;letter-spacing:2px;font-size:13px}
+.shead h2{font-size:32px;margin:8px 0}.shead p{color:var(--mut);max-width:580px;margin:0 auto;line-height:1.6}
+.case{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.casebar{background:linear-gradient(90deg,var(--fb),var(--ig));color:#fff;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.casebar h3{font-size:22px}.casebar .tag{background:rgba(255,255,255,.2);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700}
+.results{display:grid;grid-template-columns:repeat(4,1fr)}
+.res{padding:28px;text-align:center;border-right:1px solid var(--line)}
+.res:last-child{border-right:0}
+.res .n{font-size:34px;font-weight:900;color:var(--v)}
+.res .n.g{color:var(--g)}
+.res .l{color:var(--mut);font-size:13px;margin-top:4px}
+.ads{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.adcard{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.adhead{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.adhead .av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff;font-weight:800}
+.adhead b{display:block;font-size:14px}
+.adhead small{color:var(--mut);font-size:11px}
+.sponsored{font-size:10px;color:var(--mut);margin-left:auto;background:#f0f2f8;padding:3px 8px;border-radius:4px}
+.adimg{height:170px;display:flex;align-items:center;justify-content:center;font-size:70px;position:relative}
+.ai1{background:linear-gradient(160deg,#d0ebff,#74c0fc)}.ai2{background:linear-gradient(160deg,#f3d9fa,#da77f2)}.ai3{background:linear-gradient(160deg,#ffec99,#ffd43b)}
+.adbody{padding:14px}
+.adbody .txt{font-size:13px;color:#3a4254;line-height:1.6;min-height:58px}
+.actrow{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
+.actrow span{flex:1;text-align:center;font-size:11px;color:var(--mut);border-top:1px solid var(--line);padding-top:8px;font-weight:600}
+.platforms{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.pf{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;text-align:center}
+.pf .e{font-size:40px;margin-bottom:10px}
+.pf h4{font-size:17px;margin-bottom:6px}.pf p{font-size:13px;color:var(--mut);line-height:1.5}
+.funnel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:34px}
+.fstep{display:flex;align-items:center;gap:18px;margin-bottom:6px}
+.fstep .lab{width:170px;font-weight:700;font-size:14px}
+.fstep .barwrap{flex:1;background:#eef1f8;border-radius:8px;height:40px;position:relative;overflow:hidden}
+.fstep .bar{height:100%;border-radius:8px;display:flex;align-items:center;padding-left:16px;color:#fff;font-weight:800;font-size:14px}
+.fstep .val{width:130px;text-align:right;font-weight:800;color:var(--v);font-size:14px}
+.cta{background:linear-gradient(120deg,#2b1a6b,#1877f2);color:#fff;border-radius:24px;padding:48px 26px;text-align:center}
+.cta h2{font-size:28px;margin-bottom:10px}.cta p{opacity:.92;margin-bottom:22px}
+.cta .btn1{display:inline-block}
+footer{background:#171233;color:#b9b4dd;margin-top:50px;padding:44px 0 22px;font-size:14px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:13px}.fg a{display:block;padding:5px 0;color:#b9b4dd}
+.fbot{text-align:center;border-top:1px solid #2a2456;margin-top:30px;padding-top:18px;font-size:13px}
+@media(max-width:860px){.ads,.platforms{grid-template-columns:1fr}.results{grid-template-columns:repeat(2,1fr)}.res:nth-child(2){border-right:0}.fstep{flex-wrap:wrap}.fstep .lab{width:100%}.fg{grid-template-columns:1fr 1fr}.nav{display:none}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/ad-campaign.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="ফেসবুক অ্যাড ক্যাম্পেইন-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="ফেসবুক অ্যাড ডেমো, facebook ads bangladesh, অ্যাড ক্রিয়েটিভ ডেমো, ad campaign design, বুস্টিং সার্ভিস, ফেসবুক মার্কেটিং বাংলাদেশ, প্রমোশনাল ক্যাম্পেইন ডেমো, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">📣 এটি একটি DEMO অ্যাড ক্যাম্পেইন পেজ — Sohoz Karbar Tech Solutions কর্তৃক নমুনা</div>
+<header><div class="hin">
+<a class="logo" href="#">🚀 Bright<span style="color:var(--ig)">Boost</span></a>
+<nav class="nav"><a href="#">হোম</a><a href="#ads">অ্যাড ক্রিয়েটিভ</a><a href="#res">রেজাল্ট</a><a href="#plat">চ্যানেল</a><a href="#">যোগাযোগ</a></nav>
+<a class="hbtn" href="#">📞 ক্যাম্পেইন শুরু করুন</a>
+</div></header>
+
+<section class="hero">
+<span class="kick">📈 ফেসবুক ও ইনস্টাগ্রাম অ্যাড মার্কেটিং</span>
+<h1>আপনার পণ্য <em>লক্ষ লক্ষ মানুষের</em> সামনে পৌঁছে দিন</h1>
+<p>অ্যাড ক্রিয়েটিভ, অডিয়েন্স টার্গেটিং, Pixel ট্র্যাকিং ও A/B টেস্টিং — বিক্রি বাড়ানোর পূর্ণাঙ্গ ক্যাম্পেইন আমরা চালিয়ে দিই শুরু থেকে।</p>
+<div class="acts"><a class="btn1" href="#res">📊 রেজাল্ট দেখুন</a><a class="btn2" href="#">💬 ফ্রি কনসালট</a></div>
+</section>
+
+<section class="sec" id="res"><div class="wrap">
+<div class="shead"><div class="kick">কেস স্টাডি</div><h2>একটি ক্যাম্পেইনের বাস্তব ফলাফল</h2><p>সদ্য শেষ হওয়া ঈদ ক্যাম্পেইনে একজন ক্লায়েন্টের ফলাফল</p></div>
+<div class="case">
+<div class="casebar"><h3>🛒 "দোকানঘর" — ঈদ মেগা সেল ক্যাম্পেইন</h3><span class="tag">সময়: ৩০ দিন · Facebook + Instagram</span></div>
+<div class="results">
+<div class="res"><div class="n g">+৩১২%</div><div class="l">অনলাইন বিক্রি বৃদ্ধি</div></div>
+<div class="res"><div class="n">৫.৬x</div><div class="l">ROAS (প্রতি ৳-এ রিটার্ন)</div></div>
+<div class="res"><div class="n">১,২৪৮</div><div class="l">নতুন অর্ডার</div></div>
+<div class="res"><div class="n">৳৬৮</div><div class="l">প্রতি অর্ডারে অ্যাড খরচ</div></div>
+</div></div></div></section>
+
+<section class="sec" id="ads" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+<div class="shead"><div class="kick">অ্যাড ক্রিয়েটিভ</div><h2>যে অ্যাডগুলো বিক্রি এনে দেয়</h2><p>স্ক্রল-স্টপিং ভিজ্যুয়াল, পরিষ্কার অফার ও কল-টু-অ্যাকশন</p></div>
+<div class="ads">
+<div class="adcard"><div class="adhead"><span class="av" style="background:linear-gradient(135deg,#1877f2,#7048e8)">দ</span><div><b>দোকানঘর.কম</b><small>Sponsored</small></div><span class="sponsored">Sponsored</span></div><div class="adimg ai1">👕</div><div class="adbody"><div class="txt">🔥 ঈদ মেগা সেল! পোশাকে ৫০% পর্যন্ত ছাড়। আজই অর্ডার করুন — ক্যাশ অন ডেলিভারিতে ঘরে পেয়ে যাবেন।</div><div class="actrow"><span>👍 লাইক</span><span>💬 কমেন্ট</span><span>↗ শেয়ার</span></div></div></div>
+<div class="adcard"><div class="adhead"><span class="av" style="background:linear-gradient(135deg,#e1306c,#f76707)">দ</span><div><b>দোকানঘর.কম</b><small>Sponsored</small></div><span class="sponsored">Sponsored</span></div><div class="adimg ai2">🎧</div><div class="adbody"><div class="txt">🎧 ওয়্যারলেস হেডফোন মাত্র ৳২,৯৯৯! স্টক সীমিত — নিচের "শপ নাউ" বাটনে ট্যাপ করে অর্ডার করুন।</div><div class="actrow"><span>❤ লাইক</span><span>💬 কমেন্ট</span><span>↗ শেয়ার</span></div></div></div>
+<div class="adcard"><div class="adhead"><span class="av" style="background:linear-gradient(135deg,#f59f00,#f76707)">দ</span><div><b>দোকানঘর.কম</b><small>Sponsored</small></div><span class="sponsored">Sponsored</span></div><div class="adimg ai3">🎁</div><div class="adbody"><div class="txt">🎁 কিনুন ১টি, পান ১টি ফ্রি! শুধু আজকের অফার। ফ্রি ডেলিভারি ও সহজ রিটার্ন — অর্ডার করুন এখনই।</div><div class="actrow"><span>👍 লাইক</span><span>💬 কমেন্ট</span><span>↗ শেয়ার</span></div></div></div>
+</div></div></section>
+
+<section class="sec" id="plat"><div class="wrap">
+<div class="shead"><div class="kick">প্ল্যাটফর্ম</div><h2>যেসব চ্যানেলে ক্যাম্পেইন চালাই</h2></div>
+<div class="platforms">
+<div class="pf"><div class="e">📘</div><h4>Facebook Ads</h4><p>কনভার্সন, রিটার্গেটিং ও Lookalike অডিয়েন্স।</p></div>
+<div class="pf"><div class="e">📸</div><h4>Instagram</h4><p>ভিজ্যুয়াল ব্র্যান্ডিং, Reels ও শপিং অ্যাড।</p></div>
+<div class="pf"><div class="e">🔍</div><h4>Google Ads</h4><p>সার্চ, ডিসপ্লে ও শপিং ক্যাম্পেইন।</p></div>
+<div class="pf"><div class="e">🎵</div><h4>TikTok / YouTube</h4><p>ভিডিও ভিউ ও ব্র্যান্ড অ্যাওয়্যারনেস।</p></div>
+</div></div></section>
+
+<section class="sec" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+<div class="shead"><div class="kick">সেলস ফানেল</div><h2>ইম্প্রেশন থেকে অর্ডার পর্যন্ত</h2></div>
+<div class="funnel">
+<div class="fstep"><div class="lab">👁 ইম্প্রেশন</div><div class="barwrap"><div class="bar" style="width:100%;background:#7048e8">৮,৪০,০০০ মানুষ অ্যাড দেখেছে</div></div><div class="val">৮.৪L</div></div>
+<div class="fstep"><div class="lab">🖱 ক্লিক / ভিজিট</div><div class="barwrap"><div class="bar" style="width:42%;background:#5f3dc4">সাইটে ভিজিট</div></div><div class="val">২৪,৪০০</div></div>
+<div class="fstep"><div class="lab">🛒 চেকআউট শুরু</div><div class="barwrap"><div class="bar" style="width:18%;background:#1877f2">অর্ডার ফর্ম</div></div><div class="val">৪,১২০</div></div>
+<div class="fstep"><div class="lab">✅ নিশ্চিত অর্ডার</div><div class="barwrap"><div class="bar" style="width:9%;background:#12b886">কনফার্ম ও ডেলিভারি</div></div><div class="val">১,২৪৮</div></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="cta">
+<h2>আপনার ব্যবসার জন্যও বিক্রি বাড়ানোর পালা</h2>
+<p>বাজেট ও পণ্য বলুন — আমরা ক্রিয়েটিভ থেকে অপটিমাইজেশন সব সামলাবো।</p>
+<a class="btn1" href="#">📞 আজই ফ্রি কনসালটেশন নিন</a>
+</div></div></section>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:#fff">🚀 BrightBoost</div><p style="margin-top:10px;line-height:1.7">ডেটা-চালিত ডিজিটাল অ্যাড মার্কেটিং — প্রতিটি টাকার হিসাব রাখি।</p></div>
+<div><h4>সেবা</h4><a href="#">Facebook Ads</a><a href="#">Google Ads</a><a href="#">ক্রিয়েটিভ</a></div>
+<div><h4>কোম্পানি</h4><a href="#">কেস স্টাডি</a><a href="#">আমাদের সম্পর্কে</a><a href="#">যোগাযোগ</a></div>
+<div><h4>যোগাযোগ</h4><a href="#">📞 01625-914562</a><a href="#">✉️ boost@bright.demo</a><a href="#">📍 ঢাকা, বাংলাদেশ</a></div>
+</div><div class="fbot">© ২০২৬ BrightBoost — DEMO অ্যাড মার্কেটিং সাইট (নমুনা)। কন্টেন্ট কাল্পনিক।</div></div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

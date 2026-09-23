@@ -1,0 +1,185 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StockTrack — ইনভেন্টরি ও স্টক ম্যানেজমেন্ট অ্যাপ ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--bg:#f3f5fa;--card:#fff;--line:#e5e9f2;--b:#3b5bdb;--g:#2f9e44;--o:#f08c00;--r:#e03131;--p:#7048e8;--ink:#1f2733;--mut:#76808f}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:linear-gradient(90deg,#7048e8,#3b5bdb);color:#fff;text-align:center;font-weight:800;padding:8px;font-size:13px}
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+.side{background:#1b2233;color:#b9c0d4;padding:22px 16px;position:sticky;top:0;height:100vh}
+.logo{font-size:21px;font-weight:800;color:#fff;margin-bottom:26px;display:flex;align-items:center;gap:8px}
+.logo b{color:#a5b4fc}
+.snav a{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:10px;color:#b9c0d4;font-weight:600;font-size:14px;margin-bottom:4px}
+.snav a.on{background:var(--p);color:#fff}.snav a:hover{background:#2a3350;color:#fff}
+.snav .e{width:20px;text-align:center}
+.snav .badge{margin-left:auto;background:var(--o);color:#fff;font-size:11px;padding:1px 8px;border-radius:999px;font-weight:700}
+.main{padding:22px 26px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.top h1{font-size:21px}.top .sub{color:var(--mut);font-size:13px}
+.tbtn{margin-left:auto;background:var(--p);color:#fff;border:0;padding:11px 20px;border-radius:9px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
+.av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--b));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .l{font-size:13px;color:var(--mut);margin-bottom:8px}
+.kpi .v{font-size:26px;font-weight:800}
+.kpi .d{font-size:12px;margin-top:6px;font-weight:700}
+.up{color:var(--g)}.warn{color:var(--o)}.down{color:var(--r)}
+.dual{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;margin-bottom:20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.panel h3{font-size:16px;margin-bottom:14px}
+.alerts{display:flex;flex-direction:column;gap:10px}
+.al{display:flex;align-items:center;gap:12px;background:#fff7ed;border:1px solid #ffe0b8;border-radius:11px;padding:12px 14px;font-size:13px}
+.al.crit{background:#fff0f0;border-color:#ffc9c9}
+.al .ic{font-size:20px}
+.al b{display:block}.al small{color:var(--mut)}
+.al .act{margin-left:auto;background:var(--p);color:#fff;border:0;padding:7px 12px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--mut);font-weight:600;font-size:12px;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:13px 12px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.pcell{display:flex;align-items:center;gap:10px;font-weight:700}
+.pcell .ic{width:34px;height:34px;border-radius:9px;background:#f1f3fa;display:flex;align-items:center;justify-content:center;font-size:17px}
+.pill{padding:4px 12px;border-radius:999px;font-size:11px;font-weight:800}
+.p-ok{background:rgba(47,158,68,.13);color:var(--g)}
+.p-low{background:rgba(240,140,0,.15);color:var(--o)}
+.p-out{background:rgba(224,49,49,.13);color:var(--r)}
+.stockbar{width:90px;height:8px;background:#eef1f7;border-radius:6px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px}
+.stockbar i{display:block;height:100%;border-radius:6px}
+@media(max-width:1100px){.app{grid-template-columns:1fr}.side{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.dual{grid-template-columns:1fr}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/inventory-app.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="ইনভেন্টরি অ্যাপ-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="স্টক ম্যানেজমেন্ট অ্যাপ, inventory software bd, মালামালের হিসাব, warehouse demo app, স্টক ইনআউট, ইনভেন্টরি ডেমো, পণ্য ট্র্যাকিং অ্যাপ, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">📦 এটি একটি DEMO কাস্টম সফটওয়্যার (ইনভেন্টরি/স্টক অ্যাপ) — Sohoz Karbar Tech Solutions</div>
+<div class="app">
+<aside class="side">
+<div class="logo">📦 Stock<b>Track</b></div>
+<nav class="snav">
+<a class="on" href="#"><span class="e">📊</span> ওভারভিউ</a>
+<a href="#"><span class="e">📦</span> প্রোডাক্ট</a>
+<a href="#"><span class="e">📥</span> স্টক ইন</a>
+<a href="#"><span class="e">📤</span> স্টক আউট</a>
+<a href="#"><span class="e">⚠️</span> লো-স্টক <span class="badge">৬</span></a>
+<a href="#"><span class="e">🏬</span> ওয়ারহাউস</a>
+<a href="#"><span class="e">📄</span> রিপোর্ট</a>
+<a href="#"><span class="e">⚙️</span> সেটিংস</a>
+</nav></aside>
+<main class="main">
+<div class="top">
+<div><h1>স্টক ওভারভিউ</h1><div class="sub">আজ রবিবার · গুলশান গুদাম</div></div>
+<button class="tbtn">＋ নতুন প্রোডাক্ট</button>
+<span class="av">SK</span>
+</div>
+
+<div class="kpis">
+<div class="kpi"><div class="l">📦 মোট স্টক আইটেম</div><div class="v">১,২৪৮</div><div class="d up">▲ ৩৪ এই সপ্তাহে</div></div>
+<div class="kpi"><div class="l">💰 স্টক ভ্যালু</div><div class="v">৳৩২.৪L</div><div class="d up">চলমান মূল্য</div></div>
+<div class="kpi"><div class="l">⚠️ লো-স্টক</div><div class="v">৬টি</div><div class="d warn">রিঅর্ডার দরকার</div></div>
+<div class="kpi"><div class="l">❌ স্টক-আউট</div><div class="v">২টি</div><div class="d down">জরুরি</div></div>
+</div>
+
+<div class="dual">
+<div class="panel">
+<h3>📥📤 সাম্প্রতিক স্টক মুভমেন্ট</h3>
+<table>
+<thead><tr><th>প্রোডাক্ট</th><th>ধরন</th><th>পরিমাণ</th><th>তারিখ</th></tr></thead>
+<tbody>
+<tr><td class="pcell"><span class="ic">🎧</span> ওয়্যারলেস ইয়ারফোন</td><td><span class="pill p-ok">📥 স্টক ইন</span></td><td>+১২০</td><td>আজ ৯:৩০</td></tr>
+<tr><td class="pcell"><span class="ic">👕</span> সুতি টি-শার্ট</td><td><span class="pill" style="background:rgba(224,49,49,.1);color:var(--r)">📤 স্টক আউট</span></td><td>−৪৫</td><td>আজ ১০:১৫</td></tr>
+<tr><td class="pcell"><span class="ic">🍚</span> মিনিকেট চাল ৫কেজি</td><td><span class="pill p-ok">📥 স্টক ইন</span></td><td>+৬০</td><td>গতকাল</td></tr>
+<tr><td class="pcell"><span class="ic">🔌</span> ফাস্ট চার্জার</td><td><span class="pill" style="background:rgba(224,49,49,.1);color:var(--r)">📤 স্টক আউট</span></td><td>−৮৮</td><td>গতকাল</td></tr>
+<tr><td class="pcell"><span class="ic">💡</span> LED বাল্ব ১২W</td><td><span class="pill p-ok">📥 স্টক ইন</span></td><td>+২০০</td><td>২ দিন আগে</td></tr>
+</tbody></table>
+</div>
+<div class="panel">
+<h3>⚠️ রিঅর্ডার অ্যালার্ট</h3>
+<div class="alerts">
+<div class="al crit"><span class="ic">🧴</span><div><b>হ্যান্ডওয়াশ ৫০০মিলি</b><small>বাকি: ৪ · পুনরায় অর্ডার করুন</small></div><button class="act">অর্ডার</button></div>
+<div class="al"><span class="ic">🪥</span><div><b>টুথব্রাশ</b><small>বাকি: ১২ · লিমিটের নিচে</small></div><button class="act">অর্ডার</button></div>
+<div class="al"><span class="ic">🍪</span><div><b>বিস্কুট প্যাকেট</b><small>বাকি: ১৮</small></div><button class="act">অর্ডার</button></div>
+<div class="al"><span class="ic">📦</span><div><b>পলিব্যাগ (বড়)</b><small>বাকি: ২২</small></div><button class="act">অর্ডার</button></div>
+</div></div>
+</div>
+
+<div class="panel">
+<h3>🏷 প্রোডাক্ট স্টক লেভেল</h3>
+<table>
+<thead><tr><th>প্রোডাক্ট</th><th>SKU</th><th>স্টক লেভেল</th><th>স্ট্যাটাস</th><th>দাম</th></tr></thead>
+<tbody>
+<tr><td class="pcell"><span class="ic">🎧</span> ওয়্যারলেস ইয়ারফোন</td><td>SKU-1042</td><td><span class="stockbar"><i style="width:82%;background:var(--g)"></i></span>২৪৫</td><td><span class="pill p-ok">● পর্যাপ্ত</span></td><td>৳৩৫০</td></tr>
+<tr><td class="pcell"><span class="ic">👕</span> সুতি টি-শার্ট</td><td>SKU-0871</td><td><span class="stockbar"><i style="width:38%;background:var(--o)"></i></span>৬৮</td><td><span class="pill p-low">● কম</span></td><td>৳৪৫০</td></tr>
+<tr><td class="pcell"><span class="ic">🍚</span> মিনিকেট চাল ৫কেজি</td><td>SKU-0330</td><td><span class="stockbar"><i style="width:64%;background:var(--g)"></i></span>১১২</td><td><span class="pill p-ok">● পর্যাপ্ত</span></td><td>৳৭২০</td></tr>
+<tr><td class="pcell"><span class="ic">🧴</span> হ্যান্ডওয়াশ ৫০০মিলি</td><td>SKU-0512</td><td><span class="stockbar"><i style="width:8%;background:var(--r)"></i></span>৪</td><td><span class="pill p-out">● স্টক-আউট প্রায়</span></td><td>৳১২০</td></tr>
+<tr><td class="pcell"><span class="ic">🔌</span> ফাস্ট চার্জার</td><td>SKU-0908</td><td><span class="stockbar"><i style="width:22%;background:var(--o)"></i></span>৩১</td><td><span class="pill p-low">● কম</span></td><td>৳২৯০</td></tr>
+<tr><td class="pcell"><span class="ic">💡</span> LED বাল্ব ১২W</td><td>SKU-0244</td><td><span class="stockbar"><i style="width:75%;background:var(--g)"></i></span>৩৮০</td><td><span class="pill p-ok">● পর্যাপ্ত</span></td><td>৳১৮০</td></tr>
+</tbody></table>
+</div>
+</main></div>
+<script>
+(function(){
+'use strict';
+const bn=x=>String(x).replace(/[0-9]/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+const pb=x=>parseInt(String(x).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/[^0-9]/g,''),10)||0;
+const tk=n=>'৳'+bn(Number(n).toLocaleString('en-IN'));
+const pill=document.createElement('div');
+pill.textContent='🧪 ডেমো মোড — আপনার দেওয়া/বদলানো তথ্য শুধু এই ট্যাবের মেমোরিতে থাকে; রিফ্রেশ বা পেজ বন্ধ করলেই মুছে যায়, কোথাও সেভ হয় না।';
+pill.style.cssText='position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:#1c2530;color:#fff;padding:9px 16px;border-radius:999px;font-size:12px;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:94vw;text-align:center';
+document.body.appendChild(pill);
+function toast(msg,bad){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;top:64px;left:50%;transform:translateX(-50%);background:'+(bad?'#e03131':'#7048e8')+';color:#fff;padding:12px 24px;border-radius:12px;font-weight:800;z-index:10000;box-shadow:0 12px 32px rgba(0,0,0,.28);font-size:14px';document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+function modal(title,fields,onSave){
+ const ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(20,25,35,.55);z-index:10001;display:flex;align-items:center;justify-content:center';
+ const box=document.createElement('div');box.style.cssText='background:#fff;border-radius:16px;padding:22px;width:440px;max-width:92vw;box-shadow:0 24px 60px rgba(0,0,0,.4)';
+ box.innerHTML='<h3 style="margin-bottom:14px;font-size:17px">'+title+'</h3>';
+ fields.forEach(f=>{const w=document.createElement('div');w.style.margin='10px 0';
+  w.innerHTML='<label style="font-size:13px;font-weight:700;color:#555;display:block;margin-bottom:5px">'+f.l+'</label>';
+  const inp=document.createElement(f.t==='select'?'select':'input');inp.style.cssText='width:100%;border:1.5px solid #e4e8f0;border-radius:10px;padding:11px 12px;font-size:14px;font-family:inherit';
+  if(f.t==='select'){f.opts.forEach(o=>{const o2=document.createElement('option');o2.value=o;o2.textContent=o;inp.appendChild(o2);});}
+  else{inp.placeholder=f.ph||'';inp.type=f.t==='num'?'number':'text';}
+  w.appendChild(inp);box.appendChild(w);f.el=inp;});
+ const btns=document.createElement('div');btns.style.cssText='display:flex;gap:10px;margin-top:18px';
+ btns.innerHTML='<button class="sv" style="flex:1;background:#7048e8;color:#fff;border:0;border-radius:10px;padding:12px;font-weight:800;font-family:inherit;cursor:pointer;font-size:14px">সেভ করুন (ডেমো)</button><button class="cx" style="flex:1;background:#eef1f6;color:#333;border:0;border-radius:10px;padding:12px;font-weight:800;font-family:inherit;cursor:pointer;font-size:14px">বাতিল</button>';
+ box.appendChild(btns);ov.appendChild(box);document.body.appendChild(ov);
+ btns.querySelector('.cx').onclick=()=>ov.remove();
+ btns.querySelector('.sv').onclick=()=>{const vals=fields.map(f=>(f.t==='num'?pb(f.el.value||'0'):f.el.value.trim()));if(onSave(vals)!==false)ov.remove();};
+ ov.onclick=e=>{if(e.target===ov)ov.remove();};
+}
+const pbody=document.querySelectorAll('.panel table tbody')[1];
+const mbody=document.querySelectorAll('.panel table tbody')[0];
+const alertBox=document.querySelector('.alerts');
+const kvs=document.querySelectorAll('.kpi .v');
+let products=[...pbody.querySelectorAll('tr')].map(tr=>{const ic=tr.querySelector('.ic').textContent;const tds=tr.querySelectorAll('td');return{ic,nm:tds[0].textContent.replace(ic,'').trim(),sku:tds[1].textContent.trim(),stock:pb(tds[2].textContent),price:pb(tds[4].textContent)};});
+let movements=[];
+let baseStockInValue=0;
+function stOf(s){if(s<=10)return{cls:'p-out',tx:'● স্টক-আউট প্রায়',c:'var(--r)'};if(s<=40)return{cls:'p-low',tx:'● কম',c:'var(--o)'};return{cls:'p-ok',tx:'● পর্যাপ্ত',c:'var(--g)'};}
+function renderKpis(){const low=products.filter(p=>p.stock<=40).length,out=products.filter(p=>p.stock<=10).length;
+ kvs[0].textContent=bn((1242+products.length).toLocaleString('en-IN'));
+ const L=(32.4+baseStockInValue/100000).toFixed(1);kvs[1].textContent='৳'+bn(L)+'L';
+ kvs[2].textContent=bn(4+low)+'টি';kvs[3].textContent=bn(1+out)+'টি';}
+function renderTable(){pbody.innerHTML='';products.forEach(p=>{const s=stOf(p.stock);const tr=document.createElement('tr');tr.style.cursor='pointer';
+ tr.innerHTML='<td class="pcell"><span class="ic">'+p.ic+'</span> '+p.nm+'</td><td>'+p.sku+'</td><td><span class="stockbar"><i style="width:'+Math.min(p.stock/300*100,100)+'%;background:'+s.c+'"></i></span>'+bn(p.stock)+'</td><td><span class="pill '+s.cls+'">'+s.tx+'</span></td><td>'+tk(p.price)+'</td>';
+ tr.onclick=()=>openAdjust(p);pbody.appendChild(tr);});}
+function renderAlerts(){alertBox.innerHTML='';const list=products.filter(p=>p.stock<=40);
+ if(!list.length){alertBox.innerHTML='<div style="color:#0b9e6f;font-weight:700;padding:14px;text-align:center">✅ সব প্রোডাক্ট পর্যাপ্ত স্টকে আছে</div>';}
+ list.sort((a,b)=>a.stock-b.stock).forEach(p=>{const crit=p.stock<=10;const d=document.createElement('div');d.className='al'+(crit?' crit':'');
+  d.innerHTML='<span class="ic">'+p.ic+'</span><div><b>'+p.nm+'</b><small>বাকি: '+bn(p.stock)+' · পুনরায় অর্ডার করুন</small></div><button class="act">অর্ডার</button>';
+  d.querySelector('.act').onclick=()=>{const add=150;p.stock+=add;baseStockInValue+=add*p.price;addMove(p,'📥','+',add,'রিস্টক অর্ডার');toast('🛒 '+p.nm+' — রিস্টক অর্ডার দেওয়া হয়েছে (+'+bn(add)+')');renderAll();};
+  alertBox.appendChild(d);});}
+function addMove(p,ic,sign,qty,note){const tr=document.createElement('tr');
+ tr.innerHTML='<td class="pcell"><span class="ic">'+p.ic+'</span> '+p.nm+(note?' <small style="color:#999">('+note+')</small>':'')+'</td><td><span class="pill '+(sign==='+'?'p-ok':'')+'" style="'+(sign==='-'?'background:rgba(224,49,49,.1);color:var(--r)':'')+'">'+ic+(sign==='+'?' স্টক ইন':' স্টক আউট')+'</span></td><td>'+(sign==='+'?'+':'−')+bn(qty)+'</td><td>এইমাত্র</td>';
+ mbody.prepend(tr);while(mbody.querySelectorAll('tr').length>7)mbody.lastChild.remove();}
+function renderAll(){renderTable();renderAlerts();renderKpis();}
+function openAdjust(p){modal('স্টক অ্যাডজাস্ট — '+p.nm,[{l:'ধরন',t:'select',opts:['📥 স্টক ইন (যোগ)','📤 স্টক আউট (বিয়োগ)']},{l:'পরিমাণ',t:'num',ph:'যেমন: ২০'}],v=>{const qty=v[1];if(!qty){toast('পরিমাণ লিখুন',true);return false;}const inn=v[0].indexOf('ইন')>=0;
+ if(inn){p.stock+=qty;baseStockInValue+=qty*p.price;addMove(p,'📥','+',qty);}else{p.stock=Math.max(p.stock-qty,0);addMove(p,'📤','−',qty);}
+ toast((inn?'📥 স্টক ইন ':'📤 স্টক আউট ')+bn(qty)+' — '+p.nm);renderAll();});}
+document.querySelector('.tbtn').onclick=()=>modal('＋ নতুন প্রোডাক্ট',[{l:'প্রোডাক্টের নাম',t:'text',ph:'যেমন: ব্লুটুথ স্পিকার'},{l:'SKU',t:'text',ph:'যেমন: SKU-1100'},{l:'প্রারম্ভিক স্টক',t:'num',ph:'যেমন: ৫০'},{l:'দাম (৳)',t:'num',ph:'যেমন: ৯৯০'}],v=>{if(!v[0]||!v[2]){toast('নাম ও স্টক দিন',true);return false;}const p={ic:'📦',nm:v[0],sku:v[1]||('SKU-'+Math.floor(1000+Math.random()*9000)),stock:v[2],price:v[3]||0};products.push(p);baseStockInValue+=v[2]*v[3];addMove(p,'📥','+',v[2],'নতুন প্রোডাক্ট');toast('✅ নতুন প্রোডাক্ট যোগ হয়েছে: '+p.nm);renderAll();});
+document.querySelectorAll('.snav a').forEach(a=>{const tx=a.textContent;if(tx.indexOf('স্টক ইন')>=0||tx.indexOf('স্টক আউট')>=0){a.href='javascript:void(0)';a.onclick=()=>{const inn=tx.indexOf('স্টক ইন')>=0;modal(inn?'📥 স্টক ইন':'📤 স্টক আউট',[{l:'প্রোডাক্ট',t:'select',opts:products.map(p=>p.nm)},{l:'পরিমাণ',t:'num',ph:'যেমন: ১০'}],v=>{const p=products.find(x=>x.nm===v[0]);const qty=v[1];if(!p||!qty){toast('তথ্য দিন',true);return false;}if(inn){p.stock+=qty;baseStockInValue+=qty*p.price;addMove(p,'📥','+',qty);}else{p.stock=Math.max(p.stock-qty,0);addMove(p,'📤','−',qty);}toast('আপডেট হয়েছে');renderAll();});};}else{const badge=a.querySelector('.badge');a.href='javascript:void(0)';a.onclick=()=>{document.querySelectorAll('.snav a').forEach(x=>x.classList.remove('on'));a.classList.add('on');toast((badge?'এই সেকশনে ':'')+tx.trim()+' (ডেমো নেভিগেশন)');};}});
+renderAll();
+})();
+</script>
+</body></html>

@@ -1,0 +1,44 @@
+{
+  "name": "SohozKarbar Admin — Simple Business ERP",
+  "short_name": "Admin",
+  "description": "দোকানের সব হিসাব এখন এক অ্যাপেই — ইনভয়েস, বাকির খাতা, স্টক ও রিপোর্ট।",
+  "start_url": "/admin.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1220",
+  "theme_color": "#22A070",
+  "lang": "bn",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "productivity",
+    "finance"
+  ],
+  "icons": [
+    {
+      "src": "/sk-app-icon-192-v197.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sk-app-icon-512-v197.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sk-app-icon-192-maskable-v197.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/sk-app-icon-512-maskable-v197.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

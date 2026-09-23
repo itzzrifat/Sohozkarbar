@@ -1,0 +1,143 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MotionFrame — ভিডিও প্রোডাকশন ও মোশন গ্রাফিক্স স্টুডিও ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--bg:#0c0c12;--card:#15151f;--line:#262634;--red:#ff3d5a;--gold:#ffb020;--cy:#22d3ee;--mut:#9aa0b4;--txt:#f3f4fa}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--txt)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:linear-gradient(90deg,var(--red),var(--gold));color:#1a0d00;text-align:center;font-weight:800;padding:8px;font-size:13px}
+header{position:absolute;top:34px;left:0;right:0;z-index:30}
+.hin{max-width:1160px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:22px}
+.logo{font-size:23px;font-weight:800;color:#fff;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,.4)}
+.logo b{color:var(--gold)}
+.nav{margin-left:auto;display:flex;gap:22px;font-weight:600;font-size:15px;color:#e8e8f0}
+.nav a{text-shadow:0 1px 6px rgba(0,0,0,.5)}.nav a:hover{color:var(--gold)}
+.hbtn{background:var(--red);color:#fff;padding:11px 22px;border-radius:999px;font-weight:800;font-size:14px;box-shadow:0 10px 26px rgba(255,61,90,.4)}
+.hero{background:radial-gradient(circle at 30% 20%,#3a1830 0%,#160e1c 45%,var(--bg) 100%);padding:160px 20px 90px;text-align:center;position:relative;overflow:hidden}
+.hero .kick{color:var(--gold);font-weight:800;letter-spacing:3px;font-size:13px;text-transform:uppercase}
+.hero h1{font-size:52px;line-height:1.12;margin:16px 0 18px;font-weight:900}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--red),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);font-size:18px;max-width:580px;margin:0 auto 34px;line-height:1.7}
+.reel{width:104px;height:104px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--gold));display:flex;align-items:center;justify-content:center;font-size:40px;color:#fff;cursor:pointer;position:relative;box-shadow:0 0 0 0 rgba(255,61,90,.6);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,61,90,.55)}70%{box-shadow:0 0 0 26px rgba(255,61,90,0)}100%{box-shadow:0 0 0 0 rgba(255,61,90,0)}}
+.acts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn1{background:var(--red);color:#fff;font-weight:800;padding:14px 30px;border-radius:999px}
+.btn2{border:1px solid #3a3a4d;color:#fff;font-weight:700;padding:13px 28px;border-radius:999px}
+.marquee{background:var(--gold);color:#1a0d00;overflow:hidden;white-space:nowrap;padding:13px 0;font-weight:800;font-size:15px}
+.marquee span{display:inline-block;animation:scroll 22s linear infinite;paddding-left:0}
+.marquee b{margin:0 26px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.sec{padding:72px 0}
+.shead{text-align:center;margin-bottom:42px}
+.shead .k{color:var(--red);font-weight:800;letter-spacing:2px;font-size:13px}
+.shead h2{font-size:36px;margin:8px 0}.shead p{color:var(--mut);max-width:580px;margin:0 auto;line-height:1.6}
+.serv{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.sv{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;transition:.2s}
+.sv:hover{transform:translateY(-6px);border-color:var(--red)}
+.sv .e{width:62px;height:62px;border-radius:14px;background:linear-gradient(135deg,#2a1a24,#3a2030);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:16px}
+.sv h3{font-size:19px;margin-bottom:8px}.sv p{color:var(--mut);font-size:14px;line-height:1.7}
+.portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.reelcard{border-radius:16px;overflow:hidden;position:relative;aspect-ratio:16/11;display:flex;align-items:center;justify-content:center;font-size:74px;border:1px solid var(--line);cursor:pointer;transition:.25s}
+.reelcard:hover{transform:scale(1.03)}
+.reelcard .play{position:absolute;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--red);z-index:2}
+.reelcard .cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.9));padding:34px 16px 14px;font-size:14px;font-weight:700;text-align:left;z-index:2}
+.reelcard .dur{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.7);padding:3px 9px;border-radius:6px;font-size:12px;z-index:2}
+.v1{background:linear-gradient(160deg,#3a1830,#7a2040)}.v2{background:linear-gradient(160deg,#0e2a3a,#15607a)}.v3{background:linear-gradient(160deg,#3a2a0e,#8a6a14)}
+.v4{background:linear-gradient(160deg,#1a2a40,#2a4d8a)}.v5{background:linear-gradient(160deg,#2a1a3a,#5a2a8a)}.v6{background:linear-gradient(160deg,#3a1420,#9a2a3a)}
+.proc{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.st{text-align:center}.st .n{width:54px;height:54px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--gold));color:#fff;font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center}
+.st h4{font-size:17px;margin-bottom:6px}.st p{color:var(--mut);font-size:13px;line-height:1.5}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.pk{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px;text-align:center;position:relative}
+.pk.hot{border:2px solid var(--gold)}
+.pk .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a0d00;font-size:12px;font-weight:800;padding:5px 16px;border-radius:999px}
+.pk h3{font-size:20px;margin-bottom:14px}.pk .pr{font-size:36px;font-weight:900;color:var(--gold)}.pk .pr small{font-size:14px;color:var(--mut);font-weight:500}
+.pk ul{list-style:none;margin:18px 0;text-align:left}.pk li{padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;color:#d6d8e2}.pk li::before{content:"🎬 "}
+.pk a{display:block;background:var(--red);color:#fff;font-weight:800;padding:13px;border-radius:10px}
+.cta{background:linear-gradient(120deg,#3a1830,#0c0c12);border:1px solid var(--line);border-radius:24px;padding:52px 26px;text-align:center}
+.cta h2{font-size:32px;margin-bottom:10px}.cta p{color:var(--mut);margin-bottom:24px}
+.cta .btn1{display:inline-block}
+footer{background:#07070c;color:var(--mut);padding:46px 0 22px;font-size:14px;border-top:1px solid var(--line)}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:13px}.fg a{display:block;padding:5px 0;color:var(--mut)}
+.fbot{text-align:center;border-top:1px solid var(--line);margin-top:32px;padding-top:18px;font-size:13px}
+@media(max-width:860px){.hero h1{font-size:36px}.serv,.portfolio,.pkgs{grid-template-columns:1fr}.proc{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr}.nav{display:none}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/video-studio.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="ভিডিও প্রোডাকশন স্টুডিও-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="ভিডিও প্রোডাকশন ওয়েবসাইট, video studio bd, প্রোডাকশন হাউস পোর্টফোলিও, কর্পোরেট ভিডিও সার্ভিস, ভিডিও এডিটিং পোর্টফোলিও, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">🎬 এটি একটি DEMO — ভিডিও প্রোডাকশন ও মোশন গ্রাফিক্স সার্ভিস সাইট নমুনা</div>
+<header><div class="hin">
+<a class="logo" href="#">🎞 Motion<b>Frame</b></a>
+<nav class="nav"><a href="#">হোম</a><a href="#serv">সেবা</a><a href="#work">শোরিল</a><a href="#pkg">প্যাকেজ</a><a href="#">যোগাযোগ</a></nav>
+<a class="hbtn" href="#">📞 কোটেশন নিন</a>
+</div></header>
+
+<section class="hero">
+<div class="reel">▶</div>
+<div class="kick">CINEMATIC VIDEO • MOTION GRAPHICS</div>
+<h1>আপনার ব্র্যান্ডের গল্প <em>সিনেমার মতো</em> বানিয়ে দিই</h1>
+<p>অ্যাড ফিল্ম, প্রোডাক্ট রিল, এক্সপ্লেইনার ভিডিও, সিনেমাটিক ওয়েডিং আর মোশন গ্রাফিক্স — ধারণা থেকে এডিট পর্যন্ত এক ছাদের নিচে।</p>
+<div class="acts"><a class="btn1" href="#work">🎬 শোরিল দেখুন</a><a class="btn2" href="#">💬 প্রজেক্ট নিয়ে কথা</a></div>
+</section>
+
+<div class="marquee"><span>🎥 এক্সপ্লেইনার ভিডিও <b>•</b> 📺 অ্যাড ফিল্ম <b>•</b> 🛍 প্রোডাক্ট রিল <b>•</b> 🎞 মোশন গ্রাফিক্স <b>•</b> 💍 ওয়েডিং সিনেমাটোগ্রাফি <b>•</b> 📱 সোশ্যাল রিল <b>•</b> 🎙 ভয়েসওভার <b>•</b> ✂️ এডিটিং <b>•</b>&nbsp;🎥 এক্সপ্লেইনার ভিডিও <b>•</b> 📺 অ্যাড ফিল্ম <b>•</b> 🛍 প্রোডাক্ট রিল <b>•</b> 🎞 মোশন গ্রাফিক্স <b>•</b> 💍 ওয়েডিং <b>•</b> 📱 সোশ্যাল রিল <b>•</b>&nbsp;</span></div>
+
+<section class="sec" id="serv"><div class="wrap">
+<div class="shead"><div class="k">আমাদের সেবা</div><h2>ভিডিও ও মোশনে যা যা করি</h2></div>
+<div class="serv">
+<div class="sv"><div class="e">📺</div><h3>অ্যাড ফিল্ম</h3><p>টিভি ও ফেসবুকের জন্য আকর্ষণীয় ব্র্যান্ড ও প্রোডাক্ট বিজ্ঞাপন।</p></div>
+<div class="sv"><div class="e">🧩</div><h3>এক্সপ্লেইনার ভিডিও</h3><p>জটিল প্রোডাক্ট বা সেবা সহজে বোঝানোর অ্যানিমেটেড ভিডিও।</p></div>
+<div class="sv"><div class="e">🛍</div><h3>প্রোডাক্ট রিল</h3><p>ই-কমার্স ও রেস্তোরাঁর পণ্যের শর্ট সেলস ভিডিও।</p></div>
+<div class="sv"><div class="e">🎞</div><h3>মোশন গ্রাফিক্স</h3><p>লোগো অ্যানিমেশন, টাইটেল, ইনফোগ্রাফিক ও লোয়ার-থার্ড।</p></div>
+<div class="sv"><div class="e">💍</div><h3>সিনেমাটিক ইভেন্ট</h3><p>বিয়ে, অনুষ্ঠান ও করপোরেট ইভেন্টের সিনেমাটোগ্রাফি।</p></div>
+<div class="sv"><div class="e">✂️</div><h3>এডিটিং ও কালার</h3><p>প্রফেশনাল কাট, কালার গ্রেডিং, সাউন্ড ও সাবটাইটেল।</p></div>
+</div></div></section>
+
+<section class="sec" id="work" style="background:#0a0a10;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+<div class="shead"><div class="k">আমাদের কাজ</div><h2>সাম্প্রতিক রিল</h2><p>প্রতিটিতে ক্লিক করে বা হোভার করে প্রিভিউ দেখুন</p></div>
+<div class="portfolio">
+<div class="reelcard v1">🍛<span class="dur">০:৪৫</span><span class="play">▶</span><span class="cap">রেস্তোরাঁ প্রোডাক্ট রিল</span></div>
+<div class="reelcard v2">📱<span class="dur">১:২০</span><span class="play">▶</span><span class="cap">অ্যাপ এক্সপ্লেইনার অ্যানিমেশন</span></div>
+<div class="reelcard v3">🏷️<span class="dur">০:৩০</span><span class="play">▶</span><span class="cap">ঈদ সেল অ্যাড ফিল্ম</span></div>
+<div class="reelcard v4">🏢<span class="dur">২:০০</span><span class="play">▶</span><span class="cap">করপোরেট ব্র্যান্ড ফিল্ম</span></div>
+<div class="reelcard v5">🎞<span class="dur">০:১৫</span><span class="play">▶</span><span class="cap">লোগো ইন্ট্রো মোশন</span></div>
+<div class="reelcard v6">💍<span class="dur">৩:৩০</span><span class="play">▶</span><span class="cap">ওয়েডিং হাইলাইট</span></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap">
+<div class="shead"><div class="k">প্রক্রিয়া</div><h2>কীভাবে কাজ করি</h2></div>
+<div class="proc">
+<div class="st"><div class="n">১</div><h4>স্ক্রিপ্ট</h4><p>গল্প, স্ক্রিপ্ট ও স্টোরিবোর্ড তৈরি।</p></div>
+<div class="st"><div class="n">২</div><h4>শুট/অ্যানিমেট</h4><p>প্রোডাকশন বা মোশন ডিজাইন।</p></div>
+<div class="st"><div class="n">৩</div><h4>এডিট</h4><p>কাট, ভয়েস, সঙ্গীত ও কালার।</p></div>
+<div class="st"><div class="n">৪</div><h4>ডেলিভারি</h4><p>সব প্ল্যাটফর্মের ফরম্যাটে ফাইনাল।</p></div>
+</div></div></section>
+
+<section class="sec" id="pkg" style="background:#0a0a10;border-top:1px solid var(--line)"><div class="wrap">
+<div class="shead"><div class="k">প্যাকেজ</div><h2>ভিডিও প্যাকেজ</h2></div>
+<div class="pkgs">
+<div class="pk"><h3>সোশ্যাল রিল</h3><div class="pr">৳৫,০০০<small>/ভিডিও</small></div><ul><li>১৫–৬০ সেকেন্ড রিল</li><li>সাবটাইটেল ও ক্যাপশন</li><li>১ রিভিশন</li><li>২ দিনে ডেলিভারি</li></ul><a href="#">অর্ডার করুন</a></div>
+<div class="pk hot"><span class="tag">⭐ জনপ্রিয়</span><h3>অ্যাড ফিল্ম</h3><div class="pr">৳১৮,০০০</div><ul><li>৩০–৯০ সেকেন্ড বিজ্ঞাপন</li><li>স্ক্রিপ্ট + শুট + এডিট</li><li>ভয়েসওভার ও সঙ্গীত</li><li>২ রিভিশন</li></ul><a href="#">অর্ডার করুন</a></div>
+<div class="pk"><h3>ব্র্যান্ড/এক্সপ্লেইনার</h3><div class="pr">৳৩৫,০০০</div><ul><li>২–৪ মিনিট ফিল্ম</li><li>মোশন গ্রাফিক্সসহ</li><li>প্রফেশনাল ভয়েস আর্টিস্ট</li><li>৩ রিভিশন</li></ul><a href="#">অর্ডার করুন</a></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="cta">
+<h2>আপনার পরবর্তী ভিডিও নিয়ে আলোচনা করুন</h2><p>ধারণা বা স্ক্রিপ্ট শেয়ার করুন — আমরা ফ্রি কনসেপ্ট ও কোটেশন দেব।</p>
+<a class="btn1" href="#">💬 আজই যোগাযোগ করুন</a>
+</div></div></section>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:#fff;text-shadow:none">🎞 MotionFrame</div><p style="margin-top:10px;line-height:1.7">দৃশ্যে গল্প, গল্পে বিক্রি — প্রফেশনাল ভিডিও ও মোশন স্টুডিও।</p></div>
+<div><h4>সেবা</h4><a href="#">অ্যাড ফিল্ম</a><a href="#">মোশন গ্রাফিক্স</a><a href="#">এডিটিং</a></div>
+<div><h4>স্টুডিও</h4><a href="#">শোরিল</a><a href="#">আমাদের সম্পর্কে</a><a href="#">যোগাযোগ</a></div>
+<div><h4>যোগাযোগ</h4><a href="#">📞 01625-914562</a><a href="#">✉️ hello@motionframe.demo</a><a href="#">📍 ঢাকা, বাংলাদেশ</a></div>
+</div><div class="fbot">© ২০২৬ MotionFrame — DEMO ভিডিও/মোশন স্টুডিও সাইট (নমুনা)। কন্টেন্ট কাল্পনিক।</div></div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

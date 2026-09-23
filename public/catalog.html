@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<link rel="icon" type="image/png" href="/sk-favicon-v197.png">
+<link rel="apple-touch-icon" href="/sk-app-icon-192-v197.png">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Online Catalog — SohozKarbar</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{font-family:'Hind Siliguri','Noto Sans Bengali','Segoe UI',sans-serif;background:#f0fdf4;color:#052e16;min-height:100vh;}
+  .hero{background:linear-gradient(135deg,#052e16,#166534 60%,#15803d);color:#fff;padding:34px 20px 58px;text-align:center;border-radius:0 0 34px 34px;position:relative;overflow:hidden;}
+  .hero::after{content:'';position:absolute;width:280px;height:280px;border-radius:50%;border:26px solid rgba(255,255,255,.07);top:-110px;right:-90px;}
+  .hero::before{content:'';position:absolute;width:190px;height:190px;border-radius:50%;border:18px solid rgba(255,255,255,.06);bottom:-90px;left:-60px;}
+  .hero h1{font-size:26px;font-weight:900;letter-spacing:.3px;position:relative;z-index:1;}
+  .hero p{font-size:13px;opacity:.85;margin-top:6px;position:relative;z-index:1;}
+  .badge-live{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:800;margin-top:12px;position:relative;z-index:1;}
+  .badge-live .dot{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:bl 1.2s infinite;}
+  @keyframes bl{0%,100%{opacity:1;}50%{opacity:.25;}}
+  .wrap{max-width:760px;margin:-34px auto 40px;padding:0 14px;}
+  .controls{background:#fff;border-radius:18px;padding:12px;box-shadow:0 12px 34px rgba(5,46,22,.12);position:relative;z-index:2;}
+  .search{width:100%;padding:13px 16px;border:2px solid #bbf7d0;border-radius:14px;font-size:15px;font-weight:700;font-family:inherit;outline:none;}
+  .search:focus{border-color:#22c55e;}
+  .chips{display:flex;gap:7px;overflow-x:auto;padding:11px 2px 2px;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{white-space:nowrap;padding:7px 15px;border-radius:99px;border:1.5px solid #bbf7d0;background:#fff;color:#166534;font-weight:800;font-size:12.5px;cursor:pointer;}
+  .chip.on{background:#16a34a;color:#fff;border-color:#16a34a;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px;}
+  .card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(5,46,22,.08);display:flex;flex-direction:column;border:1px solid #ecfdf5;}
+  .pimg{width:100%;height:130px;object-fit:cover;background:linear-gradient(135deg,#dcfce7,#bbf7d0);display:flex;align-items:center;justify-content:center;font-size:38px;}
+  .pbody{padding:11px 12px 12px;display:flex;flex-direction:column;flex:1;}
+  .pname{font-weight:900;font-size:14px;line-height:1.35;min-height:38px;}
+  .pcat{font-size:10.5px;color:#16a34a;font-weight:800;background:#f0fdf4;border-radius:99px;padding:2px 9px;display:inline-block;margin:6px 0;}
+  .pprice{font-size:18px;font-weight:900;color:#052e16;margin-top:auto;}
+  .pprice small{font-size:11px;color:#64748b;font-weight:700;}
+  .ord{margin-top:9px;background:#25d366;color:#fff;border:0;border-radius:12px;padding:11px;font-weight:900;font-size:13.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-family:inherit;}
+  .ord:active{transform:scale(.97);}
+  .empty{text-align:center;color:#64748b;padding:44px 18px;font-weight:700;}
+  .foot{text-align:center;padding:26px 14px 40px;font-size:11.5px;color:#6b7280;}
+  .foot b{color:#166534;}
+  .spin{ width:38px;height:38px;border:4px solid #bbf7d0;border-top-color:#16a34a;border-radius:50%;animation:sp .8s linear infinite;margin:30px auto;}
+  @keyframes sp{to{transform:rotate(360deg);}}
+</style>
+
+<!-- NX SEO PACK 99 (catalog) -->
+<meta name="description" content="SohozKarbar online catalog — the shop’s products on the customer’s mobile. Share on WhatsApp, get orders directly.">
+<link rel="canonical" href="https://www.sohozkarbar.pro.bd/catalog">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SohozKarbar ERP">
+<meta property="og:title" content="Online Catalog — SohozKarbar">
+<meta property="og:description" content="Your shop’s product catalog online — share on WhatsApp and take orders directly.">
+<meta property="og:url" content="https://www.sohozkarbar.pro.bd/catalog">
+<meta property="og:image" content="https://www.sohozkarbar.pro.bd/sales-banner-pro.png">
+<meta property="og:image:width" content="1400">
+<meta property="og:image:height" content="780">
+<meta property="og:locale" content="bn_BD">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Online Catalog — SohozKarbar">
+<meta name="twitter:description" content="Your shop’s product catalog online — share on WhatsApp and take orders directly.">
+<meta name="twitter:image" content="https://www.sohozkarbar.pro.bd/sales-banner-pro.png">
+
+<script src="/app-updater.js?v=1787291000000" defer></script>
+<meta name="keywords" content="SohozKarbar online catalog, online catalog bangladesh, digital product catalog, whatsapp catalog order, অনলাইন ক্যাটালগ, দোকানের ক্যাটালগ, product list app bd, প্রোডাক্ট ক্যাটালগ মেকার, ক্যাটালগ অ্যাপ বাংলাদেশ, অর্ডার কালেকশন অ্যাপ, দোকানের প্রোডাক্ট লিস্ট, প্রাইস লিস্ট অ্যাপ, হোয়াটসঅ্যাপে ক্যাটালগ">
+</head>
+<body>
+<div class="hero">
+  <h1 id="biz">Catalog</h1>
+  <p>Tap <b>Order</b> on any product — it goes straight to WhatsApp</p>
+  <div class="badge-live"><span class="dot"></span> <span id="upd">Live catalog</span></div>
+</div>
+<div class="wrap">
+  <div class="controls">
+    <input class="search" id="q" placeholder="🔍 Search products...">
+    <div class="chips" id="chips"></div>
+  </div>
+  <div class="grid" id="grid"><div class="spin"></div></div>
+</div>
+<div class="foot">⚡ Powered by <b>SohozKarbar ERP</b> • sohozkarbar.pro.bd</div>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+(function(){
+'use strict';
+const KEY='AIzaSyC0Mmh2vN77NxKaxTFOW531fc-ZXBrZK6Y';
+const PID='karbarnew';
+const t=new URLSearchParams(location.search).get('t')||'';
+const grid=document.getElementById('grid'), chips=document.getElementById('chips'), q=document.getElementById('q');
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+let DATA=[],PHONE='',BIZ='Our Shop',CAT='';
+if(!t){grid.innerHTML='<div class="empty">⚠️ This link is not valid — please ask the shopkeeper for a fresh link</div>';return;}
+fetch('https://firestore.googleapis.com/v1/projects/'+PID+'/databases/(default)/documents/license_customers/catalog_'+encodeURIComponent(t)+'?key='+KEY)
+.then(r=>{if(!r.ok)throw new Error('x');return r.json();})
+.then(d=>{
+  const f=d.fields||{};
+  BIZ=(f.businessName&&f.businessName.stringValue)||BIZ;
+  PHONE=(f.phone&&f.phone.stringValue)||'';
+  document.getElementById('biz').textContent='🛍️ '+BIZ;
+  document.title=BIZ+' — Online Catalog';
+  const up=(f.updatedAt&&f.updatedAt.stringValue);
+  if(up){const dt=new Date(up);if(!isNaN(dt))document.getElementById('upd').textContent='Updated: '+dt.toLocaleDateString('en-GB');}
+  DATA=JSON.parse((f.data&&f.data.stringValue)||'[]');
+  paintChips();paint();
+})
+.catch(()=>{grid.innerHTML='<div class="empty">😔 The catalog cannot be opened right now — please ask the shopkeeper to publish it again</div>';});
+function cats(){const s=[];DATA.forEach(p=>{if(p.c&&s.indexOf(p.c)<0)s.push(p.c);});return s;}
+function paintChips(){
+  const cs=cats();if(!cs.length){chips.style.display='none';return;}
+  chips.innerHTML='<button class="chip on" data-c="">All</button>'+cs.map(c=>'<button class="chip" data-c="'+esc(c)+'">'+esc(c)+'</button>').join('');
+  chips.querySelectorAll('.chip').forEach(b=>{b.onclick=()=>{chips.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');CAT=b.dataset.c;paint();};});
+}
+function filtered(){
+  let a=DATA;
+  if(CAT)a=a.filter(p=>p.c===CAT);
+  const s=(q.value||'').trim().toLowerCase();
+  if(s.length>=1){
+    if(window.Fuse){a=new Fuse(a,{keys:['n','c'],threshold:0.38,ignoreLocation:true}).search(s).map(r=>r.item);}
+    else a=a.filter(p=>(p.n||'').toLowerCase().includes(s));
+  }
+  return a;
+}
+function orderWa(p){
+  const txt='🛒 *New Order — from Catalog*\n\n📦 Product: '+p.n+(p.c?'\n🗂️ Category: '+p.c:'')+'\n💰 Price: ৳'+Number(p.p||0).toLocaleString('en-IN')+'\n🔢 Qty: \n\n— sent from '+BIZ+' catalog';
+  const ph=(PHONE||'').replace(/[^0-9]/g,'');
+  const url=ph?('https://wa.me/'+ph+'?text='+encodeURIComponent(txt)):('https://wa.me/?text='+encodeURIComponent(txt));
+  window.open(url,'_blank');
+}
+function paint(){
+  const a=filtered();
+  if(!a.length){grid.innerHTML='<div class="empty">🤷 "'+esc(q.value)+'"" — nothing matched</div>';return;}
+  grid.innerHTML=a.map(p=>{
+    const img=p.i&&p.t?('<img class="pimg" loading="lazy" src="'+p.t+'" alt="">').replace('"pimg"','"pimg"'):'<div class="pimg">🛍️</div>';
+    return '<div class="card">'+img
+      +'<div class="pbody"><div class="pname">'+esc(p.n)+'</div>'
+      +(p.c?'<span class="pcat">'+esc(p.c)+'</span>':'')
+      +'<div class="pprice">৳'+Number(p.p||0).toLocaleString('en-IN')+' <small>/ pc</small></div>'
+      +'<button class="ord" data-n="'+esc(p.n)+'">🛒 Order on WhatsApp</button></div></div>';
+  }).join('');
+  grid.querySelectorAll('.ord').forEach(b=>{b.onclick=()=>{const p=a.find(x=>x.n===b.dataset.n)||a[0];orderWa(p);};});
+}
+q.addEventListener('input',paint);
+})();
+</script>
+
+
+
+<script>
+/* ===== NX UPDATE 98 — COMMON CORE (https-force + errwatch + marketing) ===== */
+(function(){
+'use strict';
+if(window.__nxCommon98) return; window.__nxCommon98=1;
+
+/* [5] HTTPS FORCE — http e khulle https e pathay (localhost/deploy preview badh) */
+try{
+  var h=location.hostname;
+  if(location.protocol==='http:' && !/^(localhost|127\.0\.0\.1)$/.test(h)){
+    location.replace('https://'+h+location.pathname+location.search+location.hash);
+    return;
+  }
+}catch(e){}
+
+/* Firestore REST base (rules: ey path open — broadcast/publish ager motoi) */
+var NXF='https://firestore.googleapis.com/v1/projects/karbarnew/databases/(default)/documents';
+window.__nxFBase=NXF;
+var NXAPIKEY='AIzaSyC0Mmh2vN77NxKaxTFOW531fc-ZXBrZK6Y';
+var _nxAuthP=null;
+/* anon token lazily — rules harden korle private docs o kaj kore, open docs e sudhu 1st call addat */
+function nxToken(){
+  if(_nxAuthP) return _nxAuthP;
+  _nxAuthP=fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='+NXAPIKEY,{
+    method:'POST', headers:{'Content-Type':'application/json'}, body:'{"returnSecureToken":true}'
+  }).then(function(r){return r.ok?r.json():null;}).then(function(d){return (d&&d.idToken)||null;})
+   .catch(function(){ _nxAuthP=null; return null; });
+  return _nxAuthP;
+}
+function nxSend(method, url, bodyObj, useAuth){
+  function go(tok){
+    var h={'Content-Type':'application/json'};
+    if(tok) h['Authorization']='Bearer '+tok;
+    return fetch(url,{method:method,headers:h,body:bodyObj?JSON.stringify(bodyObj):undefined});
+  }
+  if(useAuth){
+    return nxToken().then(go).then(function(r){return r;}).catch(function(){return {ok:false};});
+  }
+  return go(null).then(function(r){
+    if(r.status===401||r.status===403){ return nxToken().then(go); } /* opene blocked hole anon diye retry */
+    return r;
+  }).catch(function(){return {ok:false};});
+}
+function nxVal(f){
+  if(f==null) return '';
+  if(typeof f!=='object') return f;
+  if(f.stringValue!=null) return f.stringValue;
+  if(f.integerValue!=null) return Number(f.integerValue);
+  if(f.doubleValue!=null) return f.doubleValue;
+  if(f.booleanValue!=null) return !!f.booleanValue;
+  return '';
+}
+window.__nxVal=nxVal;
+function nxDocGet(id){
+  return nxSend('GET', NXF+'/license_customers/'+encodeURIComponent(id))
+    .then(function(r){return r.ok?r.json():null;});}
+window.__nxDocGet=nxDocGet;
+function nxDocPatch(id, fieldsObj){
+  var mask=Object.keys(fieldsObj).map(function(k){return 'updateMask.fieldPaths='+encodeURIComponent(k);}).join('&');
+  return nxSend('PATCH', NXF+'/license_customers/'+encodeURIComponent(id)+'?'+mask, {fields:fieldsObj})
+    .then(function(r){return r.ok;});
+}
+window.__nxDocPatch=nxDocPatch;
+function nxDocCreate(id, fieldsObj){
+  return nxSend('POST', NXF+'/license_customers?documentId='+encodeURIComponent(id), {fields:fieldsObj})
+    .then(function(r){return r.ok;});
+}
+window.__nxDocCreate=nxDocCreate;
+
+/* [8] NX ERROR WATCH — silent runtime error tracker (Firestore e batch send) */
+try{
+  if(!window.__nxErrWatch){
+    window.__nxErrWatch=1;
+    var _q=[], _seen={};
+    function push(m,s){
+      try{
+        m=String(m==null?'':m).slice(0,260);
+        if(!m || m==='[object Object]') m=String((s||'')+' rejection').slice(0,260);
+        var k=m.slice(0,90); if(_seen[k]) return; _seen[k]=1;
+        _q.push({m:m,s:String(s||'').slice(0,140),t:Date.now(),pg:location.pathname.slice(0,30)});
+      }catch(e){}
+    }
+    window.addEventListener('error', function(ev){
+      if(ev && ev.message) push(ev.message, (ev.filename||'').split('/').pop()+':'+(ev.lineno||''));
+    }, true);
+    window.addEventListener('unhandledrejection', function(ev){
+      var r=ev && ev.reason; push(r && (r.message||r.code||r), 'promise');
+    });
+    function dayKey(d){ return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0'); }
+    function flush(){
+      if(!_q.length) return;
+      var batch=_q.splice(0,4);
+      var id='nx_errors_'+dayKey(new Date());
+      nxDocGet(id).then(function(d){
+        var items=[], count=0;
+        if(d && d.fields){
+          count=Number(nxVal(d.fields.count)||0);
+          var arr=d.fields.items && d.fields.items.arrayValue && d.fields.items.arrayValue.values || [];
+          items=arr.map(function(v){
+            var f=v.mapValue&&v.mapValue.fields||{};
+            return {m:nxVal(f.m),s:nxVal(f.s),t:nxVal(f.t),pg:nxVal(f.pg)};
+          });
+        }
+        batch.forEach(function(b){ items.push(b); count++; });
+        if(items.length>40) items=items.slice(items.length-40);
+        var body={fields:{
+          count:{integerValue:String(count)},
+          updatedAt:{integerValue:String(Date.now())},
+          items:{arrayValue:{values:items.map(function(b){return {mapValue:{fields:{
+            m:{stringValue:String(b.m).slice(0,260)}, s:{stringValue:String(b.s||'').slice(0,140)},
+            t:{integerValue:String(b.t||Date.now())}, pg:{stringValue:String(b.pg||'')}}}};})}}
+        }};
+        fetch(NXF+'/license_customers/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).catch(function(){});
+      });
+    }
+    setInterval(flush, 45000);
+    setTimeout(flush, 12000);
+    document.addEventListener('visibilitychange', function(){ if(document.hidden) flush(); });
+  }
+}catch(e){}
+
+/* [1] MARKETING LOADER — central config (_nx_marketing) theke FB Pixel + GA4
+   Rifat admin e ID boshalei shob page-e auto chole ashe (code change lagen a) */
+function nxLoadMarketing(cb){
+  return nxDocGet('_nx_marketing').then(function(d){
+    var f=(d&&d.fields)||{};
+    var mk={ fb:nxVal(f.fbPixelId), ga:nxVal(f.gaId),
+             bkash:nxVal(f.bkash)||'01625-914562', nagad:nxVal(f.nagad)||'01625-914562',
+             wa:nxVal(f.wa)||'8801625914562' };
+    window.__nxMk=mk;
+    try{
+      if(mk.fb && !window.fbq){
+        var n=window.fbq=function(){ n.queue.push(arguments); };
+        n.queue=[]; n.version='2.0'; n.loaded=true;
+        var s=document.createElement('script'); s.async=1;
+        s.src='https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(s);
+        window.fbq('init', mk.fb); window.fbq('track','PageView');
+      }
+      if(mk.ga && !window.gtag){
+        var g=document.createElement('script'); g.async=1;
+        g.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(mk.ga);
+        document.head.appendChild(g);
+        window.dataLayer=window.dataLayer||[];
+        window.gtag=function(){ window.dataLayer.push(arguments); };
+        window.gtag('js', new Date()); window.gtag('config', mk.ga);
+      }
+    }catch(e){}
+    if(cb) cb(mk);
+    return mk;
+  });
+}
+window.__nxLoadMarketing = window.__nxLoadMarketing || nxLoadMarketing;
+function nxEv(name, std){
+  try{ if(window.fbq){ window.fbq(std?'track':'trackCustom', name); } }catch(e){}
+  try{ if(window.gtag){ window.gtag('event', name); } }catch(e){}
+}
+window.__nxEv=nxEv;
+nxLoadMarketing();
+})();
+
+/* ---------- UPDATE 99.2 UI: mascot mini + mobile dashboard compact + login app-download ---------- */
+(function(){
+  try{
+    var old=document.getElementById('nxSmall99'); if(old&&old.parentNode)old.parentNode.removeChild(old);
+    if(!document.getElementById('nxSmall992')){
+      var st=document.createElement('style'); st.id='nxSmall992';
+      st.textContent='#nxmWrap{width:96px !important;margin:0 auto 2px !important;}'
+        +'#nxmImg{width:58px !important;}'
+        +'#nxmBubble{font-size:10.5px !important;padding:5px 24px 5px 9px !important;max-width:150px !important;border-radius:10px !important;margin-bottom:3px !important;}'
+        +'#nxmName{font-size:11px !important;margin-top:1px !important;}'
+        +'#nxmTapHint{font-size:9px !important;}'
+        +'@media (max-width:860px){ body.nxCmpDash #pageContent{zoom:.86 !important;} }';
+      (document.head||document.documentElement).appendChild(st);
+    }
+  }catch(e){}
+  })();
+
+/* ---------- UPDATE 100.1: Master Access link OFF 🔒 — শুধু legacy return chip ---------- */
+(function(){
+  try{
+    if(!/\/erp/i.test(location.pathname)) return;
+    var CUSKEY='erp_customer_license_data', STASH='nx_super_stash';
+    /* লিংক দিয়ে ঢোকার সিস্টেম বন্ধ — আগের stash থেকে গেলে শুধু ফেরার chip */
+    function backChip(){
+      var has=null; try{has=localStorage.getItem(STASH);}catch(e){}
+      var ex=document.getElementById('nxSuperBack');
+      if(!has){ if(ex&&ex.parentNode)ex.parentNode.removeChild(ex); return; }
+      if(ex) return;
+      var b=document.createElement('button');
+      b.id='nxSuperBack';
+      b.style.cssText='position:fixed;left:12px;bottom:12px;z-index:2147483000;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border:0;font-weight:800;font-size:12px;padding:10px 15px;border-radius:999px;box-shadow:0 10px 24px rgba(79,70,229,.45);cursor:pointer;';
+      b.textContent='⬅️ Back to my admin';
+      b.addEventListener('click',function(){
+        try{ localStorage.setItem(CUSKEY,has); localStorage.removeItem(STASH); }catch(e){}
+        location.reload();
+      });
+      document.body.appendChild(b);
+    }
+    setInterval(backChip,2200);
+  }catch(e){}
+})();
+
+</script>
+
+<script>
+/* ===== NX UPDATE 98 — PUBLIC CATALOG PACK (events only) ===== */
+(function(){
+'use strict';
+if(window.__nxCat98) return; window.__nxCat98=1;
+document.addEventListener('click', function(ev){
+  try{
+    var a=ev.target && ev.target.closest ? ev.target.closest('a,button') : null;
+    if(!a) return;
+    var href=(a.getAttribute && a.getAttribute('href'))||'';
+    if(/wa\.me|whatsapp|order/i.test(href+' '+(a.className||''))){
+      window.__nxEv('Contact'); window.__nxEv('NxCatalogOrder');
+    }
+  }catch(e){}
+}, true);
+})();
+
+</script>
+<script src="/sk-views.js?v=1788370000000" defer></script>
+</body>
+</html>

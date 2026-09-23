@@ -1,0 +1,147 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AdPulse — ডিজিটাল মার্কেটিং ড্যাশবোর্ড ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--bg:#0e1420;--card:#161e2e;--card2:#1d2739;--line:#26324a;--g:#12b886;--b:#4dabf7;--p:#9775fa;--o:#ff922b;--r:#ff6b6b;--txt:#e8eef7;--mut:#8a97ac}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--txt)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:linear-gradient(90deg,#12b886,#4dabf7);color:#06281f;text-align:center;font-weight:800;padding:8px;font-size:13px}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+.side{background:#0b101b;border-right:1px solid var(--line);padding:22px 16px;position:sticky;top:0;height:100vh}
+.logo{font-size:21px;font-weight:800;margin-bottom:26px;display:flex;align-items:center;gap:8px}
+.logo b{color:var(--g)}
+.snav a{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:10px;color:var(--mut);font-weight:600;font-size:14px;margin-bottom:4px}
+.snav a.on{background:var(--card2);color:#fff}
+.snav a:hover{color:#fff}
+.snav .e{width:20px;text-align:center}
+.side .pro{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;gap:10px;align-items:center}
+.side .pro .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--b));display:flex;align-items:center;justify-content:center;font-weight:800}
+.main{padding:24px 28px}
+.top{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.top h1{font-size:22px}
+.top .sub{color:var(--mut);font-size:13px}
+.search{margin-left:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 14px;color:var(--mut);font-size:14px;width:220px}
+.range{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 16px;font-size:13px;font-weight:600}
+.bell{font-size:18px;position:relative}.bell i{position:absolute;top:-4px;right:-6px;width:9px;height:9px;background:var(--r);border-radius:50%}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:22px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .l{font-size:13px;color:var(--mut);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.kpi .v{font-size:26px;font-weight:800}
+.kpi .d{font-size:12px;margin-top:6px;font-weight:700}
+.up{color:var(--g)}.down{color:var(--r)}
+.grid2{display:grid;grid-template-columns:1.7fr 1fr;gap:18px;margin-bottom:22px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.panel h3{font-size:16px;margin-bottom:4px}
+.panel .ps{font-size:12px;color:var(--mut);margin-bottom:18px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);float:right}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.chart{display:flex;align-items:flex-end;gap:8px;height:190px;padding-top:10px}
+.chart .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:3px;height:100%}
+.chart .bars{display:flex;gap:3px;align-items:flex-end;height:100%}
+.chart .rv{flex:1;background:linear-gradient(180deg,var(--b),#2b6cb0);border-radius:4px 4px 0 0;min-height:6px}
+.chart .sp{flex:1;background:linear-gradient(180deg,var(--g),#0b7a58);border-radius:4px 4px 0 0;min-height:6px;opacity:.85}
+.chart .xl{font-size:10px;color:var(--mut);text-align:center;margin-top:6px}
+.chan{margin-bottom:16px}
+.chan .topr{display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px}
+.chan .topr b{font-weight:700}.chan .topr span{color:var(--mut)}
+.track{height:9px;background:var(--card2);border-radius:6px;overflow:hidden}
+.track i{display:block;height:100%;border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--mut);font-weight:600;font-size:12px;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:13px 12px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+.camp{display:flex;align-items:center;gap:10px;font-weight:600}
+.camp .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.plat{color:var(--mut);font-size:12px}
+.pill{padding:4px 11px;border-radius:999px;font-size:11px;font-weight:700}
+.pill.on{background:rgba(18,184,134,.15);color:var(--g)}
+.pill.off{background:rgba(255,107,107,.12);color:var(--r)}
+.num{font-weight:700}.good{color:var(--g);font-weight:800}
+@media(max-width:1100px){.app{grid-template-columns:1fr}.side{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/marketing-dashboard.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="মার্কেটিং ড্যাশবোর্ড-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="মার্কেটিং ড্যাশবোর্ড, analytics dashboard demo, ডিজিটাল মার্কেটিং রিপোর্ট, ad performance dashboard, ক্যাম্পেইন ট্র্যাকিং, ড্যাশবোর্ড ডিজাইন ডেমো, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">📊 এটি একটি DEMO ড্যাশবোর্ড — Sohoz Karbar Tech Solutions কর্তৃক নমুনা</div>
+<div class="app">
+<aside class="side">
+<div class="logo">📈 <span>Ad<b>Pulse</b></span></div>
+<nav class="snav">
+<a class="on" href="#"><span class="e">📊</span> ড্যাশবোর্ড</a>
+<a href="#"><span class="e">📣</span> ক্যাম্পেইন</a>
+<a href="#"><span class="e">🎨</span> অ্যাড ক্রিয়েটিভ</a>
+<a href="#"><span class="e">👥</span> অডিয়েন্স</a>
+<a href="#"><span class="e">🛒</span> কনভার্সন</a>
+<a href="#"><span class="e">📄</span> রিপোর্ট</a>
+<a href="#"><span class="e">⚙️</span> সেটিংস</a>
+</nav>
+<div class="pro"><span class="av">SK</span><div style="font-size:13px"><b>Sohoz Karbar</b><div style="color:var(--mut);font-size:11px">Marketing Client</div></div></div>
+</aside>
+<main class="main">
+<div class="top">
+<div><h1>মার্কেটিং ওভারভিউ</h1><div class="sub">সব চ্যানেলের অ্যাড পারফরম্যান্স এক নজরে</div></div>
+<div class="search">🔍 ক্যাম্পেইন খুঁজুন...</div>
+<div class="range">📅 গত ৩০ দিন ▾</div>
+<div class="bell">🔔<i></i></div>
+</div>
+
+<div class="kpis">
+<div class="kpi"><div class="l">💸 মোট ব্যয়</div><div class="v">৳১.৪২L</div><div class="d up">▲ ১২% গত সপ্তাহে</div></div>
+<div class="kpi"><div class="l">💰 রেভিনিউ</div><div class="v">৳৬.৮৫L</div><div class="d up">▲ ৩৪%</div></div>
+<div class="kpi"><div class="l">🎯 ROAS</div><div class="v">৪.৮x</div><div class="d up">▲ ০.৬x</div></div>
+<div class="kpi"><div class="l">🛒 কনভার্সন</div><div class="v">১,২৪৮</div><div class="d up">▲ ২১%</div></div>
+<div class="kpi"><div class="l">🖱 গড় CTR</div><div class="v">২.৯%</div><div class="d down">▼ ০.২%</div></div>
+</div>
+
+<div class="grid2">
+<div class="panel">
+<span class="legend"><span><i style="background:var(--b)"></i>রেভিনিউ</span><span><i style="background:var(--g)"></i>অ্যাড ব্যয়</span></span>
+<h3>শেষ ১৪ দিনের পারফরম্যান্স</h3><div class="ps">দৈনিক ব্যয় বনাম আয় (হাজার ৳)</div>
+<div class="chart">
+<div class="col"><div class="bars"><div class="sp" style="height:34%"></div><div class="rv" style="height:48%"></div></div><div class="xl">১</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:40%"></div><div class="rv" style="height:55%"></div></div><div class="xl">২</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:38%"></div><div class="rv" style="height:52%"></div></div><div class="xl">৩</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:46%"></div><div class="rv" style="height:63%"></div></div><div class="xl">৪</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:44%"></div><div class="rv" style="height:60%"></div></div><div class="xl">৫</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:52%"></div><div class="rv" style="height:70%"></div></div><div class="xl">৬</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:58%"></div><div class="rv" style="height:76%"></div></div><div class="xl">৭</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:50%"></div><div class="rv" style="height:68%"></div></div><div class="xl">৮</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:62%"></div><div class="rv" style="height:82%"></div></div><div class="xl">৯</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:60%"></div><div class="rv" style="height:88%"></div></div><div class="xl">১০</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:68%"></div><div class="rv" style="height:92%"></div></div><div class="xl">১১</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:72%"></div><div class="rv" style="height:96%"></div></div><div class="xl">১২</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:70%"></div><div class="rv" style="height:100%"></div></div><div class="xl">১৩</div></div>
+<div class="col"><div class="bars"><div class="sp" style="height:78%"></div><div class="rv" style="height:98%"></div></div><div class="xl">১৪</div></div>
+</div>
+</div>
+<div class="panel">
+<h3>চ্যানেল অনুযায়ী ব্যয়</h3><div class="ps">বাজেট বণ্টন ও শেয়ার</div>
+<div class="chan"><div class="topr"><b><span style="color:var(--b)">📘</span> Facebook/Instagram</b><span>৳৬৮,৪০০ · ৪৮%</span></div><div class="track"><i style="width:48%;background:var(--b)"></i></div></div>
+<div class="chan"><div class="topr"><b><span style="color:var(--o)">🔍</span> Google Ads</b><span>৳৪২,৩০০ · ৩০%</span></div><div class="track"><i style="width:30%;background:var(--o)"></i></div></div>
+<div class="chan"><div class="topr"><b><span style="color:var(--r)">🎵</span> TikTok Ads</b><span>৳১৮,৯০০ · ১৩%</span></div><div class="track"><i style="width:13%;background:var(--r)"></i></div></div>
+<div class="chan"><div class="topr"><b><span style="color:var(--r)">▶️</span> YouTube</b><span>৳১২,৪০০ · ৯%</span></div><div class="track"><i style="width:9%;background:var(--p)"></i></div></div>
+<div style="margin-top:20px;background:var(--card2);border-radius:12px;padding:14px;font-size:13px;line-height:1.7">💡 <b>টিপ:</b> Facebook ক্যাম্পেইনে ROAS সর্বোচ্চ (৫.৬x) — বাজেট ১০% বাড়ানোর সুপারিশ।</div>
+</div>
+</div>
+
+<div class="panel">
+<h3>সক্রিয় ক্যাম্পেইন</h3><div class="ps">লাইভ অ্যাড ক্যাম্পেইন ও তাদের ফলাফল</div>
+<table>
+<thead><tr><th>ক্যাম্পেইন</th><th>প্ল্যাটফর্ম</th><th>স্ট্যাটাস</th><th>ব্যয়</th><th>ক্লিক</th><th>CTR</th><th>প্রতি লিড</th><th>ROAS</th></tr></thead>
+<tbody>
+<tr><td><div class="camp"><span class="ic" style="background:rgba(77,171,247,.15)">🛒</span> ঈদ সেল — কনভার্সন</div></td><td class="plat">Facebook</td><td><span class="pill on">● চালু</span></td><td class="num">৳২৪,৮০০</td><td>৯,৪২০</td><td>৩.৪%</td><td>৳৬৮</td><td class="good">৫.৬x</td></tr>
+<tr><td><div class="camp"><span class="ic" style="background:rgba(255,146,43,.15)">🔍</span> ব্র্যান্ড সার্চ — Google</div></td><td class="plat">Google</td><td><span class="pill on">● চালু</span></td><td class="num">৳১৮,২০০</td><td>৫,১১০</td><td>৪.১%</td><td>৳৭৪</td><td class="good">৪.৯x</td></tr>
+<tr><td><div class="camp"><span class="ic" style="background:rgba(255,107,107,.15)">🎵</span> ভিডিও ভিউ — TikTok</div></td><td class="plat">TikTok</td><td><span class="pill on">● চালু</span></td><td class="num">৳৯,৬০০</td><td>২২,৪০০</td><td>২.২%</td><td>৳৯২</td><td class="num">৩.৮x</td></tr>
+<tr><td><div class="camp"><span class="ic" style="background:rgba(151,117,250,.15)">📸</span> রিটার্গেটিং — IG</div></td><td class="plat">Instagram</td><td><span class="pill off">⏸ বন্ধ</span></td><td class="num">৳৭,৩০০</td><td>৩,৮৪০</td><td>২.৮%</td><td>৳৮১</td><td class="num">৪.২x</td></tr>
+<tr><td><div class="camp"><span class="ic" style="background:rgba(18,184,134,.15)">📝</span> লিড জেনারেশন</div></td><td class="plat">Facebook</td><td><span class="pill on">● চালু</span></td><td class="num">৳৮,৫০০</td><td>৬,২৩০</td><td>৩.১%</td><td class="good">৳৫৯</td><td class="good">৫.১x</td></tr>
+</tbody></table>
+</div>
+</main>
+</div>
+<script src="/demo-interact.js"></script>
+</body></html>

@@ -24,6 +24,13 @@ app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
+// Serve Frontend Static Web Files (Landing page, ERP, Admin, Workstation, etc.)
+const publicDir = path.resolve(__dirname, 'public');
+if (fs.existsSync(publicDir)) {
+  app.use(express.static(publicDir));
+  console.log(`[Static] Serving public web directory from: ${publicDir}`);
+}
+
 // Master Admin Security Key
 const MASTER_ADMIN_KEY = process.env.MASTER_ADMIN_KEY || 'SK-MASTER-BOSS-RIFAT-2026';
 
@@ -430,6 +437,29 @@ app.get('/api/admin/backup', requireAdmin, (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// ==========================================
+// STATIC FRONTEND ROUTE FALLBACKS
+// ==========================================
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/ws') || req.path.startsWith('/health')) {
+    return next();
+  }
+  const publicDir = path.resolve(__dirname, 'public');
+  const filePath = path.join(publicDir, req.path);
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    return res.sendFile(filePath);
+  }
+  const htmlPath = path.join(publicDir, req.path + '.html');
+  if (fs.existsSync(htmlPath)) {
+    return res.sendFile(htmlPath);
+  }
+  const indexPath = path.join(publicDir, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    return res.sendFile(indexPath);
+  }
+  next();
 });
 
 // ==========================================

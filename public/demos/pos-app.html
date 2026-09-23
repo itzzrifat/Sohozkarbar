@@ -1,0 +1,161 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuickPOS — পয়েন্ট অফ সেল (POS) ও বিলিং অ্যাপ ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--bg:#eef1f6;--card:#fff;--line:#e4e8f0;--g:#0b9e6f;--gd:#12b886;--o:#f59f00;--r:#e03131;--b:#3b5bdb;--ink:#1f2733;--mut:#7a8391;--dark:#1c2530}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:linear-gradient(90deg,#0b9e6f,#f59f00);color:#04241a;text-align:center;font-weight:800;padding:8px;font-size:13px}
+.posbar{background:var(--dark);color:#fff;display:flex;align-items:center;gap:18px;padding:12px 20px}
+.posbar .logo{font-size:20px;font-weight:800}.posbar .logo b{color:var(--gd)}
+.posbar .ord{background:#2b3644;padding:7px 14px;border-radius:8px;font-size:14px;font-weight:700}
+.posbar .rgt{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:14px}
+.posbar .cashier{display:flex;align-items:center;gap:8px}
+.posbar .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--o));display:flex;align-items:center;justify-content:center;font-weight:800;color:#04241a}
+.posbar button{background:var(--o);color:#1c1400;border:0;padding:8px 16px;border-radius:8px;font-weight:800;font-family:inherit;cursor:pointer;font-size:13px}
+.app{display:grid;grid-template-columns:1fr 380px;gap:16px;padding:16px}
+/* left products */
+.prods{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.search{display:flex;gap:10px;margin-bottom:14px}
+.search input{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit;outline:none}
+.search input:focus{border-color:var(--g)}
+.cats{display:flex;gap:8px;overflow:auto;margin-bottom:16px;padding-bottom:4px}
+.cats button{border:1px solid var(--line);background:#fff;padding:8px 16px;border-radius:999px;font-weight:700;font-size:13px;font-family:inherit;cursor:pointer;white-space:nowrap;color:var(--mut)}
+.cats button.on{background:var(--g);color:#fff;border-color:var(--g)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.p{border:1.5px solid var(--line);border-radius:14px;padding:16px 10px;text-align:center;cursor:pointer;transition:.15s;background:#fff}
+.p:hover{border-color:var(--g);transform:translateY(-3px);box-shadow:0 10px 22px rgba(11,158,111,.14)}
+.p .ic{font-size:38px;line-height:1;margin-bottom:8px}
+.p .nm{font-size:13px;font-weight:700;min-height:34px;display:flex;align-items:center;justify-content:center}
+.p .pr{color:var(--g);font-weight:800;font-size:16px;margin-top:6px}
+/* right cart */
+.cart{background:var(--card);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column;min-height:calc(100vh - 120px)}
+.cart h3{padding:16px 18px;border-bottom:1px solid var(--line);font-size:16px;display:flex;justify-content:space-between;align-items:center}
+.cart h3 .cnt{background:var(--g);color:#fff;font-size:12px;padding:2px 10px;border-radius:999px}
+.items{flex:1;overflow:auto;padding:8px 14px;min-height:160px}
+.it{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.it .ic{font-size:24px}
+.it .inf{flex:1}.it .nm{font-size:13px;font-weight:700}.it .pp{font-size:12px;color:var(--mut)}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:26px;height:26px;border:1px solid var(--line);background:#f4f6fa;border-radius:7px;font-weight:800;cursor:pointer;font-size:14px;line-height:1}
+.qty b{min-width:20px;text-align:center;font-size:14px}
+.it .ln{font-weight:800;font-size:13px;min-width:56px;text-align:right}
+.totals{padding:14px 18px;border-top:1px solid var(--line);font-size:14px}
+.trow{display:flex;justify-content:space-between;padding:5px 0;color:var(--mut)}
+.trow.grand{font-size:22px;font-weight:900;color:var(--ink);padding:10px 0 4px}
+.trow.grand span:last-child{color:var(--g)}
+.pay{padding:0 18px 18px}
+.pm{display:flex;gap:8px;margin-bottom:12px}
+.pm button{flex:1;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px 4px;font-weight:700;font-size:12px;font-family:inherit;cursor:pointer}
+.pm button.on{border-color:var(--g);background:#e7f8f1;color:var(--g)}
+.pay .charge{width:100%;background:var(--g);color:#fff;border:0;border-radius:12px;padding:16px;font-size:17px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 12px 26px rgba(11,158,111,.3)}
+@media(max-width:1000px){.app{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3,1fr)}.cart{min-height:auto}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/pos-app.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="POS-বিলিং অ্যাপ-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="pos demo bd, পস অ্যাপ ডেমো, বিলিং সফটওয়্যার ডেমো, ক্যাশ মেমো ডেমো, retail pos bangladesh, দোকানের বিলিং অ্যাপ, কাউন্টার বিলিং ডেমো, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">🧾 এটি একটি DEMO কাস্টম সফটওয়্যার (POS/বিলিং অ্যাপ) — Sohoz Karbar Tech Solutions</div>
+<div class="posbar">
+<span class="logo">⚡ Quick<b>POS</b></span>
+<span class="ord">🧾 অর্ডার #INV-১০৪৮২</span>
+<div class="rgt"><span>🕐 ১০:৪২ AM</span><div class="cashier"><span class="av">সা</span> সাকিব (ক্যাশিয়ার)</div><button>＋ নতুন বিল</button></div>
+</div>
+<div class="app">
+<div class="prods">
+<div class="search"><input placeholder="🔍 পণ্যের নাম বা বারকোড লিখুন..."><button style="background:var(--dark);color:#fff;border:0;border-radius:10px;padding:0 18px;font-weight:700;cursor:pointer">স্ক্যান</button></div>
+<div class="cats">
+<button class="on">সব পণ্য</button><button>🥤 খাবার</button><button>📱 ইলেকট্রনিক্স</button><button>👕 পোশাক</button><button>🧴 গ্রোসারি</button><button>🏠 হোম</button>
+</div>
+<div class="grid">
+<div class="p"><div class="ic">☕</div><div class="nm">চা (কাপ)</div><div class="pr">৳২০</div></div>
+<div class="p"><div class="ic">🥤</div><div class="nm">কোমল পানীয়</div><div class="pr">৳৪৫</div></div>
+<div class="p"><div class="ic">🍚</div><div class="nm">মিনিকেট চাল ১কেজি</div><div class="pr">৳১৪৫</div></div>
+<div class="p"><div class="ic">🍪</div><div class="nm">বিস্কুট প্যাকেট</div><div class="pr">৳৫৫</div></div>
+<div class="p"><div class="ic">🎧</div><div class="nm">ইয়ারফোন</div><div class="pr">৳৩৫০</div></div>
+<div class="p"><div class="ic">🔌</div><div class="nm">চার্জার</div><div class="pr">৳২৯০</div></div>
+<div class="p"><div class="ic">👕</div><div class="nm">সুতি টি-শার্ট</div><div class="pr">৳৪৫০</div></div>
+<div class="p"><div class="ic">🧴</div><div class="nm">হ্যান্ডওয়াশ</div><div class="pr">৳১২০</div></div>
+<div class="p"><div class="ic">🪥</div><div class="nm">টুথব্রাশ</div><div class="pr">৳৬৫</div></div>
+<div class="p"><div class="ic">💡</div><div class="nm">LED বাল্ব</div><div class="pr">৳১৮০</div></div>
+<div class="p"><div class="ic">🧼</div><div class="nm">সাবান</div><div class="pr">৳৪০</div></div>
+<div class="p"><div class="ic">📦</div><div class="nm">পলিব্যাগ (বড়)</div><div class="pr">৳১০</div></div>
+</div>
+</div>
+
+<div class="cart">
+<h3>🛒 বর্তমান বিল <span class="cnt">৪ আইটেম</span></h3>
+<div class="items">
+<div class="it"><span class="ic">🍚</span><div class="inf"><div class="nm">মিনিকেট চাল ১কেজি</div><div class="pp">৳১৪৫ × ২</div></div><div class="qty"><button>−</button><b>২</b><button>＋</button></div><span class="ln">৳২৯০</span></div>
+<div class="it"><span class="ic">🎧</span><div class="inf"><div class="nm">ইয়ারফোন</div><div class="pp">৳৩৫০ × ১</div></div><div class="qty"><button>−</button><b>১</b><button>＋</button></div><span class="ln">৳৩৫০</span></div>
+<div class="it"><span class="ic">🥤</span><div class="inf"><div class="nm">কোমল পানীয়</div><div class="pp">৳৪৫ × ৩</div></div><div class="qty"><button>−</button><b>৩</b><button>＋</button></div><span class="ln">৳১৩৫</span></div>
+<div class="it"><span class="ic">🧼</span><div class="inf"><div class="nm">সাবান</div><div class="pp">৳৪০ × ২</div></div><div class="qty"><button>−</button><b>২</b><button>＋</button></div><span class="ln">৳৮০</span></div>
+</div>
+<div class="totals">
+<div class="trow"><span>সাবটোটাল</span><span>৳৮৫৫</span></div>
+<div class="trow"><span>ভ্যাট (৫%)</span><span>৳৪৩</span></div>
+<div class="trow"><span>ডিসকাউন্ট</span><span style="color:var(--g)">− ৳৪৮</span></div>
+<div class="trow grand"><span>মোট</span><span>৳৮৫০</span></div>
+</div>
+<div class="pay">
+<div class="pm"><button class="on">💵 নগদ</button><button>💳 কার্ড</button><button>📱 বিকাশ</button></div>
+<button class="charge">✅ ৳৮৫০ পেমেন্ট নিন ও প্রিন্ট করুন</button>
+</div>
+</div>
+</div>
+<script>
+(function(){
+'use strict';
+const bn=x=>String(x).replace(/[0-9]/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+const pb=x=>parseInt(String(x).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/[^0-9]/g,''),10)||0;
+const tk=n=>'৳'+bn(Number(n).toLocaleString('en-IN'));
+// ephemeral-mode pill
+const pill=document.createElement('div');
+pill.textContent='🧪 ডেমো মোড — আপনার দেওয়া/বদলানো তথ্য শুধু এই ব্রাউজার ট্যাবের মেমোরিতে থাকে; পেজ রিফ্রেশ বা বন্ধ করলেই মুছে যায়, কোথাও সেভ হয় না।';
+pill.style.cssText='position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:#1c2530;color:#fff;padding:9px 16px;border-radius:999px;font-size:12px;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:94vw;text-align:center';
+document.body.appendChild(pill);
+function toast(msg,bad){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;top:64px;left:50%;transform:translateX(-50%);background:'+(bad?'#e03131':'#0b9e6f')+';color:#fff;padding:12px 24px;border-radius:12px;font-weight:800;z-index:10000;box-shadow:0 12px 32px rgba(0,0,0,.28);font-size:14px';document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+
+const catMap={'চা (কাপ)':'🥤 খাবার','কোমল পানীয়':'🥤 খাবার','মিনিকেট চাল ১কেজি':'🧴 গ্রোসারি','বিস্কুট প্যাকেট':'🧴 গ্রোসারি','ইয়ারফোন':'📱 ইলেকট্রনিক্স','চার্জার':'📱 ইলেকট্রনিক্স','সুতি টি-শার্ট':'👕 পোশাক','হ্যান্ডওয়াশ':'🧴 গ্রোসারি','টুথব্রাশ':'🧴 গ্রোসারি','LED বাল্ব':'🏠 হোম','সাবান':'🧴 গ্রোসারি','পলিব্যাগ (বড়)':'🏠 হোম'};
+const grid=document.querySelector('.grid');
+const cards=[...grid.querySelectorAll('.p')].map(c=>({el:c,ic:c.querySelector('.ic').textContent,nm:c.querySelector('.nm').textContent.trim(),pr:pb(c.querySelector('.pr').textContent)}));
+const items=document.querySelector('.items');
+const totals=document.querySelector('.totals');
+const cnt=document.querySelector('.cart h3 .cnt');
+const charge=document.querySelector('.charge');
+const ordNo=document.querySelector('.ord');
+let orderNo=10482, discount=48;
+let cart=[];
+[...items.querySelectorAll('.it')].forEach(it=>{cart.push({ic:it.querySelector('.ic').textContent,nm:it.querySelector('.nm').textContent.trim(),pr:pb(it.querySelector('.pp').textContent.split('×')[0]),qty:pb(it.querySelector('.qty b').textContent)});});
+function calc(){let sub=0,q=0;cart.forEach(c=>{sub+=c.pr*c.qty;q+=c.qty;});const vat=Math.round(sub*0.05);return{sub,vat,q,tot:Math.max(sub+vat-discount,0)};}
+function render(){
+ items.innerHTML='';
+ cart.forEach((c,i)=>{const d=document.createElement('div');d.className='it';
+  d.innerHTML='<span class="ic">'+c.ic+'</span><div class="inf"><div class="nm">'+c.nm+'</div><div class="pp">'+tk(c.pr)+' × '+bn(c.qty)+'</div></div><div class="qty"><button class="m">−</button><b>'+bn(c.qty)+'</b><button class="p">＋</button></div><span class="ln">'+tk(c.pr*c.qty)+'</span>';
+  d.querySelector('.m').onclick=()=>{c.qty--;if(c.qty<=0)cart.splice(i,1);render();};
+  d.querySelector('.p').onclick=()=>{c.qty++;render();};
+  items.appendChild(d);});
+ const t=calc(),rows=totals.querySelectorAll('.trow');
+ rows[0].lastElementChild.textContent=tk(t.sub);
+ rows[1].lastElementChild.textContent=tk(t.vat);
+ rows[2].lastElementChild.textContent='− '+tk(discount);
+ rows[3].lastElementChild.textContent=tk(t.tot);
+ cnt.textContent=bn(t.q)+' আইটেম';
+ charge.textContent='✅ '+tk(t.tot)+' পেমেন্ট নিন ও প্রিন্ট করুন';
+}
+cards.forEach(c=>c.el.onclick=()=>{const f=cart.find(x=>x.nm===c.nm);if(f)f.qty++;else cart.push({ic:c.ic,nm:c.nm,pr:c.pr,qty:1});toast('➕ '+c.nm+' — বিলে যোগ হয়েছে');render();});
+document.querySelectorAll('.pm button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.pm button').forEach(x=>x.classList.remove('on'));b.classList.add('on');toast('পেমেন্ট মাধ্যম: '+b.textContent.trim());});
+charge.onclick=()=>{if(!cart.length){toast('বিলে কোনো পণ্য নেই — আগে পণ্যে ট্যাপ করুন',true);return;}const t=calc();const pm=document.querySelector('.pm button.on').textContent.trim();toast('✅ পেমেন্ট সফল! '+tk(t.tot)+' ('+pm+') · রসিদ প্রিন্ট হচ্ছে… (ডেমো)');orderNo++;ordNo.textContent='🧾 অর্ডার #INV-'+bn(orderNo);cart=[];discount=0;render();};
+document.querySelector('.posbar button').onclick=()=>{cart=[];discount=0;orderNo++;ordNo.textContent='🧾 অর্ডার #INV-'+bn(orderNo);render();toast('🆕 নতুন বিল শুরু হয়েছে');};
+const srch=document.querySelector('.search input');
+srch.addEventListener('input',()=>{const q=srch.value.trim();cards.forEach(c=>c.el.style.display=(!q||c.nm.indexOf(q)>=0)?'':'none');});
+document.querySelector('.search button').onclick=()=>toast('🔎 বারকোড স্ক্যান (ডেমো) — নাম লিখে সার্চ করুন');
+document.querySelectorAll('.cats button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.cats button').forEach(x=>x.classList.remove('on'));b.classList.add('on');const cat=b.textContent.trim();cards.forEach(c=>c.el.style.display=(cat==='সব পণ্য'||catMap[c.nm]===cat)?'':'none');});
+render();
+})();
+</script>
+</body></html>

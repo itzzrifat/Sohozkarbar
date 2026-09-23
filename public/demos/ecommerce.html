@@ -1,0 +1,124 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>দোকানঘর DokanGhor — অনলাইন শপিং ডেমো</title>
+<style>@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--g:#0b5f48;--gd:#12b886;--a:#f59f00;--ink:#16222b;--mut:#6b7b85;--bg:#f4f7f6;--card:#fff;--line:#e6ecea}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Hind Siliguri","Segoe UI",system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.topbar{background:var(--g);color:#eafff6;font-size:13px;padding:8px 0;text-align:center}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.hin{display:flex;align-items:center;gap:22px;padding:16px 0}
+.logo{font-size:24px;font-weight:800;color:var(--g);white-space:nowrap}
+.logo b{color:var(--a)}
+.search{flex:1;display:flex;border:2px solid var(--g);border-radius:10px;overflow:hidden}
+.search input{flex:1;border:0;padding:12px 14px;font-size:15px;outline:none}
+.search button{background:var(--g);color:#fff;border:0;padding:0 22px;font-size:15px;font-weight:700;cursor:pointer}
+.hactions{display:flex;gap:18px;align-items:center;font-size:14px;font-weight:600}
+.cart{position:relative}
+.cart span{position:absolute;top:-9px;right:-12px;background:var(--a);color:#fff;border-radius:50%;width:20px;height:20px;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:800}
+nav.cat{background:#0e3b2f}
+.cin{display:flex;gap:6px;overflow:auto}
+.cin a{color:#cdeede;padding:13px 16px;font-size:14px;font-weight:600;white-space:nowrap;border-bottom:3px solid transparent}
+.cin a:hover{background:#0b5f48;color:#fff;border-bottom-color:var(--a)}
+.hero{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;padding:24px 0}
+.banner{background:linear-gradient(120deg,#0b5f48,#12b886);border-radius:18px;padding:42px 40px;color:#fff;position:relative;overflow:hidden;min-height:280px;display:flex;flex-direction:column;justify-content:center}
+.banner h1{font-size:38px;line-height:1.2;margin-bottom:12px}
+.banner h1 em{color:#ffe08a;font-style:normal}
+.banner p{font-size:16px;opacity:.92;margin-bottom:22px;max-width:420px}
+.banner .cta{background:var(--a);color:#16222b;font-weight:800;padding:13px 26px;border-radius:10px;display:inline-block;width:fit-content}
+.banner .deco{position:absolute;right:-30px;bottom:-40px;font-size:200px;opacity:.16}
+.side{display:flex;flex-direction:column;gap:18px}
+.sidebox{border-radius:18px;padding:26px;color:#fff;flex:1;display:flex;flex-direction:column;justify-content:center}
+.sidebox h3{font-size:20px;margin-bottom:6px}.sidebox p{font-size:13px;opacity:.9;margin-bottom:14px}
+.sidebox a{background:rgba(255,255,255,.92);color:var(--ink);font-weight:700;padding:9px 18px;border-radius:8px;width:fit-content;font-size:14px}
+.s1{background:linear-gradient(120deg,#364fc7,#5c7cfa)}.s2{background:linear-gradient(120deg,#e8590c,#ff922b)}
+.sec{padding:14px 0 40px}
+.shead{display:flex;justify-content:space-between;align-items:end;margin:18px 0 18px}
+.shead h2{font-size:24px}.shead a{color:var(--g);font-weight:700;font-size:14px}
+.chips{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 22px;text-align:center;font-weight:700;font-size:14px;min-width:104px}
+.chip .e{font-size:30px;display:block;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.p{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.2s;position:relative}
+.p:hover{box-shadow:0 14px 34px rgba(11,95,72,.14);transform:translateY(-3px)}
+.p .img{height:170px;display:flex;align-items:center;justify-content:center;font-size:72px;background:linear-gradient(160deg,#eef6f3,#e2f0eb)}
+.p .badge{position:absolute;top:10px;left:10px;background:var(--a);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:6px}
+.p .body{padding:14px}
+.p .name{font-size:14px;font-weight:700;margin-bottom:6px;min-height:38px}
+.p .rate{color:#fab005;font-size:13px;margin-bottom:8px}
+.p .rate small{color:var(--mut)}
+.p .price{font-size:18px;font-weight:800;color:var(--g)}
+.p .old{font-size:13px;color:var(--mut);text-decoration:line-through;margin-left:8px;font-weight:500}
+.p .add{margin-top:12px;width:100%;background:var(--g);color:#fff;border:0;padding:10px;border-radius:9px;font-weight:700;font-size:14px;cursor:pointer}
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;margin:8px 0 0}
+.feat div{text-align:center;font-size:14px;font-weight:600}
+.feat .e{font-size:32px;display:block;margin-bottom:8px}
+footer{background:#0e3b2f;color:#bfe3d6;margin-top:40px;padding:44px 0 20px;font-size:14px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+footer h4{color:#fff;margin-bottom:14px;font-size:15px}
+footer a{display:block;padding:5px 0;color:#bfe3d6}
+.demo-tag{text-align:center;background:var(--a);color:#16222b;font-weight:800;padding:8px;font-size:13px}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/ecommerce.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="অনলাইন শপ-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="ইকমার্স ওয়েবসাইট ডিজাইন, ecommerce website bd, অনলাইন শপ ডেমো, অনলাইন দোকান বানানো, online store design, শপিং কার্ট ডেমো, প্রোডাক্ট ক্যাটালগ ওয়েবসাইট, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">🛒 এটি একটি DEMO ওয়েবসাইট — Sohoz Karbar Tech Solutions কর্তৃক নমুনা হিসেবে তৈরি</div>
+<div class="topbar">🚚 ২,০০০৳ এর বেশি অর্ডারে ঢাকায় ফ্রি ডেলিভারি &nbsp;•&nbsp; 📞 01625-914562</div>
+<header><div class="wrap"><div class="hin">
+<a class="logo" href="#">দোকান<b>ঘর</b>.কম</a>
+<div class="search"><input placeholder="পণ্য খুঁজুন, যেমন: পাঞ্জাবি, বাসায় ব্যবহারের যন্ত্র..."><button>🔍 খুঁজুন</button></div>
+<div class="hactions"><a href="#">👤 অ্যাকাউন্ট</a><a class="cart" href="#">🛒 ব্যাগ <span>৩</span></a></div>
+</div></div>
+<nav class="cat"><div class="wrap cin">
+<a href="#">🏠 হোম</a><a href="#">👕 ফ্যাশন</a><a href="#">📱 ইলেকট্রনিক্স</a><a href="#">🏠 ঘর সাজানো</a><a href="#">🧴 বিউটি</a><a href="#">🍚 মুদি</a><a href="#">🎁 গিফট</a><a href="#">🔥 অফার</a>
+</div></nav></header>
+
+<div class="wrap"><section class="hero">
+<div class="banner"><div class="deco">🛍️</div>
+<h1>ঈদ <em>মেগা সেল</em><br>সব পণ্যে ৫০% পর্যন্ত ছাড়</h1>
+<p>দেশের সেরা ব্র্যান্ডের পণ্য এখন ঘরে বসেই — দ্রুত ডেলিভারি, সহজ রিটার্ন ও ক্যাশ অন ডেলিভারি।</p>
+<a class="cta" href="#">এখনই কেনাকাটা করুন →</a>
+</div>
+<div class="side">
+<div class="sidebox s1"><h3>📱 নতুন ইলেকট্রনিক্স</h3><p>স্মার্টফোন, ল্যাপটপ ও গ্যাজেটে বিশেষ দাম</p><a href="#">দেখুন</a></div>
+<div class="sidebox s2"><h3>🎁 গিফট কর্নার</h3><p>প্রিয়জনের জন্য বাছাই করা উপহার</p><a href="#">দেখুন</a></div>
+</div></section>
+
+<section class="sec">
+<div class="chips">
+<div class="chip"><span class="e">👗</span>পোশাক</div>
+<div class="chip"><span class="e">👟</span>জুতা</div>
+<div class="chip"><span class="e">⌚</span>ঘড়ি</div>
+<div class="chip"><span class="e">🎒</span>ব্যাগ</div>
+<div class="chip"><span class="e">🧴</span>কসমেটিক্স</div>
+<div class="chip"><span class="e">🍯</span>খাবার</div>
+</div>
+<div class="shead"><h2>🔥 বেস্ট সেলার পণ্য</h2><a href="#">সব দেখুন →</a></div>
+<div class="grid">
+<div class="p"><span class="badge">-35%</span><div class="img">👕</div><div class="body"><div class="name">পুরুষের সুতি ক্যাজুয়াল শার্ট</div><div class="rate">★★★★★ <small>(১২৪)</small></div><div class="price">৳৮৪৫ <span class="old">৳১,২৯৯</span></div><button class="add">কার্টে যোগ করুন</button></div></div>
+<div class="p"><span class="badge">-20%</span><div class="img">⌚</div><div class="body"><div class="name">স্মার্ট ওয়াচ — হার্ট রেট মনিটর</div><div class="rate">★★★★☆ <small>(৮৯)</small></div><div class="price">৳২,৩৯০ <span class="old">৳২,৯৯০</span></div><button class="add">কার্টে যোগ করুন</button></div></div>
+<div class="p"><span class="badge">নতুন</span><div class="img">👟</div><div class="body"><div class="name">মহিলা রানিং স্নিকার্স</div><div class="rate">★★★★★ <small>(৫৬)</small></div><div class="price">৳১,৫৫০</div><button class="add">কার্টে যোগ করুন</button></div></div>
+<div class="p"><span class="badge">-40%</span><div class="img">🎧</div><div class="body"><div class="name">ওয়্যারলেস নয়েজ ক্যানসেলিং হেডফোন</div><div class="rate">★★★★★ <small>(২০১)</small></div><div class="price">৳২,৯৯৯ <span class="old">৳৪,৯৯৯</span></div><button class="add">কার্টে যোগ করুন</button></div></div>
+<div class="p"><span class="badge">-15%</span><div class="img">🍚</div><div class="body"><div class="name">মিনিকেট চাল — ৫ কেজি বস্তা</div><div class="rate">★★★★☆ <small>(৩৪০)</small></div><div class="price">৳৭২০ <span class="old">৳৮৫০</span></div><button class="add">কার্টে যোগ করুন</button></div></div>
+<div class="p"><span class="badge">হট</span><div class="img">🧴</div><div class="body"><div class="name">ভিটামিন সি ফেস সিরাম ৩০মিলি</div><div class="rate">★★★★★ <small>(১৭৮)</small></div><div class="price">৳৬৯০</div><button class="add">কার্টে যোগ করুন</button></div></div>
+<div class="p"><span class="badge">-25%</span><div class="img">🎒</div><div class="body"><div class="name">ওয়াটারপ্রুফ ল্যাপটপ ব্যাকপ্যাক</div><div class="rate">★★★★☆ <small>(৭২)</small></div><div class="price">৳১,১৯০ <span class="old">৳১,৫৯০</span></div><button class="add">কার্টে যোগ করুন</button></div></div>
+<div class="p"><span class="badge">নতুন</span><div class="img">🍯</div><div class="body"><div class="name">খাঁটি সুন্দরবনের মধু — ১কেজি</div><div class="rate">★★★★★ <small>(৯৫)</small></div><div class="price">৳১,২৫০</div><button class="add">কার্টে যোগ করুন</button></div></div>
+</div>
+<div class="feat">
+<div><span class="e">🚚</span>ফাস্ট ডেলিভারি</div>
+<div><span class="e">💵</span>ক্যাশ অন ডেলিভারি</div>
+<div><span class="e">↩️</span>৭ দিনে সহজ রিটার্ন</div>
+<div><span class="e">🔒</span>নিরাপদ পেমেন্ট</div>
+</div>
+</section></div>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:#fff;margin-bottom:12px">দোকান<b>ঘর</b>.কম</div><p style="line-height:1.7">বাংলাদেশের বিশ্বস্ত অনলাইন শপ — মানসম্মত পণ্য, সেরা দাম আর নির্ভরযোগ্য সেবা।</p></div>
+<div><h4>কোম্পানি</h4><a href="#">আমাদের সম্পর্কে</a><a href="#">যোগাযোগ</a><a href="#">ক্যারিয়ার</a></div>
+<div><h4>গ্রাহক সেবা</h4><a href="#">ডেলিভারি</a><a href="#">রিটার্ন পলিসি</a><a href="#">FAQ</a></div>
+<div><h4>যোগাযোগ</h4><a href="#">📞 01625-914562</a><a href="#">✉️ info@dokanghor.demo</a><a href="#">ঢাকা, বাংলাদেশ</a></div>
+</div></div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

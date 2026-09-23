@@ -1,0 +1,130 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>রিসোর্ট সাগরকন্যা Resort Sagorkonna — হোটেল ও রিসোর্ট বুকিং ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--t:#0b7285;--td:#15aabf;--gold:#d8a838;--ink:#13303a;--mut:#5b7680;--bg:#f2fafb;--card:#fff;--line:#d9eef2}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:var(--t);color:#fff;text-align:center;font-weight:700;padding:8px;font-size:13px}
+header{position:absolute;top:34px;left:0;right:0;z-index:30}
+.hin{max-width:1160px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:22px}
+.logo{font-size:23px;font-weight:800;color:#fff;white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.nav{margin-left:auto;display:flex;gap:22px;font-weight:600;font-size:15px;color:#fff}
+.nav a{text-shadow:0 1px 6px rgba(0,0,0,.3)}
+.nav a:hover{color:var(--gold)}
+.hbtn{background:var(--gold);color:#13303a;padding:11px 22px;border-radius:999px;font-weight:800;font-size:14px}
+.hero{background:linear-gradient(180deg,rgba(7,58,68,.55),rgba(7,58,68,.85)),linear-gradient(135deg,#0b7285,#15aabf 70%,#66d9e8);color:#fff;padding:150px 20px 110px;text-align:center;position:relative}
+.hero .kicker{color:var(--gold);font-weight:800;letter-spacing:3px;font-size:13px;text-transform:uppercase}
+.hero h1{font-size:50px;line-height:1.18;margin:12px 0 14px}
+.hero p{font-size:18px;opacity:.95;margin-bottom:30px;max-width:560px;margin-left:auto;margin-right:auto}
+.bookbar{background:#fff;border-radius:14px;max-width:920px;margin:0 auto;padding:12px;display:flex;gap:8px;box-shadow:0 24px 50px rgba(0,0,0,.25);text-align:left}
+.bookbar .fi{flex:1;padding:8px 14px}
+.bookbar label{font-size:11px;font-weight:800;color:var(--mut);display:block;margin-bottom:3px}
+.bookbar input,.bookbar select{border:0;font-size:15px;font-family:inherit;outline:none;color:var(--ink);width:100%}
+.bookbar button{background:var(--t);color:#fff;border:0;border-radius:10px;padding:0 32px;font-weight:800;font-size:16px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.sec{padding:64px 0}
+.shead{text-align:center;margin-bottom:40px}
+.shead .kick{color:var(--t);font-weight:800;letter-spacing:2px;font-size:13px}
+.shead h2{font-size:34px;margin:8px 0}.shead p{color:var(--mut);max-width:580px;margin:0 auto;line-height:1.6}
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.rm{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s}
+.rm:hover{transform:translateY(-6px);box-shadow:0 20px 42px rgba(11,114,133,.16)}
+.rm .ph{height:190px;display:flex;align-items:center;justify-content:center;font-size:80px;position:relative}
+.r1{background:linear-gradient(160deg,#c5f6fa,#66d9e8)}.r2{background:linear-gradient(160deg,#fff3bf,#ffd43b)}.r3{background:linear-gradient(160deg,#d8f5a2,#94d82d)}
+.rm .cap{position:absolute;top:12px;right:12px;background:#fff;color:var(--ink);font-size:12px;font-weight:800;padding:5px 12px;border-radius:999px}
+.rm .b{padding:22px}
+.rm h3{font-size:21px;margin-bottom:8px}
+.rm .feats{font-size:13px;color:var(--mut);margin-bottom:14px;line-height:1.8}
+.rm .row{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:14px}
+.rm .pr{font-size:24px;font-weight:900;color:var(--t)}.rm .pr small{font-size:13px;color:var(--mut);font-weight:500}
+.rm a{background:var(--t);color:#fff;padding:10px 20px;border-radius:9px;font-weight:700;font-size:14px}
+.amen{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ag{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.ag div{text-align:center}.ag .e{font-size:42px;display:block;margin-bottom:10px}
+.ag h4{font-size:16px;margin-bottom:5px}.ag p{font-size:13px;color:var(--mut);line-height:1.5}
+.exp{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.ec{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.ec .ph{height:140px;display:flex;align-items:center;justify-content:center;font-size:60px}
+.e1{background:linear-gradient(160deg,#c5f6fa,#99e9f2)}.e2{background:linear-gradient(160deg,#ffe8cc,#ffa94d)}.e3{background:linear-gradient(160deg,#d3f9d8,#8ce99a)}
+.ec .b{padding:18px}.ec h3{font-size:18px;margin-bottom:6px}.ec p{font-size:14px;color:var(--mut);line-height:1.6}
+.cta{background:linear-gradient(120deg,#0b7285,#15aabf);color:#fff;border-radius:24px;padding:48px 26px;text-align:center}
+.cta h2{font-size:30px;margin-bottom:10px}.cta p{opacity:.95;margin-bottom:22px}
+.cta a{background:var(--gold);color:#13303a;font-weight:800;padding:14px 32px;border-radius:999px;display:inline-block}
+footer{background:#073a44;color:#bfe4ea;margin-top:50px;padding:46px 0 22px;font-size:14px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:13px}.fg a{display:block;padding:5px 0;color:#bfe4ea}
+.fbot{text-align:center;border-top:1px solid #125866;margin-top:32px;padding-top:18px;font-size:13px}
+@media(max-width:860px){.rooms,.exp{grid-template-columns:1fr}.ag{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:36px}.bookbar{flex-wrap:wrap}.fg{grid-template-columns:1fr 1fr}.nav{display:none}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/hotel.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="হোটেল-রিসোর্ট বুকিং-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="হোটেল বুকিং সফটওয়্যার, resort management bd, হোটেল ওয়েবসাইট ডিজাইন, room booking demo, রিসোর্ট ম্যানেজমেন্ট, hotel booking system bangladesh, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">🏝️ এটি একটি DEMO ওয়েবসাইট — Sohoz Karbar Tech Solutions কর্তৃক নমুনা হিসেবে তৈরি</div>
+<header><div class="hin">
+<a class="logo" href="#">🏖️ রিসোর্ট সাগরকন্যা</a>
+<nav class="nav"><a href="#">হোম</a><a href="#rooms">রুম</a><a href="#amen">সুবিধা</a><a href="#exp">ঘোরাঘুরি</a><a href="#">গ্যালারি</a><a href="#">যোগাযোগ</a></nav>
+<a class="hbtn" href="#">📅 বুক করুন</a>
+</div></header>
+
+<section class="hero">
+<div class="kicker">★★★★★ বিচফ্রন্ট লাক্সারি রিসোর্ট</div>
+<h1>সাগরের ঢেউয়ের পাশে <span style="color:var(--gold)">নিখুঁত ছুটি</span></h1>
+<p>কক্সবাজারের সমুদ্রসৈকতে ব্যক্তিগত সৈকত, পুল, স্পা ও সি-ভিউ রুম — পরিবার বা হানিমুনের স্বপ্নের থাকা।</p>
+<div class="bookbar">
+<div class="fi"><label>চেক-ইন</label><input type="date"></div>
+<div class="fi"><label>চেক-আউট</label><input type="date"></div>
+<div class="fi"><label>অতিথি</label><select><option>২ জন</option><option>২ জন, ১ শিশু</option><option>৪ জন</option></select></div>
+<div class="fi"><label>রুম</label><select><option>ডিলাক্স</option><option>সি-ভিউ সুইট</option><option>ফ্যামিলি ভিলা</option></select></div>
+<button>🔍 খুঁজুন</button>
+</div>
+</section>
+
+<section class="sec" id="rooms"><div class="wrap">
+<div class="shead"><div class="kick">থাকার ব্যবস্থা</div><h2>রুম ও সুইট</h2><p>আধুনিক সাজসজ্জা, সমুদ্র-দৃশ্য ও আরামদায়ক সুবিধাসহ</p></div>
+<div class="rooms">
+<div class="rm"><div class="ph r1">🛏️<span class="cap">ব্রেকফাস্ট সহ</span></div><div class="b"><h3>ডিলাক্স সি-ভিউ রুম</h3><div class="feats">🛏 কিং বেড · 🌊 সি-ভিউ · 🛁 অ্যাটাচ বাথ · ❄️ এসি · 📶 ওয়াইফাই</div><div class="row"><div class="pr">৳৬,৫০০ <small>/রাত</small></div><a href="#">বুক করুন</a></div></div></div>
+<div class="rm"><div class="ph r2">👑<span class="cap">জনপ্রিয়</span></div><div class="b"><h3>এক্সিকিউটিভ সুইট</h3><div class="feats">🛏 সুপার কিং · 🌅 ব্যালকনি · 🛁 বাথটাব · 🍽 ডিনার সহ · 📶 ওয়াইফাই</div><div class="row"><div class="pr">৳১১,০০০ <small>/রাত</small></div><a href="#">বুক করুন</a></div></div></div>
+<div class="rm"><div class="ph r3">🏡<span class="cap">পরিবারের জন্য</span></div><div class="b"><h3>বিচফ্রন্ট ফ্যামিলি ভিলা</h3><div class="feats">🛏 ২ বেডরুম · 🏊 প্রাইভেট পুল · 🍳 কিচেন · 🌴 গার্ডেন · 📶 ওয়াইফাই</div><div class="row"><div class="pr">৳১৮,৫০০ <small>/রাত</small></div><a href="#">বুক করুন</a></div></div></div>
+</div></div></section>
+
+<section class="sec amen" id="amen"><div class="wrap">
+<div class="shead"><div class="kick">রিসোর্ট সুবিধা</div><h2>আপনার আরামের জন্য সবকিছু</h2></div>
+<div class="ag">
+<div><span class="e">🏊</span><h4>ইনফিনিটি পুল</h4><p>সমুদ্রমুখী সুইমিং পুল</p></div>
+<div><span class="e">🏖️</span><h4>প্রাইভেট বিচ</h4><p>নিজস্ব পরিচ্ছন্ন সৈকত</p></div>
+<div><span class="e">💆</span><h4>স্পা ও ওয়েলনেস</h4><p>ম্যাসাজ ও রিল্যাক্সেশন</p></div>
+<div><span class="e">🍽️</span><h4>রেস্তোরাঁ</h4><p>সি-ফুড ও আন্তর্জাতিক খাবার</p></div>
+<div><span class="e">🅿️</span><h4>ফ্রি পার্কিং</h4><p>নিরাপদ গাড়ি পার্কিং</p></div>
+<div><span class="e">📶</span><h4>হাই-স্পিড ওয়াইফাই</h4><p>পুরো রিসোর্টে</p></div>
+<div><span class="e">🧺</span><h4>লন্ড্রি সার্ভিস</h4><p>দ্রুত কাপড় ধোয়া</p></div>
+<div><span class="e">🚐</span><h4>এয়ারপোর্ট পিকআপ</h4><p>অতিথি পরিবহন সুবিধা</p></div>
+</div></div></section>
+
+<section class="sec" id="exp"><div class="wrap">
+<div class="shead"><div class="kick">ঘোরাঘুরি</div><h2>আশেপাশের আকর্ষণ</h2></div>
+<div class="exp">
+<div class="ec"><div class="ph e1">🌅</div><div class="b"><h3>সূর্যাস্ত পয়েন্ট</h3><p>হাঁটা দূরত্বেই বিখ্যাত সূর্যাস্ত দেখার সৈকত।</p></div></div>
+<div class="ec"><div class="ph e2">🐚</div><div class="b"><h3>ইনানী বিচ ও কোরাল</h3><p>প্রবাল পাথর আর শান্ত সমুদ্র সৈকত ভ্রমণ।</p></div></div>
+<div class="ec"><div class="ph e3">🐟</div><div class="b"><h3>ফ্রেশ সি-ফুড মার্কেট</h3><p>তাজা মাছ-চিংড়ি কিনে রাঁধিয়ে খাওয়ার ব্যবস্থা।</p></div></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="cta">
+<h2>এবারের ছুটি কি সমুদ্রের ধারে?</h2>
+<p>আগে বুক করলে আর্লি-বার্ড ২০% ছাড়। এখনই রুম নিশ্চিত করুন।</p>
+<a href="#">📅 এখনই বুকিং করুন</a>
+</div></div></section>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:#fff;text-shadow:none">🏖️ রিসোর্ট সাগরকন্যা</div><p style="margin-top:10px;line-height:1.7">প্রকৃতি, শান্তি আর আতিথেয়তার এক অনন্য ঠিকানা।</p></div>
+<div><h4>রিসোর্ট</h4><a href="#">রুম ও সুইট</a><a href="#">সুবিধা</a><a href="#">গ্যালারি</a></div>
+<div><h4>তথ্য</h4><a href="#">বুকিং নীতি</a><a href="#">যোগাযোগ</a><a href="#">অফার</a></div>
+<div><h4>যোগাযোগ</h4><a href="#">📞 01625-914562</a><a href="#">📍 হোটেল-মোটেল জোন, কক্সবাজার</a><a href="#">✉️ stay@sagorkonna.demo</a></div>
+</div><div class="fbot">© ২০২৬ রিসোর্ট সাগরকন্যা — DEMO হোটেল/রিসোর্ট সাইট (নমুনা)। কন্টেন্ট কাল্পনিক।</div></div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

@@ -1,0 +1,110 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>স্বাদঘর ShadGhor — রেস্তোরাঁ ও ফুড অর্ডার ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--r:#d9480f;--rd:#e8590c;--y:#f59f00;--ink:#2b2118;--mut:#7a6a5b;--bg:#fff8f2;--card:#fff;--line:#f1e3d8}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:var(--r);color:#fff;text-align:center;font-weight:700;padding:8px;font-size:13px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.hin{max-width:1140px;margin:0 auto;padding:15px 20px;display:flex;align-items:center;gap:22px}
+.logo{font-size:24px;font-weight:800;color:var(--r);white-space:nowrap}
+.nav{display:flex;gap:20px;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--rd)}
+.hbtn{margin-left:auto;background:var(--r);color:#fff;padding:10px 20px;border-radius:999px;font-weight:700;font-size:14px}
+.hero{background:linear-gradient(120deg,#7a2e0b 0%,#d9480f 55%,#e8590c 100%);color:#fff;position:relative;overflow:hidden}
+.hero .wrap{max-width:1140px;margin:0 auto;padding:70px 20px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.hero .kicker{background:rgba(255,255,255,.18);display:inline-block;padding:6px 16px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:18px}
+.hero h1{font-size:46px;line-height:1.18;margin-bottom:14px}
+.hero h1 em{color:#ffe08a;font-style:normal}
+.hero p{font-size:17px;opacity:.94;margin-bottom:26px;max-width:440px;line-height:1.7}
+.hero .acts{display:flex;gap:14px;flex-wrap:wrap}
+.btn1{background:#fff;color:var(--r);font-weight:800;padding:13px 26px;border-radius:999px}
+.btn2{background:var(--y);color:#2b2118;font-weight:800;padding:13px 26px;border-radius:999px}
+.hero .plate{font-size:170px;text-align:center;filter:drop-shadow(0 20px 30px rgba(0,0,0,.3))}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.sec{padding:56px 0}
+.shead{text-align:center;margin-bottom:34px}
+.shead .kick{color:var(--rd);font-weight:800;letter-spacing:2px;font-size:13px}
+.shead h2{font-size:32px;margin:8px 0}
+.shead p{color:var(--mut);max-width:560px;margin:0 auto;line-height:1.6}
+.menu{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.dish{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-align:center;transition:.2s}
+.dish:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(217,72,15,.14)}
+.dish .ic{height:130px;display:flex;align-items:center;justify-content:center;font-size:64px;background:linear-gradient(160deg,#fff0e2,#ffe3cc)}
+.dish .b{padding:16px}
+.dish h3{font-size:17px}.dish .desc{font-size:13px;color:var(--mut);margin:6px 0 10px;line-height:1.5}
+.dish .pr{color:var(--r);font-weight:800;font-size:18px}
+.dish .add{margin-top:10px;background:#fff1e6;color:var(--r);border:1px solid var(--rd);padding:8px;border-radius:9px;width:100%;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px}
+.why{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.feat div{text-align:center}
+.feat .e{font-size:44px;display:block;margin-bottom:10px}
+.feat h4{font-size:17px;margin-bottom:6px}.feat p{font-size:13px;color:var(--mut);line-height:1.5}
+.cta{background:linear-gradient(120deg,#2b2118,#4a3826);color:#fff;text-align:center;border-radius:24px;padding:48px 26px}
+.cta h2{font-size:30px;margin-bottom:10px}.cta p{opacity:.85;margin-bottom:22px}
+.cta .btn2{display:inline-block}
+footer{background:#2b2118;color:#e6d6c8;margin-top:50px;padding:44px 0 22px;font-size:14px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:13px}.fg a{display:block;padding:5px 0;color:#e6d6c8}
+.fbot{text-align:center;border-top:1px solid #4a3826;margin-top:30px;padding-top:18px;font-size:13px}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero .plate{display:none}.menu,.feat{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr}.nav{display:none}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/restaurant.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="রেস্তোরাঁ-ফুড অর্ডার-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="রেস্তোরাঁ ওয়েবসাইট ডিজাইন, restaurant pos bd, ফুড অর্ডার অ্যাপ ডেমো, অনলাইন ফুড ডেলিভারি ডেমো, restaurant menu website, টেবিল বুকিং ডেমো, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">🍛 এটি একটি DEMO ওয়েবসাইট — Sohoz Karbar Tech Solutions কর্তৃক নমুনা হিসেবে তৈরি</div>
+<header><div class="hin">
+<a class="logo" href="#">🍽 স্বাদ<b style="color:var(--y)">ঘর</b></a>
+<nav class="nav"><a href="#">হোম</a><a href="#menu">মেনু</a><a href="#why">আমাদের বিশেষত্ব</a><a href="#">অফার</a><a href="#">যোগাযোগ</a></nav>
+<a class="hbtn" href="#">🛵 অর্ডার করুন</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+<div><span class="kicker">🔥 ঢাকার জনপ্রিয় খাবারের ঠিকানা</span>
+<h1>ঘরে বসেই <em>সেরা স্বাদের</em> খাবার, দ্রুত ডেলিভারি</h1>
+<p>দেশি-বিদেশি ৮০+ আইটেম — ঐতিহ্যবাহী বিরিয়ানি থেকে কাবাব, দেশি ভর্তা-ভাজি আর স্পেশাল মেজবান। অর্ডার করুন অনলাইনে, পৌঁছে যাবে গরম গরম।</p>
+<div class="acts"><a class="btn1" href="#menu">🍽 মেনু দেখুন</a><a class="btn2" href="#">📞 01625-914562</a></div>
+</div><div class="plate">🍛</div></div></section>
+
+<section class="sec" id="menu"><div class="wrap">
+<div class="shead"><div class="kick">আমাদের মেনু</div><h2>বেস্ট সেলিং আইটেম</h2><p>তাজা উপকরণ আর হাতে-মছলায় তৈরি গ্রাহকপ্রিয় কিছু খাবার</p></div>
+<div class="menu">
+<div class="dish"><div class="ic">🍚</div><div class="b"><h3>কাচ্চি বিরিয়ানি</h3><div class="desc">কাচের হাঁসের মাংস, বাসনা-চাল, স্পেশাল মসলা</div><div class="pr">৳২৮০</div><button class="add">+ অর্ডারে যোগ করুন</button></div></div>
+<div class="dish"><div class="ic">🍢</div><div class="b"><h3>শিক কাবাব</h3><div class="desc">কয়লার আঁচে ঝলসানো মশলাদার গরুর কাবাব</div><div class="pr">৳২২০</div><button class="add">+ অর্ডারে যোগ করুন</button></div></div>
+<div class="dish"><div class="ic">🍗</div><div class="b"><h3>তন্দুরি চিকেন</h3><div class="desc">টকদই-মসলায় মেরিনেট করা পূর্ণাঙ্গ মুরগি</div><div class="pr">৳৪২০</div><button class="add">+ অর্ডারে যোগ করুন</button></div></div>
+<div class="dish"><div class="ic">🥘</div><div class="b"><h3>গরুর ভুনা</h3><div class="desc">ঐতিহ্যবাহী স্টাইলে কষানো ঝোল-ভুনা</div><div class="pr">৳২৬০</div><button class="add">+ অর্ডারে যোগ করুন</button></div></div>
+<div class="dish"><div class="ic">🫓</div><div class="b"><h3>নান/রুটি থালা</h3><div class="desc">তন্দুরি রুটি, নান আর ঘন সব্জি</div><div class="pr">৳১৬০</div><button class="add">+ অর্ডারে যোগ করুন</button></div></div>
+<div class="dish"><div class="ic">🥤</div><div class="b"><h3>বোরহানি/লাচ্ছি</h3><div class="desc">ঘরে-বানানো ঠান্ডা পানীয়</div><div class="pr">৳৬০</div><button class="add">+ অর্ডারে যোগ করুন</button></div></div>
+<div class="dish"><div class="ic">🍮</div><div class="b"><h3>ফিরনি/জর্দা</h3><div class="desc">ভোজ শেষে মিষ্টিমুখ</div><div class="pr">৳৯০</div><button class="add">+ অর্ডারে যোগ করুন</button></div></div>
+<div class="dish"><div class="ic">🍖</div><div class="b"><h3>মেজবান গোশত</h3><div class="desc">চট্টগ্রাম স্টাইলে ঝাল ঝাল মেজবান</div><div class="pr">৳৩০০</div><button class="add">+ অর্ডারে যোগ করুন</button></div></div>
+</div></div></section>
+
+<section class="sec why" id="why"><div class="wrap">
+<div class="shead"><div class="kick">কেন আমরা</div><h2>আমাদের বিশেষত্ব</h2></div>
+<div class="feat">
+<div><span class="e">🛵</span><h4>৪৫ মিনিট ডেলিভারি</h4><p>ঢাকার ভেতরে দ্রুত ও গরম অবস্থায় পৌঁছে যায়</p></div>
+<div><span class="e">🌿</span><h4>তাজা ও হালাল</h4><p>প্রতিদিনের তাজা উপকরণ, হালাল নিশ্চয়তা</p></div>
+<div><span class="e">💰</span><h4>সাশ্রয়ী দাম</h4><p>কম্বো অফার ও রেগুলার ডিসকাউন্ট</p></div>
+<div><span class="e">⭐</span><h4>৪.৮ রেটিং</h4><p>১২,০০০+ গ্রাহকের আস্থা</p></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="cta">
+<h2>আজই খেয়ে দেখুন স্বাদঘরের বিশেষ আইটেম</h2>
+<p>বাসা, অফিস বা যেকোনো অনুষ্ঠানের অর্ডার — ক্যাটারিং সুবিধাও আছে।</p>
+<a class="btn2" href="#">🛵 এখনই অর্ডার করুন</a>
+</div></div></section>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:#fff">🍽 স্বাদঘর</div><p style="margin-top:10px;line-height:1.7">ভালো খাবার, ভালো সময় — পরিবারের সাথে স্বাদ নিন ঘরে বসেই।</p></div>
+<div><h4>মেনু</h4><a href="#">বিরিয়ানি</a><a href="#">কাবাব</a><a href="#">কম্বো</a></div>
+<div><h4>তথ্য</h4><a href="#">আমাদের সম্পর্কে</a><a href="#">ক্যাটারিং</a><a href="#">শাখা</a></div>
+<div><h4>যোগাযোগ</h4><a href="#">📞 01625-914562</a><a href="#">📍 ধানমন্ডি, ঢাকা</a><a href="#">🕚 ১০টা–রাত ১১টা</a></div>
+</div><div class="fbot">© ২০২৬ স্বাদঘর — DEMO রেস্তোরাঁ (নমুনা)। কন্টেন্ট কাল্পনিক।</div></div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

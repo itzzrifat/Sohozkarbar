@@ -1,0 +1,126 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>গ্ল্যামার অ্যাঙ্কর Glamour Anchor — বিউটি পার্লার ও স্পা ডেমো</title>
+<style>
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--p:#c2255c;--pd:#f06595;--rose:#ffe3ec;--g:#0ca678;--ink:#4a2b3a;--mut:#9c6b7f;--bg:#fff6f9;--card:#fff;--line:#f7dfe8}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{background:var(--p);color:#fff;text-align:center;font-weight:700;padding:8px;font-size:13px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.hin{max-width:1140px;margin:0 auto;padding:15px 20px;display:flex;align-items:center;gap:22px}
+.logo{font-size:23px;font-weight:800;color:var(--p);white-space:nowrap}
+.logo b{color:var(--pd)}
+.nav{margin-left:auto;display:flex;gap:20px;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--p)}
+.hbtn{background:var(--p);color:#fff;padding:11px 22px;border-radius:999px;font-weight:800;font-size:14px}
+.hero{background:linear-gradient(120deg,#c2255c,#f06595 60%,#ffa8c5);color:#fff;padding:72px 20px;position:relative;overflow:hidden}
+.hero .wrap{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
+.hero .kicker{background:rgba(255,255,255,.22);display:inline-block;padding:6px 16px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:18px}
+.hero h1{font-size:44px;line-height:1.2;margin-bottom:14px}
+.hero h1 em{color:#ffe08a;font-style:normal}
+.hero p{font-size:17px;opacity:.96;line-height:1.7;margin-bottom:26px;max-width:450px}
+.acts{display:flex;gap:14px;flex-wrap:wrap}
+.btn1{background:#fff;color:var(--p);font-weight:800;padding:13px 26px;border-radius:999px}
+.btn2{background:#4a1332;color:#fff;font-weight:800;padding:13px 26px;border-radius:999px}
+.hero .emo{font-size:150px;text-align:center;filter:drop-shadow(0 18px 30px rgba(0,0,0,.25))}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.sec{padding:60px 0}
+.shead{text-align:center;margin-bottom:36px}
+.shead .kick{color:var(--p);font-weight:800;letter-spacing:2px;font-size:13px}
+.shead h2{font-size:32px;margin:8px 0}.shead p{color:var(--mut);max-width:560px;margin:0 auto;line-height:1.6}
+.serv{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.sv{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;text-align:center;transition:.2s}
+.sv:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(194,37,92,.14)}
+.sv .e{width:70px;height:70px;margin:0 auto 14px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:34px}
+.sv h3{font-size:19px;margin-bottom:8px}.sv p{font-size:14px;color:var(--mut);line-height:1.6;margin-bottom:12px}
+.sv .pr{color:var(--p);font-weight:800;font-size:15px}
+.sv .book{display:inline-block;margin-top:12px;background:var(--p);color:#fff;padding:8px 20px;border-radius:999px;font-size:13px;font-weight:700}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pk{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;text-align:center;position:relative}
+.pk.hot{border:2px solid var(--p)}
+.pk .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--p);color:#fff;font-size:12px;font-weight:800;padding:5px 16px;border-radius:999px}
+.pk h3{font-size:20px;margin-bottom:6px}.pk .sub{color:var(--mut);font-size:13px;margin-bottom:16px}
+.pk .pr{font-size:34px;font-weight:900;color:var(--p)}.pk .pr small{font-size:14px;color:var(--mut);font-weight:500}
+.pk ul{list-style:none;margin:18px 0;text-align:left}
+.pk li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.pk li::before{content:"💗 ";}
+.pk a{display:block;background:var(--p);color:#fff;font-weight:800;padding:13px;border-radius:999px}
+.rev{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.rc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+.rc .stars{color:#f59f00;margin-bottom:10px}
+.rc p{font-size:14px;color:#6b4a58;line-height:1.7;margin-bottom:14px;font-style:italic}
+.rc .who{display:flex;align-items:center;gap:10px}
+.rc .av{width:42px;height:42px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:20px}
+.rc .who b{display:block;font-size:14px}.rc .who small{color:var(--mut)}
+.cta{background:linear-gradient(120deg,#c2255c,#ffa8c5);color:#fff;border-radius:24px;padding:48px 26px;text-align:center}
+.cta h2{font-size:28px;margin-bottom:10px}.cta p{opacity:.96;margin-bottom:22px}
+.cta .btn1{display:inline-block}
+footer{background:#3a1528;color:#e7c3d2;margin-top:50px;padding:44px 0 22px;font-size:14px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:13px}.fg a{display:block;padding:5px 0;color:#e7c3d2}
+.fbot{text-align:center;border-top:1px solid #5a2740;margin-top:30px;padding-top:18px;font-size:13px}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero .emo{display:none}.serv,.pkgs,.rev{grid-template-columns:1fr}.fg{grid-template-columns:1fr 1fr}.nav{display:none}}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/salon.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="বিউটি পার্লার-স্পা-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="বিউটি পার্লার ওয়েবসাইট, salon management bd, spa booking demo, সেলুন অ্যাপয়েন্টমেন্ট অ্যাপ, পার্লার ম্যানেজমেন্ট ডেমো, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">💅 এটি একটি DEMO ওয়েবসাইট — Sohoz Karbar Tech Solutions কর্তৃক নমুনা হিসেবে তৈরি</div>
+<header><div class="hin">
+<a class="logo" href="#">💋 গ্ল্যামার<b> অ্যাঙ্কর</b></a>
+<nav class="nav"><a href="#">হোম</a><a href="#serv">সেবা</a><a href="#pkg">প্যাকেজ</a><a href="#rev">রিভিউ</a><a href="#">গ্যালারি</a><a href="#">যোগাযোগ</a></nav>
+<a class="hbtn" href="#">📅 অ্যাপয়েন্টমেন্ট</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+<div><span class="kicker">✨ আপনার সৌন্দর্যের বিশ্বস্ত ঠিকানা</span>
+<h1>নিজেকে আরও <em>সুন্দর ও ফ্রেশ</em> অনুভব করুন</h1>
+<p>হেয়ার কাট, ফেসিয়াল, ব্রাইডাল মেকওভার, স্পা ও স্কিন কেয়ার — প্রফেশনাল আর্টিস্ট আর হাইজেনিক পরিবেশে পেয়ে যান পারফেক্ট লুক।</p>
+<div class="acts"><a class="btn1" href="#pkg">💎 প্যাকেজ দেখুন</a><a class="btn2" href="#">📞 01625-914562</a></div>
+</div><div class="emo">💆‍♀️</div></div></section>
+
+<section class="sec" id="serv"><div class="wrap">
+<div class="shead"><div class="kick">আমাদের সেবা</div><h2>জনপ্রিয় বিউটি ট্রিটমেন্ট</h2><p>প্রশিক্ষিত আর্টিস্ট ও ব্র্যান্ডেড প্রোডাক্টে নিরাপদ সেবা</p></div>
+<div class="serv">
+<div class="sv"><div class="e">💇‍♀️</div><h3>হেয়ার স্টাইলিং</h3><p>কাট, কালার, স্ট্রেটনিং ও ট্রিটমেন্টে নতুন হেয়ারলুক।</p><div class="pr">৳৫০০ থেকে</div><div class="book">বুক করুন</div></div>
+<div class="sv"><div class="e">✨</div><h3>ফেসিয়াল ও স্কিনকেয়ার</h3><p>ত্বকের ধরন বুঝে গভীর পরিচর্যা ও গ্লো ফেসিয়াল।</p><div class="pr">৳১,২০০ থেকে</div><div class="book">বুক করুন</div></div>
+<div class="sv"><div class="e">👰</div><h3>ব্রাইডাল মেকওভার</h3><p>হলুদ থেকে বিয়ে — নববধূর পূর্ণাঙ্গ সাজ ও মেকআপ।</p><div class="pr">৳৮,০০০ থেকে</div><div class="book">বুক করুন</div></div>
+<div class="sv"><div class="e">💅</div><h3>নেইল আর্ট</h3><p>ম্যানিকিওর, পেডিকিওর ও ট্রেন্ডি নেইল ডিজাইন।</p><div class="pr">৳৪০০ থেকে</div><div class="book">বুক করুন</div></div>
+<div class="sv"><div class="e">🧖‍♀️</div><h3>স্পা ও ম্যাসাজ</h3><p>ক্লান্তি দূর করতে রিল্যাক্সিং বডি স্পা ও থেরাপি।</p><div class="pr">৳১,৫০০ থেকে</div><div class="book">বুক করুন</div></div>
+<div class="sv"><div class="e">👁️</div><h3>মেকআপ ও থ্রেডিং</h3><p>পার্টি মেকআপ, আইব্রো থ্রেডিং ও পার্লার বেসিক।</p><div class="pr">৳৩০০ থেকে</div><div class="book">বুক করুন</div></div>
+</div></div></section>
+
+<section class="sec" id="pkg" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+<div class="shead"><div class="kick">বিশেষ প্যাকেজ</div><h2>সাশ্রয়ী বিউটি প্যাকেজ</h2></div>
+<div class="pkgs">
+<div class="pk"><h3>গ্লো প্যাকেজ</h3><div class="sub">ত্বকের ঝকঝকে যত্ন</div><div class="pr">৳১,৮০০<small></small></div><ul><li>গোল্ড ফেসিয়াল</li><li>থ্রেডিং + ওয়াক্স</li><li>হেয়ার ওয়াশ ও স্টাইল</li><li>হ্যান্ড পেডিকিওর</li></ul><a href="#">বুক করুন</a></div>
+<div class="pk hot"><span class="tag">⭐ জনপ্রিয়</span><h3>পার্টি প্যাকেজ</h3><div class="sub">অনুষ্ঠের সেরা লুক</h3><div class="pr">৳৩,৫০০</div><ul><li>পার্টি মেকআপ</li><li>হেয়ার স্টাইলিং</li><li>ম্যানি-পেডি</li><li>নেইল আর্ট</li></ul><a href="#">বুক করুন</a></div>
+<div class="pk"><h3>ব্রাইডাল প্যাকেজ</h3><div class="sub">স্বপ্নের বিয়ের সাজ</h3><div class="pr">৳১২,০০০</div><ul><li>পূর্ণ ব্রাইডাল মেকআপ</li><li>হলুদ/গায়েহলুদ সাজ</li><li>স্কিন প্রিপ ও ফেসিয়াল</li><li>অন-লোকেশন সার্ভিস</li></ul><a href="#">বুক করুন</a></div>
+</div></div></section>
+
+<section class="sec" id="rev"><div class="wrap">
+<div class="shead"><div class="kick">গ্রাহকদের মতামত</div><h2>যা বলছেন তাঁরা</h2></div>
+<div class="rev">
+<div class="rc"><div class="stars">★★★★★</div><p>"বিয়ের মেকআপটা এত সুন্দর হয়েছিল যে সবাই প্রশংসা করেছে। হাইজিনও দারুণ।"</p><div class="who"><span class="av">👰</span><div><b>ফারিয়া ইসলাম</b><small>ব্রাইডাল ক্লায়েন্ট</small></div></div></div>
+<div class="rc"><div class="stars">★★★★★</div><p>"নিয়মিত ফেসিয়াল আর হেয়ার কাট করাই, প্রতিবারই প্রফেশনাল সার্ভিস পাই।"</p><div class="who"><span class="av">🧕</span><div><b>সাদিয়া রহমান</b><small>রেগুলার ক্লায়েন্ট</small></div></div></div>
+<div class="rc"><div class="stars">★★★★☆</div><p>"স্পা ম্যাসাজে সারা সপ্তাহের ক্লান্তি দূর হয়ে যায়। পরিবেশ খুবই শান্ত।"</p><div class="who"><span class="av">💁‍♀️</span><div><b>নুসরাত জাহান</b><small>স্পা ক্লায়েন্ট</small></div></div></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><div class="cta">
+<h2>আজই আপনার অ্যাপয়েন্টমেন্ট বুক করুন</h2>
+<p>বিশেষ অফার ও স্লট পেতে এখনই কল করুন বা অনলাইনে সময় নির্ধারণ করুন।</p>
+<a class="btn1" href="#">📅 অনলাইনে বুক করুন</a>
+</div></div></section>
+
+<footer><div class="wrap"><div class="fg">
+<div><div class="logo" style="color:#fff">💋 গ্ল্যামার অ্যাঙ্কর</div><p style="margin-top:10px;line-height:1.7">সৌন্দর্য আর যত্নে আপনার পাশে — নিরাপদ ও হাইজেনিক সেবা।</p></div>
+<div><h4>সেবা</h4><a href="#">হেয়ার</a><a href="#">ফেসিয়াল</a><a href="#">ব্রাইডাল</a></div>
+<div><h4>তথ্য</h4><a href="#">আমাদের সম্পর্কে</a><a href="#">গ্যালারি</a><a href="#">রিভিউ</a></div>
+<div><h4>যোগাযোগ</h4><a href="#">📞 01625-914562</a><a href="#">📍 উত্তরা, ঢাকা</a><a href="#">🕐 সকাল ১০–রাত ৮</a></div>
+</div><div class="fbot">© ২০২৬ গ্ল্যামার অ্যাঙ্কর — DEMO বিউটি সেলুন সাইট (নমুনা)। কন্টেন্ট কাল্পনিক।</div></div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>

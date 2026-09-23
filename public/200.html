@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sohoz Karbar</title>
+  <script>
+    (function(){
+      var p = window.location.pathname.replace(/\/+$/, '');
+      if (p === '/admin') {
+        window.location.replace('/admin.html' + window.location.search + window.location.hash);
+      } else if (p === '/erp') {
+        window.location.replace('/erp.html' + window.location.search + window.location.hash);
+      } else if (p === '/trial') {
+        window.location.replace('/trial.html' + window.location.search + window.location.hash);
+      } else if (p === '/workstation') {
+        window.location.replace('/workstation/' + window.location.search + window.location.hash);
+      } else {
+        window.location.replace('/' + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+</head>
+<body></body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ঘুরে বেরাই Ghure Berai — ট্রাভেল ব্লগ ডেমো</title>
+<style>@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Regular.ttf') format('truetype');font-weight:400;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Medium.ttf') format('truetype');font-weight:500;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}@font-face{font-family:'Hind Siliguri';src:url('/fonts/HindSiliguri-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+:root{--p:#7048e8;--pd:#ae3ec9;--ink:#2b2b3a;--mut:#7c7c8f;--line:#ece9f7;--bg:#faf9fe;--a:#f08c00}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Hind Siliguri","Segoe UI",system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+.demo-tag{text-align:center;background:var(--p);color:#fff;font-weight:800;padding:8px;font-size:13px}
+header{position:sticky;top:0;z-index:30;background:rgba(250,249,254,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hin{max-width:1120px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;gap:26px}
+.logo{font-size:24px;font-weight:900;color:var(--p);white-space:nowrap}
+.logo b{color:var(--pd)}
+.nav{display:flex;gap:20px;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--pd)}
+.hbtn{margin-left:auto;background:var(--p);color:#fff;padding:10px 20px;border-radius:999px;font-weight:700;font-size:14px}
+.hero{max-width:1120px;margin:0 auto;padding:46px 20px 10px;text-align:center}
+.hero .kicker{color:var(--pd);font-weight:800;letter-spacing:2px;font-size:13px;text-transform:uppercase}
+.hero h1{font-size:52px;line-height:1.15;margin:14px 0;font-weight:900}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--p),var(--pd));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);font-size:18px;max-width:560px;margin:0 auto 26px;line-height:1.7}
+.subscribe{display:flex;gap:10px;justify-content:center;max-width:460px;margin:0 auto}
+.subscribe input{flex:1;padding:14px 18px;border:1px solid var(--line);border-radius:999px;font-size:15px;outline:none}
+.subscribe button{background:linear-gradient(90deg,var(--p),var(--pd));color:#fff;border:0;padding:0 26px;border-radius:999px;font-weight:700;cursor:pointer;font-size:15px}
+.cats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:34px 0 8px}
+.cats a{padding:8px 18px;border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:600;background:#fff}
+.cats a.on{background:var(--p);color:#fff;border-color:var(--p)}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 20px}
+.feat{display:grid;grid-template-columns:1.6fr 1fr;gap:24px;margin-bottom:40px}
+.big{border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 10px 30px rgba(112,72,232,.10)}
+.big .img{height:340px;background:linear-gradient(135deg,#7048e8 0%,#ae3ec9 60%,#f08c00 120%);display:flex;align-items:center;justify-content:center;font-size:120px}
+.big .body{padding:26px}
+.tag{display:inline-block;background:#f1ecff;color:var(--p);font-size:12px;font-weight:800;padding:5px 13px;border-radius:999px;margin-bottom:12px}
+.big h2{font-size:28px;line-height:1.35;margin-bottom:10px}
+.big p{color:var(--mut);line-height:1.7;margin-bottom:16px}
+.author{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--mut)}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.sidefeat{display:flex;flex-direction:column;gap:24px}
+.sf{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(112,72,232,.08);flex:1}
+.sf .img{height:150px;display:flex;align-items:center;justify-content:center;font-size:56px}
+.i1{background:linear-gradient(135deg,#0ca678,#63e6be)}.i2{background:linear-gradient(135deg,#e8590c,#ffa94d)}
+.sf .body{padding:18px}
+.sf h3{font-size:18px;line-height:1.4;margin-bottom:8px}
+.sf .meta{font-size:13px;color:var(--mut)}
+.shead{display:flex;justify-content:space-between;align-items:center;margin:30px 0 20px}
+.shead h2{font-size:26px}.shead a{color:var(--p);font-weight:700;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(112,72,232,.08);transition:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(112,72,232,.16)}
+.card .img{height:180px;display:flex;align-items:center;justify-content:center;font-size:64px}
+.c1{background:linear-gradient(135deg,#4263eb,#91a7ff)}.c2{background:linear-gradient(135deg,#c2255c,#faa2c1)}
+.c3{background:linear-gradient(135deg,#2b8a3e,#8ce99a)}.c4{background:linear-gradient(135deg,#e8590c,#ffd8a8)}
+.c5{background:linear-gradient(135deg,#5f3dc4,#d0bfff)}.c6{background:linear-gradient(135deg,#0b7285,#99e9f2)}
+.card .body{padding:20px}
+.card h3{font-size:18px;line-height:1.45;margin:10px 0 8px}
+.card p{font-size:14px;color:var(--mut);line-height:1.6;margin-bottom:14px}
+.card .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--mut)}
+.newsletter{margin-top:50px;background:linear-gradient(135deg,#7048e8,#ae3ec9);border-radius:24px;padding:48px 30px;text-align:center;color:#fff}
+.newsletter h2{font-size:30px;margin-bottom:10px}.newsletter p{opacity:.92;margin-bottom:24px}
+.newsletter .subscribe input{border:0}.newsletter .subscribe button{background:#ffd43b;color:#2b2b3a}
+footer{margin-top:50px;background:#211b3a;color:#b9b3d8;padding:44px 0 22px}
+.fg{max-width:1120px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{color:#fff;margin-bottom:14px;font-size:15px}
+footer a{display:block;padding:5px 0;font-size:14px}
+.fbot{max-width:1120px;margin:30px auto 0;padding:16px 20px 0;border-top:1px solid #37305a;font-size:13px;text-align:center}
+</style><link rel="canonical" href="https://www.sohozkarbar.pro.bd/demos/blog.html">
+<meta name="robots" content="index,follow">
+<meta name="description" content="ট্রাভেল ব্লগ-এর লাইভ ডেমো — Sohoz Karbar Tech Solutions তৈরি নমুনা। আপনার ব্যবসার জন্য এমন সমাধান চাইলে SohozKarbar ERP-র ফ্রি ট্রায়াল শুরু করুন।">
+<meta name="keywords" content="ব্লগ ওয়েবসাইট ডিজাইন, blog website bd, ট্রাভেল ব্লগ ডেমো, personal blog design, কনটেন্ট সাইট ডেমো, ব্লগিং সাইট বানানো, sohoz karbar demo, sohozkarbar ডেমো">
+</head><body>
+<div class="demo-tag">📝 এটি একটি DEMO ওয়েবসাইট — Sohoz Karbar Tech Solutions কর্তৃক নমুনা হিসেবে তৈরি</div>
+<header><div class="hin">
+<a class="logo" href="#">ঘুরে<b>বেরাই</b></a>
+<nav class="nav"><a href="#">হোম</a><a href="#">গন্তব্য</a><a href="#">ভ্রমণ গাইড</a><a href="#">খাবার</a><a href="#">টিপস</a></nav>
+<a class="hbtn" href="#">✍️ লিখুন</a>
+</div></header>
+
+<section class="hero">
+<span class="kicker">🇧🇩 বাংলাদেশের ভ্রমণ ম্যাগাজিন</span>
+<h1>দেখা হয়নি এমন <em>বাংলাদেশ</em><br>ঘুরে দেখার গল্প</h1>
+<p>পাহাড়, সমুদ্র, বন আর নদীর দেশ — প্রতি সপ্তাহে নতুন গন্তব্য, বাজেট টিপস আর ভ্রমণকারীদের বাস্তব অভিজ্ঞতা।</p>
+<div class="subscribe"><input placeholder="আপনার ইমেইল লিখুন..."><button>ফ্রি সাবস্ক্রাইব</button></div>
+<div class="cats">
+<a class="on" href="#">সব লেখা</a><a href="#">🏔 পাহাড়</a><a href="#">🏖 সমুদ্র</a><a href="#">🌳 বন-জঙ্গল</a><a href="#">🍛 স্ট্রিট ফুড</a><a href="#">🎒 বাজেট ট্রিপ</a>
+</div>
+</section>
+
+<div class="wrap">
+<section class="feat">
+<article class="big">
+<div class="img">🏕️</div>
+<div class="body">
+<span class="tag">ফিচার স্টোরি</span>
+<h2>বান্দরবানের মেঘভাঙা পাহাড়ে তিন দিন — সম্পূর্ণ বাজেট ও গাইড</h2>
+<p>নীলগিরি, চিম্বুক আর নাফাখুম ঝর্ণা ঘুরে দেখার খুঁটিনাটি: কোথায় থাকবেন, কীভাবে যাবেন, আর কত খরচ হতে পারে। স্থানীয় গাইড ও নিরাপত্তা টিপসসহ বিস্তারিত ভ্রমণকাহিনি।</p>
+<div class="author"><span class="avatar">রা</span><span><b>রাফি হাসান</b> • ৮ মিনিট পড়া • সেপ্টেম্বর ০৫, ২০২৬</span></div>
+</div></article>
+<div class="sidefeat">
+<article class="sf"><div class="img i1">🌊</div><div class="body"><span class="tag">সমুদ্র</span><h3>কক্সবাজারের বাইরে: সেন্টমার্টিনে ২ দিন</h3><div class="meta">✈️ মুনিয়া • ৫ মিনিট</div></div></article>
+<article class="sf"><div class="img i2">🍜</div><div class="body"><span class="tag">খাবার</span><h3>ঢাকার সেরা ১০টি স্ট্রিট ফুড যা মিস করবেন না</h3><div class="meta">🍽 তানভীর • ৬ মিনিট</div></div></article>
+</div>
+</section>
+
+<div class="shead"><h2>📖 সাম্প্রতিক লেখা</h2><a href="#">সব লেখা দেখুন →</a></div>
+<div class="grid">
+<article class="card"><div class="img c1">🚤</div><div class="body"><span class="tag">নদীভ্রমণ</span><h3>ট্রলারে চড়ে সুন্দরবনের ভেতরে একদিন</h3><p>রয়েল বেঙ্গল টাইগারের খোঁজে ম্যানগ্রোভের হাজার খালের গল্প।</p><div class="meta"><span>🦁 শাকিল</span><span>৭ মিনিট</span></div></div></article>
+<article class="card"><div class="img c2">🏯</div><div class="body"><span class="tag">ঐতিহাসিক</span><h3>পুরোন ঢাকার হারিয়ে যাওয়া স্থাপত্যকথা</h3><p>লালবাগ কেল্লা থেকে আহসান মঞ্জিল — ইতিহাসের জীবন্ত সাক্ষী।</p><div class="meta"><span>🏛 নুসরাত</span><span>৬ মিনিট</span></div></div></article>
+<article class="card"><div class="img c3">🌿</div><div class="body"><span class="tag">বন-জঙ্গল</span><h3>লাউয়াছড়া জাতীয় উদ্যানে ট্রেকিং গাইড</h3><p>শ্রীমঙ্গলের চা-বাগান আর কুয়াশা ঢাকা বনপথে হাঁটার অভিজ্ঞতা।</p><div class="meta"><span>🐒 অভি</span><span>৫ মিনিট</span></div></div></article>
+<article class="card"><div class="img c4">🌅</div><div class="body"><span class="tag">বাজেট ট্রিপ</span><h3>১৫০০ টাকায় কুয়াকাটা: রাঙা সূর্যোদয়ের দেশে</h3><p>একদিনের গরুর মাঠের সমুদ্র আর রক্তাক্ত সূর্যাস্তের ঠিকানা।</p><div class="meta"><span>🌊 সিয়াম</span><span>৮ মিনিট</span></div></div></article>
+<article class="card"><div class="img c5">⛰️</div><div class="body"><span class="tag">পাহাড়</span><h3>জাফলং থেকে বিছনাকান্দি: সাদা পাথরের দেশ</h3><p>মেঘালয়ের পাদদেশে স্বচ্চ পানির নদী আর পাথরের সাম্রাজ্য।</p><div class="meta"><span>💧 জেরিন</span><span>৬ মিনিট</span></div></div></article>
+<article class="card"><div class="img c6">🎒</div><div class="body"><span class="tag">ভ্রমণ টিপস</span><h3>নতুন ভ্রমণকারীদের জন্য ১২টি ব্যাকপ্যাকিং টিপস</h3><p>প্যাকিং থেকে বাজেট — প্রথম ট্রিপটি ঝামেলাহীন করতে যা জানা দরকার।</p><div class="meta"><span>🧭 মেহেদি</span><span>৪ মিনিট</span></div></div></article>
+</div>
+
+<section class="newsletter">
+<h2>প্রতি সপ্তাহে নতুন ভ্রমণকাহিনি মেইলে পান</h2>
+<p>৩,২০০+ ভ্রমণপ্রেমীর সাথে যুক্ত হন — কোনো স্প্যাম নয়, যেকোনো সময় আনসাবস্ক্রাইব।</p>
+<div class="subscribe"><input placeholder="ইমেইল ঠিকানা..."><button>যোগ দিন</button></div>
+</section>
+</div>
+
+<footer><div class="fg">
+<div><div class="logo" style="color:#fff;margin-bottom:12px">ঘুরে<b>বেরাই</b></div><p style="line-height:1.7;font-size:14px">বাংলাদেশের সৌন্দর্য বিশ্বের কাছে তুলে ধরতে আমাদের ভ্রমণকাহিনি, গাইড ও টিপস।</p></div>
+<div><h4>বিভাগ</h4><a href="#">গন্তব্য</a><a href="#">ভ্রমণ গাইড</a><a href="#">খাবার</a><a href="#">টিপস</a></div>
+<div><h4>প্রতিষ্ঠান</h4><a href="#">আমাদের সম্পর্কে</a><a href="#">লেখক হোন</a><a href="#">যোগাযোগ</a></div>
+<div><h4>সোশ্যাল</h4><a href="#">📘 Facebook</a><a href="#">📸 Instagram</a><a href="#">▶️ YouTube</a></div>
+</div><div class="fbot">© ২০২৬ ঘুরে বেরাই — DEMO ব্লগ (নমুনা)। কন্টেন্ট কাল্পনিক।</div></footer>
+<script src="/demo-interact.js"></script>
+</body></html>
