@@ -161,6 +161,110 @@ app.post('/api/trial/register', (req, res) => {
 });
 
 // ==========================================
+// 2.5 PUBLIC LICENSE LOOKUP & ACTIVATION
+// ==========================================
+
+// Lookup license by key (for ERP activation & sync)
+app.get('/api/licenses/get-by-key', (req, res) => {
+  try {
+    const rawKey = req.query.key || req.query.k;
+    if (!rawKey) return res.status(400).json({ error: 'License key is required.' });
+    const cleanKey = String(rawKey).trim().toUpperCase();
+
+    const lic = db.prepare('SELECT * FROM licenses WHERE key = ? OR id = ? LIMIT 1').get(cleanKey, cleanKey);
+    if (!lic) return res.status(404).json({ error: 'License key not found.' });
+
+    res.json({
+      ok: true,
+      id: lic.id,
+      key: lic.key,
+      tenantId: lic.tenant_id,
+      customerName: lic.customer_name,
+      businessName: lic.business_name,
+      plan: lic.plan,
+      licenseType: lic.license_type,
+      maxDevices: lic.max_devices,
+      expiresAt: lic.expires_at,
+      status: lic.status,
+      mobile: lic.mobile,
+      email: lic.email,
+      notes: lic.notes,
+      firebaseConfig: lic.firebase_config ? JSON.parse(lic.firebase_config) : null
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Verify & Register Device (Public endpoint for client ERP apps)
+app.all(['/api/licenses/verify', '/api/licenses/activate'], (req, res) => {
+  try {
+    const key = (req.body?.key || req.query.key || '').trim().toUpperCase();
+    const hardwareId = (req.body?.hardwareId || req.query.hardwareId || '').trim();
+
+    if (!key) return res.status(400).json({ error: 'License key is required.' });
+
+    const lic = db.prepare('SELECT * FROM licenses WHERE key = ? OR id = ? LIMIT 1').get(key, key);
+    if (!lic) return res.status(404).json({ error: 'License key not found in system.' });
+
+    if (lic.status === 'blocked') return res.status(403).json({ error: 'This license is blocked by administrator.' });
+    if (lic.status === 'revoked') return res.status(403).json({ error: 'This license has been revoked.' });
+
+    const now = Date.now();
+    if (lic.expires_at && lic.expires_at > 0 && lic.expires_at < now) {
+      return res.status(403).json({ error: 'This license has expired. Please contact Rifat Uddin to renew.' });
+    }
+
+    // Register / Track Device if hardwareId provided
+    if (hardwareId) {
+      const maxDev = Number(lic.max_devices || 1);
+      const devCount = db.prepare('SELECT COUNT(*) as count FROM tenant_devices WHERE tenant_id = ?').get(lic.tenant_id);
+      const existingDev = db.prepare('SELECT * FROM tenant_devices WHERE tenant_id = ? AND hardware_id = ?').get(lic.tenant_id, hardwareId);
+
+      if (!existingDev && devCount.count >= maxDev && maxDev < 99999) {
+        return res.status(403).json({
+          error: `License limit reached (${maxDev} device(s) registered). Contact administrator to reset devices.`,
+          maxDevices: maxDev,
+          currentCount: devCount.count
+        });
+      }
+
+      const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+      if (!existingDev) {
+        db.prepare(`
+          INSERT INTO tenant_devices (tenant_id, hardware_id, ip, last_seen)
+          VALUES (?, ?, ?, ?)
+        `).run(lic.tenant_id, hardwareId, clientIp, now);
+      } else {
+        db.prepare('UPDATE tenant_devices SET last_seen = ?, ip = ? WHERE id = ?').run(now, clientIp, existingDev.id);
+      }
+    }
+
+    res.json({
+      valid: true,
+      success: true,
+      license: {
+        id: lic.id,
+        key: lic.key,
+        tenantId: lic.tenant_id,
+        customerName: lic.customer_name,
+        businessName: lic.business_name,
+        plan: lic.plan,
+        licenseType: lic.license_type,
+        maxDevices: lic.max_devices,
+        expiresAt: lic.expires_at,
+        status: lic.status,
+        mobile: lic.mobile,
+        email: lic.email,
+        notes: lic.notes
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ==========================================
 // 3. TENANT DATA CRUD (Match FirebaseService)
 // ==========================================
 
