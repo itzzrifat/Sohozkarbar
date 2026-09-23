@@ -2435,10 +2435,85 @@ html.theme-transition, html.theme-transition * {
 }
 
 /* Glassmorphism sidebar & topbar */
+/* Pure Light Theme Enforced Sidebar */
 .sidebar {
-    background: rgba(15, 23, 42, 0.96) !important;
-    backdrop-filter: blur(20px) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    border-right: 1px solid #e2e8f0 !important;
+    box-shadow: 1px 0 6px rgba(0, 0, 0, 0.03) !important;
+}
+.sidebar-nav {
+    background: #ffffff !important;
+}
+.sidebar-cat-header {
+    color: #334155 !important;
+    background: transparent !important;
+}
+.sidebar-cat-header:hover {
+    background: #f1f5f9 !important;
+    color: #0284c7 !important;
+}
+.sidebar-cat.open .sidebar-cat-header {
+    background: #e0f2fe !important;
+    color: #0284c7 !important;
+}
+.sidebar-cat.open .sidebar-cat-header i.cat-icon {
+    color: #0284c7 !important;
+}
+.sidebar-submenu {
+    border-left: 2px solid #e2e8f0 !important;
+    background: #ffffff !important;
+}
+.sidebar-submenu a {
+    color: #64748b !important;
+}
+.sidebar-submenu a:hover {
+    color: #0284c7 !important;
+    background: #f1f5f9 !important;
+}
+.sidebar-submenu a.active {
+    color: #0284c7 !important;
+    background: #e0f2fe !important;
+    font-weight: 600 !important;
+}
+.cat-count {
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1px solid #e2e8f0 !important;
+}
+.sidebar-footer {
+    background: #f8fafc !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+[data-theme="dark"] .sidebar {
+    background: #0b1120 !important;
+    border-right: 1px solid #1e293b !important;
+}
+[data-theme="dark"] .sidebar-nav {
+    background: #0b1120 !important;
+}
+[data-theme="dark"] .sidebar-cat-header {
+    color: #cbd5e1 !important;
+}
+[data-theme="dark"] .sidebar-cat-header:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #38bdf8 !important;
+}
+[data-theme="dark"] .sidebar-cat.open .sidebar-cat-header {
+    background: rgba(2, 132, 199, 0.2) !important;
+    color: #38bdf8 !important;
+}
+[data-theme="dark"] .sidebar-submenu a {
+    color: #94a3b8 !important;
+}
+[data-theme="dark"] .sidebar-submenu a:hover {
+    color: #38bdf8 !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+[data-theme="dark"] .cat-count {
+    background: #1e293b !important;
+    color: #94a3b8 !important;
+    border-color: #334155 !important;
 }
 
 .topbar {
@@ -5845,7 +5920,19 @@ window.NX_IMPORT = (function(){
             const resp = await fetch('https://sohozkarbar.onrender.com/api/admin/licenses?adminKey=SK-MASTER-BOSS-RIFAT-2026');
             if (resp.ok) {
                 const data = await resp.json();
-                if (Array.isArray(data) && data.length > 0) return data;
+                if (Array.isArray(data) && data.length > 0) {
+                    return data.map(l => ({
+                        ...l,
+                        customerName: l.customerName || l.customer_name || '',
+                        businessName: l.businessName || l.business_name || '',
+                        tenantId: l.tenantId || l.tenant_id || '',
+                        licenseType: l.licenseType || l.license_type || 'standard',
+                        maxDevices: l.maxDevices ?? l.max_devices ?? 1,
+                        expiresAt: l.expiresAt ?? l.expires_at ?? null,
+                        trialDays: l.trialDays ?? l.trial_days ?? 0,
+                        devices: (l.devices || []).map(d => typeof d === 'string' ? { hardwareId: d } : { ...d, hardwareId: d.hardwareId || d.hardware_id })
+                    }));
+                }
             }
         } catch (e) {}
         try {

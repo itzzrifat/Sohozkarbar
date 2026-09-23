@@ -434,7 +434,22 @@ app.get('/api/admin/licenses', requireAdmin, (req, res) => {
       const devs = db.prepare('SELECT * FROM tenant_devices WHERE tenant_id = ?').all(l.tenant_id);
       return {
         ...l,
-        devices: devs,
+        customerName: l.customer_name,
+        businessName: l.business_name,
+        tenantId: l.tenant_id,
+        licenseType: l.license_type,
+        maxDevices: l.max_devices,
+        expiresAt: l.expires_at,
+        trialDays: l.trial_days,
+        createdAt: l.created_at,
+        updatedAt: l.updated_at,
+        firebaseConfig: l.firebase_config ? (typeof l.firebase_config === 'string' ? JSON.parse(l.firebase_config) : l.firebase_config) : null,
+        devices: devs.map(d => ({
+          ...d,
+          hardwareId: d.hardware_id,
+          tenantId: d.tenant_id,
+          lastSeen: d.last_seen
+        })),
         activeDeviceCount: devs.length
       };
     });
