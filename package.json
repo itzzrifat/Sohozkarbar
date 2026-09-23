@@ -1,0 +1,18 @@
+{
+  "name": "sohozkarbar-central-server",
+  "version": "1.0.0",
+  "description": "SohozKarbar ERP Central Multi-Tenant Cloud & Real-Time Sync Server",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  },
+  "author": "Rifat Uddin (Sohoz Karbar Tech Solutions)",
+  "license": "Proprietary"
+}

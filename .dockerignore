@@ -1,0 +1,5 @@
+node_modules
+backups
+*.log
+.git
+sohozkarbar_master.db*
