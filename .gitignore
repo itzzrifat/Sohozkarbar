@@ -1,5 +1,6 @@
 node_modules/
 backups/
 *.log
+*.db*
 .env
 .DS_Store
