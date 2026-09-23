@@ -97,4 +97,47 @@ export function initDatabase() {
   `);
 
   console.log('[Database] All core tables and indexes initialized successfully.');
+
+  // Seed / Ensure Founder Master Lifetime License exists
+  const founderKey = 'SK-RIFAT-BOSS-2209-1996';
+  const existingFounder = db.prepare('SELECT key FROM licenses WHERE key = ?').get(founderKey);
+  if (!existingFounder) {
+    db.prepare(`
+      INSERT INTO licenses (
+        key, id, customer_name, business_name, tenant_id,
+        license_type, plan, trial_days, max_devices, expires_at,
+        status, mobile, email, notes, created_at, updated_at
+      ) VALUES (
+        ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?
+      )
+    `).run(
+      founderKey,
+      'lic_rifat_founder_master',
+      'Rifat Uddin',
+      'Sohoz Karbar Tech Solutions',
+      'tenant_rifat_boss',
+      'master_lifetime',
+      'founder_unlimited',
+      0,
+      999999, // Unlimited devices
+      4102444799000, // Year 2100 - Lifetime
+      'active',
+      '+8801625914562',
+      'rifat4440@gmail.com',
+      'Official Founder Master Lifetime License — Unlimited Devices & Full SaaS Capability',
+      Date.now(),
+      Date.now()
+    );
+    console.log(`[Database] 👑 Founder Master Lifetime License seeded: ${founderKey}`);
+  }
+}
+
+export function resetAllLicenses() {
+  db.exec('DELETE FROM tenant_devices;');
+  db.exec('DELETE FROM tenant_records;');
+  db.exec('DELETE FROM trial_leads;');
+  db.prepare('DELETE FROM licenses WHERE key != ?').run('SK-RIFAT-BOSS-2209-1996');
+  console.log('[Database] 🧹 All licenses reset. Founder Master License preserved.');
 }

@@ -4,7 +4,7 @@ import http from 'http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import { db, initDatabase } from './db.js';
+import { db, initDatabase, resetAllLicenses } from './db.js';
 import { setupSyncHub, broadcastToTenant, getOnlineStats } from './sync_hub.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -434,6 +434,26 @@ app.get('/api/admin/backup', requireAdmin, (req, res) => {
   try {
     const dbFile = path.resolve(__dirname, 'sohozkarbar_master.db');
     res.download(dbFile, `sohozkarbar_backup_${Date.now()}.db`);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Master Reset All Licenses (Preserves Founder Master License)
+app.all('/api/admin/reset-licenses', requireAdmin, (req, res) => {
+  try {
+    resetAllLicenses();
+    res.json({
+      success: true,
+      message: 'All licenses reset successfully. Only Founder Master Lifetime License remains active.',
+      founderLicense: {
+        key: 'SK-RIFAT-BOSS-2209-1996',
+        owner: 'Rifat Uddin',
+        plan: 'founder_unlimited',
+        maxDevices: 'Unlimited',
+        validity: 'Lifetime'
+      }
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

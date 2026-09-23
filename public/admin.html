@@ -2189,6 +2189,56 @@ html.theme-transition, html.theme-transition * {
 /* Enhanced form sections for invoice */
 .form-section { border-left: 4px solid #6366f1 !important; background: linear-gradient(135deg, rgba(99,102,241,0.03), rgba(255,255,255,0)) !important; }
 .form-section h6 { color: #6366f1 !important; }
+
+/* =============================================================
+   SOHOZKARBAR ENTERPRISE ADMIN REDESIGN (2026 EDITION)
+   ============================================================= */
+.sidebar {
+    background: rgba(15, 23, 42, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.topbar {
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+}
+[data-theme="dark"] .topbar {
+    background: rgba(11, 17, 32, 0.88) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+.card, .stat-card {
+    border-radius: 16px !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+[data-theme="dark"] .card, [data-theme="dark"] .stat-card {
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3) !important;
+}
+.card:hover, .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
+}
+.btn {
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.btn:active {
+    transform: scale(0.97) !important;
+}
+.founder-crown {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 900;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+}
 </style>
 <!-- ===== PWA extras ===== -->
 <meta name="mobile-web-app-capable" content="yes">
@@ -17392,6 +17442,8 @@ window.Modules['license-settings']={
                                 <span class="conn-status conn-online" id="connBadge" title="Connection status"><i class="fas fa-circle"></i> <span>Online</span></span>
                                 
                                 <a href="https://sohozkarbar.onrender.com/api/admin/backup?adminKey=SK-MASTER-BOSS-RIFAT-2026" class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1" id="btnMasterBackup" title="Download Master Cloud Database Backup" style="border-radius:10px;font-weight:700;padding:6px 12px;font-size:12px;text-decoration:none;border:1px solid #10b981;color:#10b981;background:rgba(16,185,129,0.1);"><i class="fas fa-database"></i> <span>Cloud Backup</span></a>
+                                
+                                <button type="button" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1" onclick="if(confirm('সাবধান! আপনি কি নিশ্চিত সব টেস্ট লাইসেন্স ও ডেটা রিসেট করতে চান? (প্রতিষ্ঠাতার লাইসেন্স SK-RIFAT-BOSS-2209-1996 অক্ষত থাকবে)')){ fetch('https://sohozkarbar.onrender.com/api/admin/reset-licenses?adminKey=SK-MASTER-BOSS-RIFAT-2026').then(r=>r.json()).then(d=>{alert(d.message); location.reload();}); }" title="Reset All Licenses" style="border-radius:10px;font-weight:700;padding:6px 12px;font-size:12px;border:1px solid #ef4444;color:#ef4444;background:rgba(239,68,68,0.08);cursor:pointer;"><i class="fas fa-trash-can"></i> <span>Reset Licenses</span></button>
                                 
                                 <button class="btn-icon" id="nx_topbar_hard_refresh" onclick="window.NX_HARD_REFRESH&&window.NX_HARD_REFRESH()" title="Hard refresh (clear cache & reload)" style="border-radius:10px;font-weight:800;font-size:14px;background:rgba(14,165,233,0.12);color:#0284c7;border:1px solid rgba(14,165,233,0.3);width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;"><i class="fas fa-arrows-rotate"></i></button>
                                 <button class="btn-icon" id="themeToggle" title="Toggle theme"><i class="fas fa-moon"></i></button>
