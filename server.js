@@ -450,17 +450,23 @@ app.get('/api/admin/backup-json', requireAdmin, (req, res) => {
   try {
     const licenses = db.prepare('SELECT * FROM licenses').all();
     const devices = db.prepare('SELECT * FROM tenant_devices').all();
-    const auditLogs = db.prepare('SELECT * FROM audit_logs ORDER BY timestamp DESC LIMIT 500').all();
-    const tenantData = db.prepare('SELECT tenant_id, data_key, updated_at FROM tenant_data').all();
+    let records = [];
+    try { records = db.prepare('SELECT tenant_id, collection_name, doc_id, updated_at FROM tenant_records').all(); } catch (e) {}
+    let leads = [];
+    try { leads = db.prepare('SELECT * FROM trial_leads').all(); } catch (e) {}
+    let auditLogs = [];
+    try { auditLogs = db.prepare('SELECT * FROM admin_audit_logs ORDER BY created_at DESC LIMIT 500').all(); } catch (e) {}
     
     const dump = {
       export_date: new Date().toISOString(),
       system: 'SohozKarbar Master Cloud ERP Hub',
       total_licenses: licenses.length,
       total_devices: devices.length,
+      total_records: records.length,
       licenses,
       devices,
-      tenantData,
+      records,
+      trialLeads: leads,
       auditLogs
     };
     
