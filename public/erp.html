@@ -2169,8 +2169,124 @@ html.theme-transition, html.theme-transition * {
     border-radius: 16px;
     padding: 20px;
     box-shadow: var(--shadow-lg);
+/* =============================================================
+   SOHOZKARBAR ENTERPRISE PREMIUM REDESIGN (2026 EDITION)
+   Theme: Ultra-Modern Fintech & SaaS Aesthetics
+   ============================================================= */
+:root {
+    --primary: #4f46e5;
+    --primary-2: #6366f1;
+    --primary-3: #8b5cf6;
+    --success: #10b981;
+    --success-dark: #059669;
+    --radius: 16px;
+    --radius-sm: 10px;
 }
-/*removed*/
+
+/* Glassmorphism sidebar & topbar */
+.sidebar {
+    background: rgba(15, 23, 42, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.topbar {
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-theme="dark"] .topbar {
+    background: rgba(11, 17, 32, 0.88) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Modern Card Glows & Lifts */
+.card, .stat-card, .metric-card {
+    border-radius: var(--radius) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-theme="dark"] .card, [data-theme="dark"] .stat-card, [data-theme="dark"] .metric-card {
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.card:hover, .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Buttons with tactile feedback */
+.btn {
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px !important;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn:active {
+    transform: scale(0.97) !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35) !important;
+    border: none !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+    border: none !important;
+}
+
+/* Live Cloud Sync Indicator Pill */
+.sk-cloud-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 800;
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.sk-cloud-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    animation: skPulse 2s infinite;
+}
+
+@keyframes skPulse {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Polished tables */
+.table {
+    border-collapse: separate !important;
+    border-spacing: 0 4px !important;
+}
+
+.table tbody tr {
+    transition: background 0.15s ease !important;
+    border-radius: 10px !important;
+}
+
+.table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.04) !important;
+}
 
     </style>
 
@@ -17179,6 +17295,8 @@ window.Modules['license-settings']={
                             <div class="ms-auto d-flex align-items-center gap-2">
                                 
                                 <span class="conn-status conn-online" id="connBadge" title="Connection status"><i class="fas fa-circle"></i> <span>Online</span></span>
+                                
+                                <span class="sk-cloud-pill" id="skLiveSyncBadge" title="Central Multi-Tenant Cloud Live Sync"><span class="sk-cloud-dot"></span><span>Sohoz Cloud Live Sync</span></span>
                                 
                                 <button class="btn-icon" id="nx_topbar_hard_refresh" onclick="window.NX_HARD_REFRESH&&window.NX_HARD_REFRESH()" title="Hard refresh (clear cache & reload)" style="border-radius:10px;font-weight:800;font-size:14px;background:rgba(14,165,233,0.12);color:#0284c7;border:1px solid rgba(14,165,233,0.3);width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;"><i class="fas fa-arrows-rotate"></i></button>
                                 <button class="btn-icon" id="themeToggle" title="Toggle theme"><i class="fas fa-moon"></i></button>

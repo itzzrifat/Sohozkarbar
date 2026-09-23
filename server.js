@@ -447,6 +447,10 @@ app.get('*', (req, res, next) => {
     return next();
   }
   const publicDir = path.resolve(__dirname, 'public');
+  if (req.path === '/workstation' || req.path === '/workstation/') {
+    const wsIndex = path.join(publicDir, 'workstation', 'index.html');
+    if (fs.existsSync(wsIndex)) return res.sendFile(wsIndex);
+  }
   const filePath = path.join(publicDir, req.path);
   if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     return res.sendFile(filePath);

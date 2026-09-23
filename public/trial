@@ -70,6 +70,7 @@ body{min-height:100vh;color:#e8edf5;background:#0b1220;padding:30px 16px 60px;
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="/app-updater.js?v=1787291000000" defer></script>
+<meta name="keywords" content="SohozKarbar ERP ফ্রি ট্রায়াল, দোকানের হিসাব সফটওয়্যার ফ্রি ট্রায়াল, ফ্রি ERP ট্রায়াল বাংলাদেশ, free erp trial bd, sohozkarbar demo, POS trial bd, hisab software free trial, ব্যবসার হিসাব ফ্রি, sohozkarbar ফ্রি, ট্রায়াল অ্যাকাউন্ট, ডেমো দেখুন, erp ব্যবহার দেখুন, free pos demo, billing demo bd, কার্ড ছাড়া ট্রায়াল, মোবাইলে ট্রায়াল, ইনস্ট্যান্ট ট্রায়াল, ফ্রিতে শুরু করুন">
 </head>
 <body>
 <div class="wrap">
@@ -166,7 +167,7 @@ body{min-height:100vh;color:#e8edf5;background:#0b1220;padding:30px 16px 60px;
       </div>
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
         <button class="btn ghost" id="copyCredBtn" style="flex:1;"><i class="fas fa-copy"></i> Copy ID & Password</button>
-        <a class="btn indigo" href="/erp" style="flex:1;text-align:center;"><i class="fas fa-rocket"></i> Go to Customer ERP App →</a>
+        <a class="btn indigo" href="/erp.html" style="flex:1;text-align:center;"><i class="fas fa-rocket"></i> Go to Customer ERP App →</a>
       </div>
     </div>
 
@@ -502,5 +503,6 @@ body{min-height:100vh;color:#e8edf5;background:#0b1220;padding:30px 16px 60px;
   init();
 })();
 </script>
+<script src="/sk-views.js?v=1788370000000" defer></script>
 </body>
 </html>
