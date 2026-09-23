@@ -50,37 +50,37 @@
    ============================================================= */
 
 :root {
-    --primary: #6366f1;
-    --primary-2: #8b5cf6;
-    --primary-3: #ec4899;
+    --primary: #0284c7;
+    --primary-2: #0369a1;
+    --primary-3: #0ea5e9;
     --success: #10b981;
     --danger: #ef4444;
     --warning: #f59e0b;
-    --info: #06b6d4;
+    --info: #0ea5e9;
     --dark: #0f172a;
     --gray: #64748b;
     --gray-2: #94a3b8;
     --gray-3: #cbd5e1;
     --light: #f8fafc;
     --border: #e2e8f0;
-    --bg: #f1f5f9;
+    --bg: #f4f6f9;
     --card: #ffffff;
-    --text: #0f172a;
+    --text: #1e293b;
     --text-muted: #64748b;
 
     --sidebar-w: 260px;
     --header-h: 64px;
-    --radius: 14px;
-    --radius-sm: 8px;
-    --shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
-    --shadow-lg: 0 10px 40px rgba(15, 23, 42, 0.1);
-    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+    --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.08);
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    --gradient-primary: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
     --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
     --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
     --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    --gradient-info: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    --gradient-info: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
 }
 
 /* Dark theme */
@@ -616,19 +616,21 @@ hr { border-color: var(--border); }
    10 production-ready themes with CSS variables
    ============================================================= */
 
-/* Default (Light) */
+/* Default (FACTS ERP Corporate Enterprise) */
 :root,
-[data-theme="light"] {
-    --primary: #6366f1;
-    --primary-2: #8b5cf6;
-    --primary-3: #ec4899;
-    --bg: #f1f5f9;
+[data-theme="light"],
+[data-theme="facts"],
+[data-theme="facts-erp"] {
+    --primary: #0284c7;
+    --primary-2: #0369a1;
+    --primary-3: #0ea5e9;
+    --bg: #f4f6f9;
     --card: #ffffff;
-    --text: #0f172a;
+    --text: #1e293b;
     --text-muted: #64748b;
     --border: #e2e8f0;
     --light: #f8fafc;
-    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    --gradient-primary: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
 }
 
 /* Theme 1: Royal Blue */
@@ -819,7 +821,8 @@ hr { border-color: var(--border); }
 }
 
 /* Theme preview backgrounds (must match the actual themes) */
-.theme-preview.light { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); }
+.theme-preview.light,
+.theme-preview.facts { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); }
 .theme-preview.royal-blue { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%); }
 .theme-preview.forest-green { background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #84cc16 100%); }
 .theme-preview.sunset { background: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #fbbf24 100%); }
@@ -830,6 +833,253 @@ hr { border-color: var(--border); }
 .theme-preview.lavender { background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 50%, #c084fc 100%); }
 .theme-preview.sand { background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%); }
 .theme-preview.dark { background: radial-gradient(at top left, #8b5cf6 0%, #0b1120 60%); }
+
+/* =============================================================
+   FACTS ERP ENTERPRISE DESIGN SYSTEM (Corporate Blue & Navy)
+   Designed for High-Performance Enterprise Accounting & Operations
+   ============================================================= */
+
+/* 1. FACTS Signature Midnight Slate Sidebar */
+.sidebar {
+    background: #0f172a !important;
+    border-right: 1px solid #1e293b !important;
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.16) !important;
+}
+.sidebar-brand {
+    background: #09111e !important;
+    border-bottom: 1px solid #1e293b !important;
+    color: #ffffff !important;
+}
+.sidebar-brand .logo {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.45) !important;
+    color: #ffffff !important;
+}
+.sidebar-brand span, .sidebar-brand div, .sidebar-brand b {
+    color: #ffffff !important;
+}
+.sidebar-nav {
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #0f172a;
+}
+.sidebar-nav .nav-section {
+    color: #94a3b8 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    padding: 14px 12px 6px !important;
+}
+.sidebar-nav a {
+    color: #cbd5e1 !important;
+    border-radius: 8px !important;
+    margin-bottom: 3px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.sidebar-nav a i {
+    width: 22px !important;
+    text-align: center !important;
+    color: #94a3b8 !important;
+    font-size: 14px !important;
+    transition: color 0.2s ease !important;
+}
+.sidebar-nav a:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+}
+.sidebar-nav a:hover i {
+    color: #38bdf8 !important;
+}
+.sidebar-nav a.active {
+    background: linear-gradient(90deg, #0284c7 0%, #0369a1 100%) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4) !important;
+}
+.sidebar-nav a.active i {
+    color: #ffffff !important;
+}
+.sidebar-footer {
+    background: #09111e !important;
+    border-top: 1px solid #1e293b !important;
+    color: #ffffff !important;
+}
+.sidebar-footer .avatar {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+    color: #ffffff !important;
+}
+.sidebar-footer div {
+    color: #ffffff !important;
+}
+.sidebar-footer div div:last-child {
+    color: #94a3b8 !important;
+}
+
+/* 2. Admin Sidebar Categories & Submenus */
+.sidebar-cat-header {
+    color: #cbd5e1 !important;
+    border-radius: 8px !important;
+    transition: all 0.2s !important;
+}
+.sidebar-cat-header:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #ffffff !important;
+}
+.sidebar-cat-header i.cat-icon {
+    color: #94a3b8 !important;
+}
+.sidebar-cat.open .sidebar-cat-header {
+    background: rgba(2, 132, 199, 0.15) !important;
+    color: #38bdf8 !important;
+}
+.sidebar-cat.open .sidebar-cat-header i.cat-icon {
+    color: #38bdf8 !important;
+}
+.sidebar-submenu {
+    border-left: 2px solid #334155 !important;
+}
+.sidebar-submenu a {
+    color: #94a3b8 !important;
+}
+.sidebar-submenu a:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+.sidebar-submenu a.active {
+    color: #38bdf8 !important;
+    background: rgba(2, 132, 199, 0.15) !important;
+    font-weight: 600 !important;
+}
+.sidebar-creator-btn {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #cbd5e1 !important;
+    border-radius: 8px !important;
+}
+.sidebar-creator-btn:hover {
+    background: rgba(2, 132, 199, 0.2) !important;
+    color: #38bdf8 !important;
+    border-color: #0284c7 !important;
+}
+
+/* 3. FACTS Executive Clean White Topbar */
+.topbar {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+}
+.topbar .search-box input {
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    color: #1e293b !important;
+    font-size: 13px !important;
+}
+.topbar .search-box input:focus {
+    background: #ffffff !important;
+    border-color: #0284c7 !important;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+}
+.topbar .user-menu {
+    border: 1px solid #e2e8f0 !important;
+    background: #f8fafc !important;
+}
+
+/* 4. FACTS KPI Metric Cards & Dashboard Insights */
+.card, .stat-card, .kpi-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+.card:hover, .stat-card:hover, .kpi-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07) !important;
+}
+.card-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
+}
+
+/* 5. FACTS Enterprise Tables */
+.table thead th {
+    background: #f8fafc !important;
+    color: #334155 !important;
+    font-weight: 700 !important;
+    font-size: 11.5px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border-bottom: 2px solid #cbd5e1 !important;
+    padding: 11px 14px !important;
+}
+.table tbody tr {
+    transition: background-color 0.15s ease !important;
+}
+.table tbody tr:hover {
+    background-color: #f1f5f9 !important;
+}
+.table td {
+    padding: 11px 14px !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+}
+
+/* 6. Form Controls & Buttons */
+.form-control, .form-select {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    font-size: 13.5px !important;
+    color: #1e293b !important;
+}
+.form-control:focus, .form-select:focus {
+    border-color: #0284c7 !important;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18) !important;
+}
+.btn-primary {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3) !important;
+    transition: all 0.2s ease !important;
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0369a1 0%, #075985 100%) !important;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* 7. FACTS Soft Enterprise Status Badges */
+.badge-success, .badge.bg-success {
+    background: #dcfce7 !important;
+    color: #15803d !important;
+    border: 1px solid #bbf7d0 !important;
+    font-weight: 600 !important;
+}
+.badge-danger, .badge.bg-danger {
+    background: #fee2e2 !important;
+    color: #b91c1c !important;
+    border: 1px solid #fecaca !important;
+    font-weight: 600 !important;
+}
+.badge-warning, .badge.bg-warning {
+    background: #fef3c7 !important;
+    color: #b45309 !important;
+    border: 1px solid #fde68a !important;
+    font-weight: 600 !important;
+}
+.badge-info, .badge.bg-info {
+    background: #e0f2fe !important;
+    color: #0369a1 !important;
+    border: 1px solid #bae6fd !important;
+    font-weight: 600 !important;
+}
 
 /* Logo upload preview */
 .logo-uploader {

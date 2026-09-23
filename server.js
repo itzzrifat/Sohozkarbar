@@ -4,7 +4,7 @@ import http from 'http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import { db, initDatabase, resetAllLicenses } from './db.js';
+import { db, initDatabase, resetAllLicenses, DB_PATH } from './db.js';
 import { setupSyncHub, broadcastToTenant, getOnlineStats } from './sync_hub.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -429,11 +429,44 @@ app.post('/api/admin/licenses/:key/reset-devices', requireAdmin, (req, res) => {
   }
 });
 
-// Full Master Backup Download
+// Full Master SQLite Backup Download (.db file)
 app.get('/api/admin/backup', requireAdmin, (req, res) => {
   try {
-    const dbFile = path.resolve(__dirname, 'sohozkarbar_master.db');
-    res.download(dbFile, `sohozkarbar_backup_${Date.now()}.db`);
+    // Flush WAL checkpoint to ensure all data is in the primary db file
+    try { db.exec('PRAGMA wal_checkpoint(TRUNCATE);'); } catch (e) { console.error('WAL checkpoint err:', e); }
+    const dbFile = DB_PATH;
+    if (!fs.existsSync(dbFile)) {
+      return res.status(404).json({ error: `Database file not found at ${dbFile}` });
+    }
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    res.download(dbFile, `sohozkarbar_master_backup_${timestamp}.db`);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Full Master JSON Data Export Backup
+app.get('/api/admin/backup-json', requireAdmin, (req, res) => {
+  try {
+    const licenses = db.prepare('SELECT * FROM licenses').all();
+    const devices = db.prepare('SELECT * FROM tenant_devices').all();
+    const auditLogs = db.prepare('SELECT * FROM audit_logs ORDER BY timestamp DESC LIMIT 500').all();
+    const tenantData = db.prepare('SELECT tenant_id, data_key, updated_at FROM tenant_data').all();
+    
+    const dump = {
+      export_date: new Date().toISOString(),
+      system: 'SohozKarbar Master Cloud ERP Hub',
+      total_licenses: licenses.length,
+      total_devices: devices.length,
+      licenses,
+      devices,
+      tenantData,
+      auditLogs
+    };
+    
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename=sohozkarbar_backup_${Date.now()}.json`);
+    res.send(JSON.stringify(dump, null, 2));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DB_PATH = process.env.DB_PATH || path.resolve(__dirname, 'sohozkarbar_master.db');
+export const DB_PATH = process.env.DB_PATH || path.resolve(__dirname, 'sohozkarbar_master.db');
 export const db = new DatabaseSync(DB_PATH);
 
 // Enable WAL mode (Write-Ahead Logging) for high-performance concurrent reads & writes
