@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sohozkarbar-central-server
+    runtime: node
+    plan: free
+    buildCommand: npm install --omit=dev
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 24.0.0
+      - key: MASTER_ADMIN_KEY
+        value: SK-MASTER-BOSS-RIFAT-2026
