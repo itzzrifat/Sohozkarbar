@@ -2883,6 +2883,19 @@ img.nx-inv-qr{image-rendering:pixelated}
                     localStorage.setItem('erp_customer_license_data', JSON.stringify(founderLic));
                 }
             }
+            // Auto-heal Service Worker and clear stale broken caches
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistration().then(function(reg) {
+                    if (reg) reg.update();
+                }).catch(function() {});
+            }
+            if ('caches' in window) {
+                caches.keys().then(function(keys) {
+                    keys.forEach(function(k) {
+                        if (k !== 'sohozkarbar-v245') caches.delete(k);
+                    });
+                }).catch(function() {});
+            }
         } catch(e) {}
     })();
     </script>
