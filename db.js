@@ -24,6 +24,10 @@ export function initDatabase() {
       customer_name TEXT,
       business_name TEXT,
       tenant_id TEXT UNIQUE NOT NULL,
+      custom_slug TEXT,
+      customer_username TEXT,
+      customer_password TEXT,
+      allowed_modules TEXT DEFAULT '["pos","sales","stock","due","reports"]',
       license_type TEXT DEFAULT 'standard',
       plan TEXT DEFAULT 'standard',
       trial_days INTEGER DEFAULT 3,
@@ -39,6 +43,46 @@ export function initDatabase() {
     );
     CREATE INDEX IF NOT EXISTS idx_licenses_tenant ON licenses(tenant_id);
     CREATE INDEX IF NOT EXISTS idx_licenses_status ON licenses(status);
+  `);
+
+  // Safely ensure new columns exist for existing databases
+  const existingCols = db.prepare('PRAGMA table_info(licenses)').all().map(c => c.name);
+  if (!existingCols.includes('custom_slug')) {
+    try { db.exec('ALTER TABLE licenses ADD COLUMN custom_slug TEXT;'); } catch (e) {}
+  }
+  if (!existingCols.includes('customer_username')) {
+    try { db.exec('ALTER TABLE licenses ADD COLUMN customer_username TEXT;'); } catch (e) {}
+  }
+  if (!existingCols.includes('customer_password')) {
+    try { db.exec('ALTER TABLE licenses ADD COLUMN customer_password TEXT;'); } catch (e) {}
+  }
+  if (!existingCols.includes('allowed_modules')) {
+    try { db.exec('ALTER TABLE licenses ADD COLUMN allowed_modules TEXT DEFAULT \'["pos","sales","stock","due","reports"]\';'); } catch (e) {}
+  }
+
+  // Ensure index on custom_slug & customer_username
+  try {
+    db.exec(`
+      CREATE UNIQUE INDEX IF NOT EXISTS idx_licenses_slug ON licenses(custom_slug) WHERE custom_slug IS NOT NULL;
+      CREATE UNIQUE INDEX IF NOT EXISTS idx_licenses_username ON licenses(customer_username) WHERE customer_username IS NOT NULL;
+    `);
+  } catch (e) {}
+
+  // 1.5 Tenant Staff Users (Created from PC Desktop Software with mobile toggle)
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS tenant_staff_users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      tenant_id TEXT NOT NULL,
+      username TEXT NOT NULL,
+      full_name TEXT,
+      pin TEXT NOT NULL,
+      role TEXT DEFAULT 'staff',
+      can_access_mobile INTEGER DEFAULT 1,
+      created_at INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL,
+      UNIQUE(tenant_id, username)
+    );
+    CREATE INDEX IF NOT EXISTS idx_staff_tenant ON tenant_staff_users(tenant_id);
   `);
 
   // 2. Tenant Registered Devices Table (Enforces maxDevices & tracking)

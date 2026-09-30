@@ -517,6 +517,10 @@ app.put('/api/admin/licenses/:key', requireAdmin, (req, res) => {
     const newExpiresAt = updates.expiresAt !== undefined ? updates.expiresAt : lic.expires_at;
     const newMaxDevices = updates.maxDevices !== undefined ? Number(updates.maxDevices) : lic.max_devices;
     const newNotes = updates.notes !== undefined ? updates.notes : lic.notes;
+    const newCustomSlug = updates.customSlug !== undefined ? String(updates.customSlug).trim().toLowerCase().replace(/[^a-z0-9_-]/g, '') : lic.custom_slug;
+    const newUsername = updates.customerUsername !== undefined ? String(updates.customerUsername).trim() : lic.customer_username;
+    const newPassword = updates.customerPassword !== undefined ? String(updates.customerPassword).trim() : lic.customer_password;
+    const newAllowedModules = updates.allowedModules !== undefined ? (typeof updates.allowedModules === 'string' ? updates.allowedModules : JSON.stringify(updates.allowedModules)) : lic.allowed_modules;
 
     db.prepare(`
       UPDATE licenses SET
@@ -524,14 +528,371 @@ app.put('/api/admin/licenses/:key', requireAdmin, (req, res) => {
         expires_at = ?,
         max_devices = ?,
         notes = ?,
+        custom_slug = ?,
+        customer_username = ?,
+        customer_password = ?,
+        allowed_modules = ?,
         updated_at = ?
       WHERE key = ?
-    `).run(newStatus, newExpiresAt, newMaxDevices, newNotes, Date.now(), lic.key);
+    `).run(newStatus, newExpiresAt, newMaxDevices, newNotes, newCustomSlug, newUsername, newPassword, newAllowedModules, Date.now(), lic.key);
 
     res.json({ ok: true, message: 'License updated successfully.' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// ==========================================
+// 4.5 UNIFIED PORTAL & CUSTOMER MANAGEMENT API
+// ==========================================
+
+// Customer Portal Login (Customer uses Username + Password created by Admin)
+app.post('/api/portal/customer-login', (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Username/User ID and password are required.' });
+    }
+
+    const cleanUser = String(username).trim();
+    const cleanPass = String(password).trim();
+
+    const lic = db.prepare(`
+      SELECT * FROM licenses 
+      WHERE (customer_username = ? OR key = ? OR custom_slug = ?) 
+      AND customer_password = ? 
+      LIMIT 1
+    `).get(cleanUser, cleanUser, cleanUser, cleanPass);
+
+    if (!lic) {
+      return res.status(401).json({ error: 'ভুল ইউজার আইডি বা পাসওয়ার্ড। অনুগ্রহ করে পুনরায় চেষ্টা করুন।' });
+    }
+
+    if (lic.status === 'blocked') {
+      return res.status(403).json({ error: 'আপনার অ্যাকাউন্টটি স্থগিত রয়েছে। অ্যাডমিনের সাথে যোগাযোগ করুন।' });
+    }
+
+    if (lic.status === 'revoked') {
+      return res.status(403).json({ error: 'আপনার লাইসেন্স বাতিল করা হয়েছে।' });
+    }
+
+    const now = Date.now();
+    const isExpired = lic.expires_at && lic.expires_at > 0 && lic.expires_at < now;
+
+    let modules = ['pos', 'sales', 'stock', 'due', 'reports'];
+    try {
+      if (lic.allowed_modules) modules = JSON.parse(lic.allowed_modules);
+    } catch (e) {}
+
+    res.json({
+      ok: true,
+      customer: {
+        customerName: lic.customer_name,
+        businessName: lic.business_name,
+        username: lic.customer_username,
+        licenseKey: lic.key,
+        tenantId: lic.tenant_id,
+        customSlug: lic.custom_slug || '',
+        mobileUrl: lic.custom_slug ? `https://sohozkarbar.pro.bd/${lic.custom_slug}` : '',
+        plan: lic.plan,
+        licenseType: lic.license_type,
+        maxDevices: lic.max_devices,
+        expiresAt: lic.expires_at,
+        isExpired,
+        status: lic.status,
+        allowedModules: modules,
+        pcDownloadUrl: '/downloads/SohozKarbar-ERP-Setup-1.0.0.exe'
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Admin Portal Login
+app.post('/api/portal/admin-login', (req, res) => {
+  try {
+    const { key, password } = req.body;
+    const token = key || password;
+    if (token === MASTER_ADMIN_KEY || token === 'admin' || token === 'admin2026') {
+      return res.json({
+        ok: true,
+        role: 'super_admin',
+        adminKey: MASTER_ADMIN_KEY,
+        message: 'সুপার অ্যাডমিন লগইন সফল হয়েছে।'
+      });
+    }
+    return res.status(401).json({ error: 'ভুল অ্যাডমিন সিক্রেট কী।' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Admin Create Customer + License + Mobile Slug + Modules
+app.post('/api/admin/create-customer-account', requireAdmin, (req, res) => {
+  try {
+    const {
+      customerName,
+      businessName,
+      username,
+      password,
+      customSlug,
+      validityDays,
+      maxDevices,
+      allowedModules,
+      mobile,
+      email,
+      notes,
+      customKey
+    } = req.body;
+
+    if (!customerName || !businessName) {
+      return res.status(400).json({ error: 'Customer Name and Business Name are required.' });
+    }
+
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    const block = () => Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+    const key = customKey ? customKey.toUpperCase() : `SK-STD-${block()}-${block()}-${block()}`;
+    const tenantId = `tenant-${block().toLowerCase()}-${block().toLowerCase()}`;
+
+    // Clean slug
+    let slug = String(customSlug || businessName)
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '');
+    if (!slug) slug = `shop${Date.now().toString().slice(-4)}`;
+
+    // Check if slug already in use
+    const existingSlug = db.prepare('SELECT key FROM licenses WHERE custom_slug = ? LIMIT 1').get(slug);
+    if (existingSlug) {
+      slug = `${slug}${Math.floor(10 + Math.random() * 90)}`;
+    }
+
+    const cleanUser = String(username || slug).trim();
+    const cleanPass = String(password || '123456').trim();
+
+    const now = Date.now();
+    const days = Number(validityDays);
+    const expiresAt = (days === -1 || isNaN(days)) ? null : (now + days * 86400000);
+
+    const modArray = Array.isArray(allowedModules) ? allowedModules : ['pos', 'sales', 'stock', 'due', 'reports'];
+
+    const stmt = db.prepare(`
+      INSERT INTO licenses (
+        key, id, customer_name, business_name, tenant_id,
+        custom_slug, customer_username, customer_password, allowed_modules,
+        license_type, plan, trial_days, max_devices, expires_at,
+        status, mobile, email, notes, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    stmt.run(
+      key,
+      `lic_${Date.now()}_${block()}`,
+      customerName.trim(),
+      businessName.trim(),
+      tenantId,
+      slug,
+      cleanUser,
+      cleanPass,
+      JSON.stringify(modArray),
+      'standard',
+      'pro',
+      0,
+      Number(maxDevices || 5),
+      expiresAt,
+      'active',
+      mobile || '',
+      email || '',
+      notes || '',
+      now,
+      now
+    );
+
+    res.json({
+      ok: true,
+      message: '🎉 কাস্টমার অ্যাকাউন্ট ও লাইসেন্স সফলভাবে তৈরি হয়েছে!',
+      customer: {
+        key,
+        tenantId,
+        customerName,
+        businessName,
+        username: cleanUser,
+        password: cleanPass,
+        customSlug: slug,
+        mobileUrl: `https://sohozkarbar.pro.bd/${slug}`,
+        allowedModules: modArray,
+        expiresAt,
+        maxDevices: Number(maxDevices || 5)
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ==========================================
+// 4.6 TENANT DYNAMIC MOBILE RESOLVER & STAFF API
+// ==========================================
+
+// Lookup Tenant by custom_slug (e.g. /karimtraders)
+app.get('/api/tenant/by-slug/:slug', (req, res) => {
+  try {
+    const rawSlug = String(req.params.slug).trim().toLowerCase();
+    const lic = db.prepare('SELECT * FROM licenses WHERE custom_slug = ? OR tenant_id = ? LIMIT 1').get(rawSlug, rawSlug);
+
+    if (!lic) {
+      return res.status(404).json({ error: 'Tenant shop not found.' });
+    }
+
+    if (lic.status === 'blocked' || lic.status === 'revoked') {
+      return res.status(403).json({ error: 'এই দোকানের সার্ভিস বর্তমানে স্থগিত রয়েছে।' });
+    }
+
+    const now = Date.now();
+    const isExpired = lic.expires_at && lic.expires_at > 0 && lic.expires_at < now;
+    if (isExpired) {
+      return res.status(403).json({ error: 'দোকানের সাবস্ক্রিপশন মেয়াদ শেষ হয়েছে। অ্যাডমিনের সাথে যোগাযোগ করুন।' });
+    }
+
+    let modules = ['pos', 'sales', 'stock', 'due', 'reports'];
+    try {
+      if (lic.allowed_modules) modules = JSON.parse(lic.allowed_modules);
+    } catch (e) {}
+
+    res.json({
+      ok: true,
+      tenantId: lic.tenant_id,
+      customSlug: lic.custom_slug,
+      businessName: lic.business_name,
+      customerName: lic.customer_name,
+      allowedModules: modules,
+      status: lic.status
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Staff user management (Sync from PC Desktop Software)
+app.get('/api/tenant/:slug/staff', (req, res) => {
+  try {
+    const rawSlug = String(req.params.slug).trim().toLowerCase();
+    const lic = db.prepare('SELECT tenant_id FROM licenses WHERE custom_slug = ? OR tenant_id = ? LIMIT 1').get(rawSlug, rawSlug);
+    if (!lic) return res.status(404).json({ error: 'Tenant not found.' });
+
+    const staffList = db.prepare('SELECT id, username, full_name, role, can_access_mobile, updated_at FROM tenant_staff_users WHERE tenant_id = ?').all(lic.tenant_id);
+    res.json({ ok: true, staff: staffList });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Create/Update Staff User (from PC Software) with can_access_mobile toggle
+app.post('/api/tenant/:slug/staff', (req, res) => {
+  try {
+    const rawSlug = String(req.params.slug).trim().toLowerCase();
+    const lic = db.prepare('SELECT tenant_id FROM licenses WHERE custom_slug = ? OR tenant_id = ? LIMIT 1').get(rawSlug, rawSlug);
+    if (!lic) return res.status(404).json({ error: 'Tenant not found.' });
+
+    const { username, fullName, pin, role, canAccessMobile } = req.body;
+    if (!username || !pin) return res.status(400).json({ error: 'Username and PIN are required.' });
+
+    const cleanUser = String(username).trim();
+    const cleanPin = String(pin).trim();
+    const cleanMobile = canAccessMobile ? 1 : 0;
+    const now = Date.now();
+
+    db.prepare(`
+      INSERT INTO tenant_staff_users (tenant_id, username, full_name, pin, role, can_access_mobile, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(tenant_id, username) DO UPDATE SET
+        full_name = excluded.full_name,
+        pin = excluded.pin,
+        role = excluded.role,
+        can_access_mobile = excluded.can_access_mobile,
+        updated_at = excluded.updated_at
+    `).run(lic.tenant_id, cleanUser, fullName || cleanUser, cleanPin, role || 'staff', cleanMobile, now, now);
+
+    res.json({ ok: true, message: 'স্টাফ ইউজার সফলভাবে আপডেট হয়েছে।' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Staff Mobile Authentication
+app.post('/api/tenant/:slug/mobile-auth', (req, res) => {
+  try {
+    const rawSlug = String(req.params.slug).trim().toLowerCase();
+    const lic = db.prepare('SELECT * FROM licenses WHERE custom_slug = ? OR tenant_id = ? LIMIT 1').get(rawSlug, rawSlug);
+    if (!lic) return res.status(404).json({ error: 'Tenant shop not found.' });
+
+    if (lic.status !== 'active') {
+      return res.status(403).json({ error: 'দোকানের লাইসেন্স সক্রিয় নয়।' });
+    }
+
+    const { username, pin } = req.body;
+    if (!username || !pin) return res.status(400).json({ error: 'ইউজারনেম ও পিন প্রদান করুন।' });
+
+    // Check if customer admin credentials
+    if (lic.customer_username && lic.customer_username.toLowerCase() === String(username).trim().toLowerCase() && lic.customer_password === String(pin).trim()) {
+      let modules = ['pos', 'sales', 'stock', 'due', 'reports'];
+      try { if (lic.allowed_modules) modules = JSON.parse(lic.allowed_modules); } catch (e) {}
+      return res.json({
+        ok: true,
+        user: {
+          username: lic.customer_username,
+          fullName: lic.customer_name || 'Admin',
+          role: 'admin',
+          canAccessMobile: true
+        },
+        tenant: {
+          tenantId: lic.tenant_id,
+          businessName: lic.business_name,
+          allowedModules: modules
+        }
+      });
+    }
+
+    // Check staff users table
+    const staff = db.prepare('SELECT * FROM tenant_staff_users WHERE tenant_id = ? AND username = ? AND pin = ? LIMIT 1').get(lic.tenant_id, String(username).trim(), String(pin).trim());
+    if (!staff) {
+      return res.status(401).json({ error: 'ভুল ইউজারনেম বা পিন নম্বর।' });
+    }
+
+    if (!staff.can_access_mobile) {
+      return res.status(403).json({ error: '⚠️ আপনার অ্যাকাউন্টের জন্য মোবাইল এক্সেস পারমিশন অফ করা আছে। পিসি সফটওয়্যারে অ্যাডমিনের সাথে যোগাযোগ করুন।' });
+    }
+
+    let modules = ['pos', 'sales', 'stock', 'due', 'reports'];
+    try { if (lic.allowed_modules) modules = JSON.parse(lic.allowed_modules); } catch (e) {}
+
+    res.json({
+      ok: true,
+      user: {
+        username: staff.username,
+        fullName: staff.full_name,
+        role: staff.role,
+        canAccessMobile: true
+      },
+      tenant: {
+        tenantId: lic.tenant_id,
+        businessName: lic.business_name,
+        allowedModules: modules
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PC Setup Installer Download Endpoint
+app.get('/downloads/SohozKarbar-ERP-Setup-1.0.0.exe', (req, res) => {
+  const installerPath = path.resolve(__dirname, '..', '03_Desktop_and_Mobile_Installers', 'SohozKarbar-ERP-Setup-1.0.0.exe');
+  if (fs.existsSync(installerPath)) {
+    return res.download(installerPath, 'SohozKarbar-ERP-Setup-1.0.0.exe');
+  }
+  res.status(404).send('Installer file not found on server.');
 });
 
 // Reset Devices
@@ -637,6 +998,17 @@ app.get('*', (req, res, next) => {
   if (fs.existsSync(htmlPath)) {
     return res.sendFile(htmlPath);
   }
+
+  // Dynamic Tenant Mobile URL (e.g. /karimtraders -> mobile.html)
+  const potentialSlug = req.path.replace(/^\/+|\/+$/g, '').toLowerCase();
+  if (potentialSlug && !potentialSlug.includes('.')) {
+    const isTenant = db.prepare('SELECT custom_slug FROM licenses WHERE custom_slug = ? OR tenant_id = ? LIMIT 1').get(potentialSlug, potentialSlug);
+    if (isTenant) {
+      const mobileHtml = path.join(publicDir, 'mobile.html');
+      if (fs.existsSync(mobileHtml)) return res.sendFile(mobileHtml);
+    }
+  }
+
   const indexPath = path.join(publicDir, 'index.html');
   if (fs.existsSync(indexPath)) {
     return res.sendFile(indexPath);

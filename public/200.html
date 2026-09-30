@@ -1,24 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <title>Sohoz Karbar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>সহজ কারবার — পুনঃনির্দেশ হচ্ছে...</title>
+  <meta name="robots" content="noindex, follow">
   <script>
     (function(){
       var p = window.location.pathname.replace(/\/+$/, '');
-      if (p === '/admin') {
-        window.location.replace('/admin.html' + window.location.search + window.location.hash);
-      } else if (p === '/erp') {
-        window.location.replace('/erp.html' + window.location.search + window.location.hash);
-      } else if (p === '/trial') {
-        window.location.replace('/trial.html' + window.location.search + window.location.hash);
-      } else if (p === '/workstation') {
-        window.location.replace('/workstation/' + window.location.search + window.location.hash);
+      var q = window.location.search;
+      var h = window.location.hash;
+
+      var routes = {
+        /* ── Nav routes ── */
+        '/products'    : '/products.html',
+        '/erp'         : '/erp.html',
+        '/pricing'     : '/pricing.html',
+        '/company'     : '/company.html',
+        '/founder'     : '/founder.html',
+        '/workstation' : '/workstation/',
+        '/support'     : '/support.html',
+        '/trial'       : '/trial.html',
+        '/admin'       : '/admin.html',
+
+        /* ── People pages ── */
+        '/rifat-uddin'   : '/rifat-uddin.html',
+        '/shakil-munsi'  : '/shakil-munsi.html',
+
+        /* ── Info pages ── */
+        '/about'    : '/about.html',
+        '/contact'  : '/contact.html',
+        '/portal'   : '/portal.html',
+        '/privacy'  : '/privacy.html',
+        '/terms'    : '/terms.html',
+        '/catalog'  : '/catalog.html',
+        '/verify'   : '/verify.html',
+
+        /* ── Demo routes ── */
+        '/demos/pos'        : '/demos/pos-app.html',
+        '/demos/accounting' : '/demos/accounting-app.html',
+        '/demos/inventory'  : '/demos/inventory-app.html',
+        '/demos/crm'        : '/demos/crm-app.html',
+        '/demos/hr'         : '/demos/hr-app.html',
+        '/demos/delivery'   : '/demos/delivery-app.html',
+      };
+
+      var dest = routes[p];
+      if (dest) {
+        window.location.replace(dest + q + h);
       } else {
-        window.location.replace('/' + window.location.search + window.location.hash);
+        /* Check if this is a custom tenant mobile slug (e.g. /karimtraders) */
+        var cleanSlug = p.replace(/^\/+/, '').split('/')[0].toLowerCase();
+        if (cleanSlug && !cleanSlug.includes('.')) {
+          window.location.replace('/mobile.html?tenant=' + encodeURIComponent(cleanSlug) + (q ? '&' + q.slice(1) : '') + h);
+        } else {
+          /* Unknown route → homepage */
+          window.location.replace('/' + q + h);
+        }
       }
     })();
   </script>
 </head>
-<body></body>
+<body>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/">
+    <p>পুনঃনির্দেশ হচ্ছে... <a href="/">হোমপেজে যান</a></p>
+  </noscript>
+</body>
 </html>

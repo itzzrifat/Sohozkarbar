@@ -2951,6 +2951,59 @@ img.nx-inv-qr{image-rendering:pixelated}
     </script>
 </head>
 <body>
+<!-- ===== SOHOZKARBAR DESKTOP-FIRST GATEWAY ===== -->
+<div id="skDesktopGatewayOverlay" style="display:none; position:fixed; inset:0; z-index:9999999; background:radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.2), transparent 45%), radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.18), transparent 50%), #070d18; color:#fff; font-family:'Inter','Noto Sans Bengali',system-ui,sans-serif; overflow:auto; padding:30px 16px;">
+  <div style="max-width:580px; margin:40px auto; background:rgba(15,23,42,0.85); border:1px solid rgba(255,255,255,0.12); border-radius:24px; padding:36px 28px; text-align:center; box-shadow:0 30px 80px rgba(0,0,0,0.65); backdrop-filter:blur(20px);">
+    <div style="width:68px; height:68px; border-radius:20px; background:linear-gradient(135deg, rgba(99,102,241,0.25), rgba(16,185,129,0.2)); border:1px solid rgba(99,102,241,0.35); display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto 18px;">
+      💻
+    </div>
+    <span style="display:inline-block; font-size:11.5px; font-weight:800; padding:4px 14px; border-radius:99px; background:rgba(16,185,129,0.2); border:1px solid #10b981; color:#34d399; margin-bottom:12px; letter-spacing:0.5px;">
+      DESKTOP STANDALONE SOFTWARE
+    </span>
+    <h1 style="font-size:24px; font-weight:800; margin-bottom:10px; line-height:1.3;">
+      সহজ কারবার ERP এখন সম্পূর্ণ <span style="background:linear-gradient(135deg,#38bdf8,#a78bfa); -webkit-background-clip:text; color:transparent;">পিসি ডেস্কটপ সফটওয়্যার</span>
+    </h1>
+    <p style="font-size:14px; color:#94a3b8; line-height:1.65; margin-bottom:24px;">
+      ব্যবসার সর্বোচ্চ নিরাপত্তা ও নিরবচ্ছিন্ন অফলাইন কাজের জন্য মূল ERP এখন আপনার উইন্ডোজ কম্পিউটারে সফটওয়্যার হিসেবে চলবে। পাবলিক ওয়েব ইউআরএল-এ সরাসরি অ্যাক্সেস বন্ধ রাখা হয়েছে।
+    </p>
+
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+      <a href="/downloads/SohozKarbar-ERP-Setup-1.0.0.exe" style="display:flex; align-items:center; justify-content:center; gap:10px; background:linear-gradient(135deg, #6366f1, #4f46e5); color:#fff; text-decoration:none; padding:15px 20px; border-radius:14px; font-weight:800; font-size:15px; box-shadow:0 6px 24px rgba(99,102,241,0.4);">
+        📥 SohozKarbar PC Setup ডাউনলোড করুন (.exe)
+      </a>
+
+      <a href="/portal.html" style="display:flex; align-items:center; justify-content:center; gap:10px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#e2e8f0; text-decoration:none; padding:13px 20px; border-radius:14px; font-weight:700; font-size:14px;">
+        🔑 কাস্টমার পোর্টালে লগইন করে লাইসেন্স কী দেখুন
+      </a>
+
+      <a href="/mobile.html" style="display:flex; align-items:center; justify-content:center; gap:10px; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); color:#34d399; text-decoration:none; padding:13px 20px; border-radius:14px; font-weight:700; font-size:14px;">
+        📱 মোবাইল এক্সেস পোর্টাল (Dedicated Tenant)
+      </a>
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px;">
+      <button onclick="bypassDesktopGate()" style="background:transparent; border:0; color:#64748b; font-size:12px; cursor:pointer; text-decoration:underline;">
+        👨‍💻 ডেভেলপার / ডেমো মোডে ওয়েব ভিউ চালিয়ে যান →
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+(function checkDesktopEnvironment() {
+  const isElectron = window.process?.type === 'renderer' || window.navigator.userAgent.includes('Electron');
+  const isLocalFile = window.location.protocol === 'file:';
+  const hasModeParam = new URLSearchParams(window.location.search).get('mode') === 'desktop';
+  const hasBypass = sessionStorage.getItem('sk_desktop_bypass') === 'true';
+
+  if (!isElectron && !isLocalFile && !hasModeParam && !hasBypass) {
+    document.getElementById('skDesktopGatewayOverlay').style.display = 'block';
+  }
+})();
+function bypassDesktopGate() {
+  sessionStorage.setItem('sk_desktop_bypass', 'true');
+  document.getElementById('skDesktopGatewayOverlay').style.display = 'none';
+}
+</script>
 <!-- ===== NX CONSOLE GUARD v1 — F12/DevTools লক + সংবেদনশীল কনসোল লগ বন্ধ (body-top এ inject হয়) =====
      কী করে:
        1) console.log/info/debug/trace চুপ — পাসওয়ার্ড/টেন্যান্ট/Firebase folder আর কেউ দেখতে পাবে না
@@ -5885,11 +5938,46 @@ window.NX_IMPORT = (function(){
     }
 
     async function getByKey(key) {
-        const db = await getDb();
-        const snap = await db.collection('licenses').where('key', '==', String(key || '').toUpperCase()).limit(1).get();
-        if (snap.empty) return null;
-        const doc = snap.docs[0];
-        return { id: doc.id, ...doc.data() };
+        const cleanKey = String(key || '').trim().toUpperCase();
+        // 1. Founder Master Lifetime Key (Built-in guarantee for Rifat Uddin)
+        if (cleanKey === 'SK-RIFAT-BOSS-2209-1996') {
+            return {
+                id: 'lic_rifat_founder_master',
+                key: 'SK-RIFAT-BOSS-2209-1996',
+                tenantId: 'tenant_rifat_boss',
+                customerName: 'Rifat Uddin (Founder & Creator)',
+                businessName: 'Sohoz Karbar Tech Solutions',
+                plan: 'Founder Master Lifetime',
+                licenseType: 'master_lifetime',
+                maxDevices: 999999,
+                devices: [],
+                expiresAt: 4102444800000,
+                status: 'active',
+                mobile: '+8801625914562',
+                email: 'rifat4440@gmail.com',
+                notes: 'Official Founder Master Lifetime License — Unlimited Devices & Full SaaS Capability'
+            };
+        }
+        // 2. Query Central Cloud Server
+        try {
+            const resp = await fetch('https://sohozkarbar.onrender.com/api/licenses/get-by-key?key=' + encodeURIComponent(cleanKey));
+            if (resp.ok) {
+                const data = await resp.json();
+                if (data && data.key) return data;
+            }
+        } catch (e) {
+            console.warn('[License] Central server lookup fallback:', e);
+        }
+        // 3. Fallback to Firestore
+        try {
+            const db = await getDb();
+            const snap = await db.collection('licenses').where('key', '==', cleanKey).limit(1).get();
+            if (!snap.empty) {
+                const doc = snap.docs[0];
+                return { id: doc.id, ...doc.data() };
+            }
+        } catch (e) {}
+        return null;
     }
 
     async function getAll() {
@@ -5899,6 +5987,9 @@ window.NX_IMPORT = (function(){
     }
 
     async function registerDevice(id, device) {
+        if (id === 'lic_rifat_founder_master' || id === 'SK-RIFAT-BOSS-2209-1996') {
+            return { devices: [] };
+        }
         const db = await getDb();
         const ref = db.collection('licenses').doc(id);
         const info = typeof device === 'string' ? { hardwareId: device, lastSeen: Date.now() } : { ...device };
@@ -20593,7 +20684,7 @@ console.log('[PatchInvoiceDashboard] Loading...');
 
           document.getElementById('fp_save_new').onclick=()=> saveInvoice(false);
           document.getElementById('fp_save_print_new').onclick=()=> saveInvoice(true);
-          document.getElementById('fp_form_draft').onclick=()=> saveInvoice(false);
+          var draftBtn=document.getElementById('fp_form_draft'); if(draftBtn) draftBtn.onclick=()=> saveInvoice(false);
 
         }catch(e){
           console.error('Redesigned invoice UI error', e);

@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>SohozKarbar — মোবাইল পোর্টাল</title>
+  <meta name="theme-color" content="#070d18">
+  <link rel="icon" href="/sk-favicon-v197.png">
+  <link rel="apple-touch-icon" href="/sk-app-icon-192-v197.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070d18;
+      --card: #0f172a;
+      --card-border: rgba(255, 255, 255, 0.1);
+      --accent: #10b981;
+      --indigo: #6366f1;
+      --text: #f8fafc;
+      --text-mut: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Noto Sans Bengali', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 70px;
+    }
+    header.mob-top {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .mob-brand { display: flex; align-items: center; gap: 10px; }
+    .mob-brand img { width: 34px; height: 34px; border-radius: 8px; }
+    .mob-brand h1 { font-size: 15px; font-weight: 800; color: #fff; line-height: 1.2; }
+    .mob-brand small { font-size: 11px; color: #34d399; font-weight: 700; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block; box-shadow: 0 0 10px #10b981; }
+
+    .wrap { padding: 16px; max-width: 600px; margin: 0 auto; width: 100%; flex: 1; }
+
+    /* Login Screen */
+    .login-box {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-top: 40px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .login-box h2 { font-size: 20px; margin-bottom: 6px; }
+    .login-box p { font-size: 13px; color: var(--text-mut); margin-bottom: 20px; }
+    .form-group { text-align: left; margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 6px; }
+    .input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+    }
+    .input:focus { border-color: #10b981; }
+    .btn {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      border: 0;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-emerald { background: #10b981; color: #fff; }
+    .btn-indigo { background: #6366f1; color: #fff; }
+    .alert { padding: 12px; border-radius: 10px; font-size: 12.5px; margin-bottom: 14px; display: none; }
+    .alert-err { background: rgba(239,68,68,0.18); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+
+    /* Module Cards */
+    .summary-card {
+      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(16,185,129,0.15));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .stat-b small { font-size: 11px; color: var(--text-mut); display: block; }
+    .stat-b b { font-size: 20px; font-weight: 800; color: #fff; margin-top: 2px; display: block; }
+
+    .module-sec { display: none; }
+    .module-sec.active { display: block; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .card h3 { font-size: 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+    /* Quick POS Form */
+    .pos-item-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.2fr auto;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    /* Bottom Navigation */
+    nav.mob-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.98);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 10px;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-mut);
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      flex: 1;
+    }
+    .nav-item.active { color: #10b981; }
+    .nav-item span.icon { font-size: 18px; }
+
+    /* Table */
+    .mini-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .mini-table th { text-align: left; padding: 10px 8px; color: #94a3b8; border-bottom: 1px solid var(--card-border); }
+    .mini-table td { padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="mob-top">
+    <div class="mob-brand">
+      <img src="/logo-square.png" alt="SK Logo">
+      <div>
+        <h1 id="shopTitle">সহজ কারবার মোবাইল</h1>
+        <small id="shopSubtitle">টেন্যান্ট যাচাই হচ্ছে...</small>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px">
+      <span class="status-dot"></span>
+      <button id="logoutMobBtn" onclick="mobLogout()" style="display:none; background:transparent; border:0; color:#ef4444; font-size:12px; font-weight:700; cursor:pointer">
+        লগআউট
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 1. Mobile Staff Login Screen -->
+    <div class="login-box" id="mobLoginScreen">
+      <div style="font-size:32px; margin-bottom:8px">📱</div>
+      <h2 id="loginShopName">দোকানের মোবাইল পোর্টাল</h2>
+      <p id="loginShopHint">পিসি সফটওয়্যার থেকে নির্ধারিত ইউজারনেম ও পিন দিয়ে প্রবেশ করুন।</p>
+      
+      <div class="alert alert-err" id="mobLoginErr"></div>
+
+      <form onsubmit="handleMobLogin(event)">
+        <div class="form-group">
+          <label>ইউজারনেম (Username)</label>
+          <input type="text" class="input" id="mobUser" placeholder="যেমন: staff / cashier" required>
+        </div>
+        <div class="form-group">
+          <label>পিন / পাসওয়ার্ড (PIN)</label>
+          <input type="password" class="input" id="mobPin" placeholder="৪ বা ৬ ডিজিট পিন" required>
+        </div>
+        <button type="submit" class="btn btn-emerald" style="margin-top:6px">
+          🚀 পোর্টালে প্রবেশ করুন
+        </button>
+      </form>
+    </div>
+
+    <!-- 2. Mobile App Container (After Login) -->
+    <div id="mobAppContainer" style="display:none">
+
+      <!-- Today's Live Counter -->
+      <div class="summary-card">
+        <div class="stat-b">
+          <small>আজকের মোট বিক্রয়</small>
+          <b id="todaySalesAmt">৳০</b>
+        </div>
+        <div class="stat-b">
+          <small>আজকের ক্যাশ কালেকশন</small>
+          <b id="todayCashAmt" style="color:#34d399">৳০</b>
+        </div>
+      </div>
+
+      <!-- Module 1: POS Quick Billing -->
+      <section class="module-sec active" id="sec-pos">
+        <div class="card">
+          <h3>⚡ দ্রুত ক্যাশ মেমো (Quick POS)</h3>
+          <div class="form-group">
+            <label>কাস্টমারের নাম ও মোবাইল</label>
+            <input type="text" class="input" id="posCust" placeholder="নাম / মোবাইল নম্বর">
+          </div>
+
+          <div style="margin-bottom:12px">
+            <label style="font-size:12px; font-weight:700; color:#cbd5e1; display:block; margin-bottom:6px">আইটেম যুক্ত করুন</label>
+            <div id="posItemsList">
+              <div class="pos-item-row">
+                <input type="text" class="input pos-name" placeholder="পণ্যের নাম">
+                <input type="number" class="input pos-qty" value="1" min="1" placeholder="পরিমাণ" oninput="calcPosTotal()">
+                <input type="number" class="input pos-price" placeholder="মূল্য" oninput="calcPosTotal()">
+              </div>
+            </div>
+            <button type="button" onclick="addPosRow()" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#cbd5e1; padding:6px 12px; border-radius:8px; font-size:12px; cursor:pointer; margin-top:4px">
+              + আরো আইটেম যোগ করুন
+            </button>
+          </div>
+
+          <div style="background:rgba(0,0,0,0.3); border-radius:12px; padding:12px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center">
+            <span style="font-weight:700; color:#cbd5e1">মোট বিল:</span>
+            <b id="posTotal" style="font-size:22px; color:#10b981">৳০</b>
+          </div>
+
+          <button class="btn btn-emerald" onclick="submitPosBill()">
+            🧾 মেমো তৈরি ও প্রিন্ট করুন
+          </button>
+        </div>
+      </section>
+
+      <!-- Module 2: Sales List -->
+      <section class="module-sec" id="sec-sales">
+        <div class="card">
+          <h3>📊 সাম্প্রতিক বিক্রয় তালিকা</h3>
+          <table class="mini-table">
+            <thead>
+              <tr><th>ইনভয়েস</th><th>কাস্টমার</th><th>টাকা</th><th>অবস্থা</th></tr>
+            </thead>
+            <tbody id="salesTableBody">
+              <tr><td colspan="4" style="text-align:center; color:#64748b">কোনো বিক্রয় নেই</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Module 3: Due Khata -->
+      <section class="module-sec" id="sec-due">
+        <div class="card">
+          <h3>📒 বাকির খাতা ও কালেকশন</h3>
+          <div class="form-group">
+            <input type="text" class="input" placeholder="কাস্টমার খুঁজুন..." oninput="filterDue(this.value)">
+          </div>
+          <table class="mini-table">
+            <thead>
+              <tr><th>কাস্টমার</th><th>বাকি টাকা</th><th>অ্যাকশন</th></tr>
+            </thead>
+            <tbody id="dueTableBody">
+              <tr><td>রহিম স্টোর</td><td style="color:#ef4444; font-weight:700">৳১,৫০০</td><td><button class="btn btn-emerald" style="padding:4px 8px; font-size:11px">আদায়</button></td></tr>
+              <tr><td>হাসান ব্রাদার্স</td><td style="color:#ef4444; font-weight:700">৳৮৫০</td><td><button class="btn btn-emerald" style="padding:4px 8px; font-size:11px">আদায়</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Module 4: Stock -->
+      <section class="module-sec" id="sec-stock">
+        <div class="card">
+          <h3>📦 স্টক ও প্রোডাক্ট তালিকা</h3>
+          <div class="form-group">
+            <input type="text" class="input" placeholder="প্রোডাক্টের নাম দিয়ে খুঁজুন...">
+          </div>
+          <table class="mini-table">
+            <thead>
+              <tr><th>প্রোডাক্ট</th><th>মজুদ</th><th>দাম</th></tr>
+            </thead>
+            <tbody id="stockTableBody">
+              <tr><td>মিনিকেট চাল (৫০ কেজি)</td><td><b>১২ বস্তা</b></td><td>৳৩,৪০০</td></tr>
+              <tr><td>তীর সয়াবিন তেল (৫ লিটার)</td><td><b>১৮ বোতল</b></td><td>৳৮৯০</td></tr>
+              <tr><td>চিনি (১ কেজি প্যাকেট)</td><td><b>৪৫ প্যাকেট</b></td><td>৳১৪০</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Module 5: Daily Report -->
+      <section class="module-sec" id="sec-reports">
+        <div class="card">
+          <h3>📈 দৈনিক হিসাব রিপোর্ট</h3>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06)">
+              <span>মোট ইনভয়েস সংখ্যা:</span><b id="repInvoiceCount">০ টি</b>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06)">
+              <span>নগদ বিক্রয়:</span><b id="repCashSales" style="color:#34d399">৳০</b>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06)">
+              <span>বাকি বিক্রয়:</span><b id="repDueSales" style="color:#f87171">৳০</b>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation (Dynamically Filtered by Super Admin Config) -->
+  <nav class="mob-nav" id="mobBottomNav" style="display:none">
+    <button class="nav-item active" data-mod="pos" onclick="showModule('pos')">
+      <span class="icon">⚡</span><span>POS</span>
+    </button>
+    <button class="nav-item" data-mod="sales" onclick="showModule('sales')">
+      <span class="icon">📊</span><span>বিক্রয়</span>
+    </button>
+    <button class="nav-item" data-mod="due" onclick="showModule('due')">
+      <span class="icon">📒</span><span>বাকি</span>
+    </button>
+    <button class="nav-item" data-mod="stock" onclick="showModule('stock')">
+      <span class="icon">📦</span><span>স্টক</span>
+    </button>
+    <button class="nav-item" data-mod="reports" onclick="showModule('reports')">
+      <span class="icon">📈</span><span>রিপোর্ট</span>
+    </button>
+  </nav>
+
+  <script>
+    // Extract tenant slug from pathname or query
+    let tenantSlug = new URLSearchParams(window.location.search).get('tenant') || '';
+    if (!tenantSlug) {
+      const p = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+      if (p && p !== 'mobile' && p !== 'mobile.html') {
+        tenantSlug = p;
+      }
+    }
+    if (!tenantSlug) tenantSlug = 'karimtraders'; // default demo fallback
+
+    let tenantData = null;
+    let currentUser = null;
+    let salesHistory = JSON.parse(localStorage.getItem('sk_mob_sales_' + tenantSlug) || '[]');
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadTenantInfo();
+      checkSavedSession();
+    });
+
+    async function loadTenantInfo() {
+      try {
+        const res = await fetch(`/api/tenant/by-slug/${encodeURIComponent(tenantSlug)}`);
+        const data = await res.json();
+        if (res.ok && data.ok) {
+          tenantData = data;
+          document.getElementById('shopTitle').textContent = data.businessName;
+          document.getElementById('shopSubtitle').textContent = 'মোবাইল পোর্টাল (/' + data.customSlug + ')';
+          document.getElementById('loginShopName').textContent = data.businessName;
+          document.getElementById('loginShopHint').textContent = 'সুপার অ্যাডমিন অনুমোদিত মোবাইল এক্সেস';
+        } else {
+          fallbackTenant();
+        }
+      } catch (e) {
+        fallbackTenant();
+      }
+    }
+
+    function fallbackTenant() {
+      const formatted = tenantSlug.charAt(0).toUpperCase() + tenantSlug.slice(1);
+      document.getElementById('shopTitle').textContent = formatted;
+      document.getElementById('shopSubtitle').textContent = 'মোবাইল পোর্টাল (/' + tenantSlug + ')';
+      document.getElementById('loginShopName').textContent = formatted;
+    }
+
+    function checkSavedSession() {
+      const saved = localStorage.getItem('sk_mob_user_' + tenantSlug);
+      if (saved) {
+        try {
+          currentUser = JSON.parse(saved);
+          showAppInterface();
+        } catch (e) {}
+      }
+    }
+
+    async function handleMobLogin(e) {
+      e.preventDefault();
+      const errBox = document.getElementById('mobLoginErr');
+      errBox.style.display = 'none';
+
+      const username = document.getElementById('mobUser').value.trim();
+      const pin = document.getElementById('mobPin').value.trim();
+
+      try {
+        const res = await fetch(`/api/tenant/${encodeURIComponent(tenantSlug)}/mobile-auth`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, pin })
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'ভুল ইউজারনেম বা পিন।');
+        }
+
+        currentUser = data.user;
+        if (data.tenant) tenantData = { ...tenantData, ...data.tenant };
+
+        localStorage.setItem('sk_mob_user_' + tenantSlug, JSON.stringify(currentUser));
+        showAppInterface();
+
+      } catch (err) {
+        errBox.textContent = err.message;
+        errBox.style.display = 'block';
+      }
+    }
+
+    function showAppInterface() {
+      document.getElementById('mobLoginScreen').style.display = 'none';
+      document.getElementById('mobAppContainer').style.display = 'block';
+      document.getElementById('mobBottomNav').style.display = 'flex';
+      document.getElementById('logoutMobBtn').style.display = 'inline-block';
+
+      filterAllowedModules();
+      renderSalesTable();
+      calcDayTotals();
+    }
+
+    // Super Admin Config: Filter visible module tabs
+    function filterAllowedModules() {
+      const allowed = tenantData?.allowedModules || ['pos', 'sales', 'stock', 'due', 'reports'];
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        const mod = btn.dataset.mod;
+        if (allowed.includes(mod)) {
+          btn.style.display = 'flex';
+        } else {
+          btn.style.display = 'none';
+        }
+      });
+      // Show first allowed module
+      if (allowed.length > 0) {
+        showModule(allowed[0]);
+      }
+    }
+
+    function showModule(modName) {
+      document.querySelectorAll('.module-sec').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+      const sec = document.getElementById('sec-' + modName);
+      if (sec) sec.classList.add('active');
+
+      const btn = document.querySelector(`.nav-item[data-mod="${modName}"]`);
+      if (btn) btn.classList.add('active');
+    }
+
+    // POS Logic
+    function addPosRow() {
+      const container = document.getElementById('posItemsList');
+      const row = document.createElement('div');
+      row.className = 'pos-item-row';
+      row.innerHTML = `
+        <input type="text" class="input pos-name" placeholder="পণ্যের নাম">
+        <input type="number" class="input pos-qty" value="1" min="1" placeholder="পরিমাণ" oninput="calcPosTotal()">
+        <input type="number" class="input pos-price" placeholder="মূল্য" oninput="calcPosTotal()">
+      `;
+      container.appendChild(row);
+    }
+
+    function calcPosTotal() {
+      let total = 0;
+      document.querySelectorAll('.pos-item-row').forEach(row => {
+        const qty = Number(row.querySelector('.pos-qty').value || 0);
+        const price = Number(row.querySelector('.pos-price').value || 0);
+        total += (qty * price);
+      });
+      document.getElementById('posTotal').textContent = '৳' + total.toLocaleString();
+      return total;
+    }
+
+    function submitPosBill() {
+      const total = calcPosTotal();
+      if (total <= 0) {
+        alert('অনুগ্রহ করে পণ্যের মূল্য প্রদান করুন।');
+        return;
+      }
+      const cust = document.getElementById('posCust').value.trim() || 'সাধারণ কাস্টমার';
+      const invoiceNo = 'INV-' + Date.now().toString().slice(-5);
+
+      const bill = {
+        invoiceNo,
+        customer: cust,
+        total,
+        date: new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' }),
+        status: 'Paid'
+      };
+
+      salesHistory.unshift(bill);
+      localStorage.setItem('sk_mob_sales_' + tenantSlug, JSON.stringify(salesHistory));
+
+      alert(`✅ মেমো তৈরি হয়েছে!\nমেমো নম্বর: ${invoiceNo}\nকাস্টমার: ${cust}\nমোট বিল: ৳${total}`);
+
+      // Reset Form
+      document.getElementById('posCust').value = '';
+      document.getElementById('posItemsList').innerHTML = `
+        <div class="pos-item-row">
+          <input type="text" class="input pos-name" placeholder="পণ্যের নাম">
+          <input type="number" class="input pos-qty" value="1" min="1" placeholder="পরিমাণ" oninput="calcPosTotal()">
+          <input type="number" class="input pos-price" placeholder="মূল্য" oninput="calcPosTotal()">
+        </div>
+      `;
+      calcPosTotal();
+      renderSalesTable();
+      calcDayTotals();
+    }
+
+    function renderSalesTable() {
+      const tbody = document.getElementById('salesTableBody');
+      if (!salesHistory.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#64748b">কোনো বিক্রয় নেই</td></tr>';
+        return;
+      }
+      tbody.innerHTML = salesHistory.slice(0, 10).map(s => `
+        <tr>
+          <td><b>${s.invoiceNo}</b><br><small style="color:#64748b">${s.date}</small></td>
+          <td>${s.customer}</td>
+          <td><b>৳${s.total.toLocaleString()}</b></td>
+          <td><span style="color:#10b981; font-size:11px">পরিশোধ</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function calcDayTotals() {
+      const total = salesHistory.reduce((sum, s) => sum + s.total, 0);
+      document.getElementById('todaySalesAmt').textContent = '৳' + total.toLocaleString();
+      document.getElementById('todayCashAmt').textContent = '৳' + total.toLocaleString();
+      document.getElementById('repInvoiceCount').textContent = salesHistory.length + ' টি';
+      document.getElementById('repCashSales').textContent = '৳' + total.toLocaleString();
+    }
+
+    function mobLogout() {
+      localStorage.removeItem('sk_mob_user_' + tenantSlug);
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>
