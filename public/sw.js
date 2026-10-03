@@ -4,8 +4,8 @@
    Bypasses cache for all Firestore & REST APIs.
 */
 
-const CACHE_NAME = 'sohozkarbar-v246';
-const APP_BUILD_VERSION = '1790173000000';
+const CACHE_NAME = 'sohozkarbar-v247';
+const APP_BUILD_VERSION = '1790174000000';
 
 const CORE_ASSETS = [
   '/rifat-uddin.html','/rifat-uddin-headshot.jpg','/rifat-uddin-founder-office.jpg',

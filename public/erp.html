@@ -2960,6 +2960,42 @@ img.nx-inv-qr{image-rendering:pixelated}
         } catch(e) {}
     })();
     </script>
+<script>
+// Universal auto-healer for any legacy email in DOM and localStorage
+(function() {
+    function sanitizeLegacyEmails() {
+        try {
+            for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                var v = localStorage.getItem(k);
+                if (v && /rifat4440@gmail\.com|admin@textilepro\.erp|admin@sohojkarbar\.com/i.test(v)) {
+                    localStorage.setItem(k, v.replace(/rifat4440@gmail\.com|admin@textilepro\.erp|admin@sohojkarbar\.com/gi, 'info@sohozkarbar.pro.bd'));
+                }
+            }
+        } catch(e) {}
+        try {
+            document.querySelectorAll('a[href*="rifat4440@gmail.com"], a[href*="admin@textilepro.erp"], a[href*="admin@sohojkarbar.com"]').forEach(function(el) {
+                el.href = el.href.replace(/rifat4440@gmail\.com|admin@textilepro\.erp|admin@sohojkarbar\.com/gi, 'info@sohozkarbar.pro.bd');
+            });
+            var elPanel = document.getElementById('creatorPanel');
+            if (elPanel) {
+                var links = elPanel.querySelectorAll('a[href*="mailto:"]');
+                links.forEach(function(l) {
+                    l.href = 'mailto:info@sohozkarbar.pro.bd';
+                    var s = l.querySelector('span');
+                    if (s) s.textContent = 'info@sohozkarbar.pro.bd';
+                });
+            }
+        } catch(e) {}
+    }
+    sanitizeLegacyEmails();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', sanitizeLegacyEmails);
+    }
+    window.addEventListener('load', sanitizeLegacyEmails);
+    setInterval(sanitizeLegacyEmails, 1000);
+})();
+</script>
 </head>
 <body>
 <!-- ===== SOHOZKARBAR DESKTOP-FIRST GATEWAY ===== -->
@@ -17907,7 +17943,15 @@ window.Modules['license-settings']={
                 creatorBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    creatorPanel.classList.toggle('show');
+                    try {
+                    const _emLink = creatorPanel.querySelector('a[href*="mailto:"]');
+                    if (_emLink) {
+                        _emLink.href = 'mailto:info@sohozkarbar.pro.bd';
+                        const _sp = _emLink.querySelector('span');
+                        if (_sp) _sp.textContent = 'info@sohozkarbar.pro.bd';
+                    }
+                } catch(e) {}
+                creatorPanel.classList.toggle('show');
                 });
             }
             // Close handlers (top × button + bottom Close button + Escape key)
