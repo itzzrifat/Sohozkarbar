@@ -3,17 +3,21 @@ Allow: /
 
 # Private / app pages — keep out of search results
 Disallow: /mainfiles/
-Disallow: /workstation/code.enc.json
+Disallow: /mainfiles/code.enc.json
 Disallow: /workstation/
 Disallow: /workstation
-Disallow: /mainfiles
-Disallow: /mainfiles/code.enc.json
+Disallow: /workstation/code.enc.json
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /erp
+Disallow: /erp.html
+Disallow: /portal
+Disallow: /portal.html
 Disallow: /vault.html
 Disallow: /recovery.html
-Disallow: /portal.html
-Disallow: /admin.html
-Disallow: /erp.html
-
+Disallow: /200.html
+Disallow: /bank-transaction.html
 Disallow: /backup-82b853abe67ce2f901e5d4e223a31d32/
+Disallow: /version.json
 
 Sitemap: https://www.sohozkarbar.pro.bd/sitemap.xml

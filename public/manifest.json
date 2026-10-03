@@ -1,10 +1,12 @@
 {
-  "name": "SohozKarbar — Simple Business ERP",
-  "short_name": "SohozKarbar",
+  "id": "https://www.sohozkarbar.pro.bd/",
+  "name": "সহজ কারবার — Simple Business ERP",
+  "short_name": "সহজ কারবার",
   "description": "দোকানের সব হিসাব এখন এক অ্যাপেই — ইনভয়েস, বাকির খাতা, স্টক ও রিপোর্ট।",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
   "orientation": "any",
   "background_color": "#0b1220",
   "theme_color": "#22A070",
@@ -14,6 +16,42 @@
     "business",
     "productivity",
     "finance"
+  ],
+  "shortcuts": [
+    {
+      "name": "ফ্রি ট্রায়াল শুরু করুন",
+      "short_name": "ট্রায়াল",
+      "url": "/trial.html?source=pwa-shortcut",
+      "icons": [{ "src": "/sk-favicon-v197.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "মূল্য তালিকা দেখুন",
+      "short_name": "প্রাইসিং",
+      "url": "/pricing.html?source=pwa-shortcut",
+      "icons": [{ "src": "/sk-favicon-v197.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "WhatsApp সাপোর্ট",
+      "short_name": "সাপোর্ট",
+      "url": "https://wa.me/8801625914562?text=আসসালামু%20আলাইকুম!%20সহজ%20কারবার%20সম্পর্কে%20জানতে%20চাই।",
+      "icons": [{ "src": "/sk-favicon-v197.png", "sizes": "96x96", "type": "image/png" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/erp-preview.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "সহজ কারবার ERP ড্যাশবোর্ড"
+    },
+    {
+      "src": "/slide-pos.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "স্মার্ট POS ও বিক্রি হিসাব"
+    }
   ],
   "icons": [
     {

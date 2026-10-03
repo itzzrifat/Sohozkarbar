@@ -990,6 +990,12 @@ app.get('*', (req, res, next) => {
     const wsIndex = path.join(publicDir, 'workstation', 'index.html');
     if (fs.existsSync(wsIndex)) return res.sendFile(wsIndex);
   }
+  if (req.path === '/demo') {
+    return res.redirect('/portal.html?user=demo');
+  }
+  if (req.path === '/rifat') {
+    return res.redirect('/portal.html?user=rifat');
+  }
   const filePath = path.join(publicDir, req.path);
   if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
     return res.sendFile(filePath);

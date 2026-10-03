@@ -105,7 +105,7 @@ body{min-height:100vh;color:#e8edf5;background:#0b1220;padding:30px 16px 60px;
         </div>
         <div>
           <label class="form-label">📧 Email Address *</label>
-          <input type="email" id="t_email" class="form-control" placeholder="yourname@gmail.com" required>
+          <input type="email" id="t_email" class="form-control" placeholder="yourname@example.com" required>
         </div>
         <div>
           <label class="form-label">🏪 Business Type *</label>
@@ -252,7 +252,7 @@ body{min-height:100vh;color:#e8edf5;background:#0b1220;padding:30px 16px 60px;
       return {city:r.city||'',country:r.country_name||r.country||''}; }catch(e){ return {}; }
   }
 
-    // Reliable Email Notification to rifat4440@gmail.com
+    // Reliable Email Notification to info@sohozkarbar.pro.bd
   async function sendEmailNotification(leadData) {
     try {
       const cleanPhone = String(leadData.phone || '').replace(/[^0-9]/g, '');
@@ -271,11 +271,11 @@ body{min-height:100vh;color:#e8edf5;background:#0b1220;padding:30px 16px 60px;
         _subject: '🎉 New trial lead: ' + (leadData.business || 'Shop') + ' — ' + (leadData.name || '') + ' (' + (leadData.phone || '') + ')',
         _template: 'table',
         _captcha: 'false',
-        _replyto: leadData.email || 'rifat4440@gmail.com'
+        _replyto: leadData.email || 'info@sohozkarbar.pro.bd'
       };
 
-      // FormSubmit.co API directly sending to rifat4440@gmail.com
-      fetch('https://formsubmit.co/ajax/rifat4440@gmail.com', {
+      // FormSubmit.co API directly sending to info@sohozkarbar.pro.bd
+      fetch('https://formsubmit.co/ajax/info@sohozkarbar.pro.bd', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -456,7 +456,7 @@ body{min-height:100vh;color:#e8edf5;background:#0b1220;padding:30px 16px 60px;
         });
       } catch(e) {}
 
-      // Send Email Notification to rifat4440@gmail.com
+      // Send Email Notification to info@sohozkarbar.pro.bd
       sendEmailNotification({
         name, phone, business: biz, email, key,
         ip: state.ip, city: state.geo.city, country: state.geo.country

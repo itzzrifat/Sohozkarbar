@@ -16,7 +16,7 @@ db.prepare(`
   testKey, 'lic_karim_101', 'Md. Karim Hossain', 'Karim Traders', 'tenant_karim_traders',
   'karimtraders', 'karimtraders', 'karim123', JSON.stringify(['pos', 'sales', 'stock', 'due', 'reports']),
   'standard', 'pro', 0, 5, 4102444799000,
-  'active', '+8801700000000', 'karim@gmail.com', Date.now(), Date.now()
+  'active', '+8801700000000', 'karim@example.com', Date.now(), Date.now()
 );
 
 console.log('✅ Customer Karim Traders seeded successfully');

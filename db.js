@@ -169,7 +169,7 @@ export function initDatabase() {
       4102444799000, // Year 2100 - Lifetime
       'active',
       '+8801625914562',
-      'rifat4440@gmail.com',
+      'info@sohozkarbar.pro.bd',
       'Official Founder Master Lifetime License — Unlimited Devices & Full SaaS Capability',
       Date.now(),
       Date.now()

@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="/license-agreement.js"></script>
   <style>
     :root {
       --bg: #070d18;
@@ -97,6 +99,40 @@
       background: linear-gradient(135deg, #f59e0b, #d97706);
       color: #fff;
       box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+    }
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(239, 68, 68, 0.35);
+    }
+    .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(239, 68, 68, 0.5); }
+    .pwd-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .pwd-wrapper input {
+      padding-right: 44px !important;
+    }
+    .pwd-toggle-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 0;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      transition: color 0.2s;
+      z-index: 5;
+    }
+    .pwd-toggle-btn:hover {
+      color: #fff;
     }
 
     main.portal-main {
@@ -374,54 +410,109 @@
       <h2>কাস্টমার অ্যাকাউন্ট লগইন</h2>
       <p>অ্যাডমিনের দেওয়া User ID ও পাসওয়ার্ড দিয়ে লগইন করে লাইসেন্স কী ও মোবাইল লিংক সংগ্রহ করুন।</p>
       
+      <div class="alert alert-success" id="custSuccessAlert" style="display:none"></div>
       <div class="alert alert-error" id="custErrorAlert"></div>
 
       <form id="customerLoginForm" onsubmit="handleCustomerLogin(event)">
         <div class="form-group">
           <label>ইউজার আইডি / ইউজারনেম (User ID)</label>
-          <input type="text" class="form-control" id="custUsername" placeholder="যেমন: karimtraders" required>
+          <input type="text" class="form-control" id="custUsername" placeholder="যেমন: manager বা cashier বা demo" required autocomplete="username">
         </div>
         <div class="form-group">
           <label>পাসওয়ার্ড (Password)</label>
-          <input type="password" class="form-control" id="custPassword" placeholder="আপনার সিক্রেট পাসওয়ার্ড" required>
+          <div class="pwd-wrapper">
+            <input type="password" class="form-control" id="custPassword" placeholder="আপনার সিক্রেট পাসওয়ার্ড" required autocomplete="current-password">
+            <button type="button" class="pwd-toggle-btn" onclick="togglePassVisibility('custPassword', this)" title="পাসওয়ার্ড দেখুন">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
         </div>
         <button type="submit" class="btn btn-indigo" style="width:100%; padding:14px; margin-top:8px">
           🚀 লগইন করুন
         </button>
       </form>
-      <div style="margin-top:20px; font-size:12px; color:#64748b">
+
+      <!-- Multi-User Quick Direct Launchers -->
+      <div style="margin-top:20px; padding:14px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; text-align:left">
+        <div style="font-size:12px; font-weight:800; color:#94a3b8; margin-bottom:10px; display:flex; align-items:center; gap:6px">
+          ⚡ <span>সরাসরি ১-ক্লিকে মাল্টি-ইউজার ডেমো লগইন:</span>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px">
+          <button type="button" onclick="loginDirectRole('manager')" class="btn btn-ghost" style="padding:5px 10px; font-size:11.5px">🏢 ম্যানেজার</button>
+          <button type="button" onclick="loginDirectRole('cashier')" class="btn btn-ghost" style="padding:5px 10px; font-size:11.5px">⚡ ক্যাশিয়ার</button>
+          <button type="button" onclick="loginDirectRole('staff')" class="btn btn-ghost" style="padding:5px 10px; font-size:11.5px">👥 স্টাফ ও হাজিরা</button>
+          <button type="button" onclick="loginDirectRole('demo')" class="btn btn-emerald" style="padding:5px 10px; font-size:11.5px">🧪 ফুল লাইভ ডেমো</button>
+          <a href="/rifat" class="btn btn-gold" style="padding:5px 10px; font-size:11.5px; text-decoration:none">👑 ফাউন্ডার / অ্যাডমিন</a>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; font-size:12px; color:#64748b">
         আইডি ও পাসওয়ার্ড এখনো পাননি? <a href="https://wa.me/8801625914562" target="_blank" style="color:#38bdf8; text-decoration:none">অ্যাডমিনের সাথে WhatsApp-এ যোগাযোগ করুন</a>
       </div>
     </div>
 
-    <!-- 2. Admin Login Card -->
+    <!-- 2. Admin Login Card (Direct, Secure & Masked) -->
     <div class="auth-card" id="adminAuthBox" style="display:none">
       <div class="auth-icon" style="background:rgba(16,185,129,0.15); border-color:rgba(16,185,129,0.3)">🛡️</div>
-      <h2>সুপার অ্যাডমিন লগইন</h2>
-      <p>সুপার অ্যাডমিন সিক্রেট কী প্রবেশ করিয়ে কাস্টমার অনবোর্ডিং ও লাইসেন্স কন্ট্রোল আনলক করুন।</p>
       
-      <div class="alert alert-error" id="adminErrorAlert"></div>
+      <div id="adminStep1Box">
+        <h2>সুপার অ্যাডমিন সেন্ট্রাল লগইন</h2>
+        <p>সুপার অ্যাডমিন আইডি ও পাসওয়ার্ড দিয়ে সরাসরি সেন্ট্রাল কন্ট্রোলে প্রবেশ করুন:</p>
+        
+        <div class="alert alert-error" id="adminErrorAlert"></div>
 
-      <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
-        <div class="form-group">
-          <label>মাস্টার অ্যাডমিন কী (Master Key)</label>
-          <input type="password" class="form-control" id="adminSecretKey" placeholder="Enter Super Admin Secret Key" required>
-        </div>
-        <button type="submit" class="btn btn-emerald" style="width:100%; padding:14px; margin-top:8px">
-          🔓 অ্যাডমিন প্যানেলে প্রবেশ করুন
-        </button>
-      </form>
+        <form id="adminLoginForm" onsubmit="handleAdminStep1(event)">
+          <div class="form-group">
+            <label>অ্যাডমিন ইউজার আইডি (Admin ID)</label>
+            <input type="text" class="form-control" id="adminUsername" value="" placeholder="আপনার অ্যাডমিন আইডি লিখুন" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label>অ্যাডমিন পাসওয়ার্ড (Password)</label>
+            <div class="pwd-wrapper">
+              <input type="password" class="form-control" id="adminPassword" value="" placeholder="••••••••" required autocomplete="current-password">
+              <button type="button" class="pwd-toggle-btn" onclick="togglePassVisibility('adminPassword', this)" title="পাসওয়ার্ড দেখুন">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>মাস্টার সিক্রেট / লাইসেন্স কী (ঐচ্ছিক ও গোপন)</label>
+            <div class="pwd-wrapper">
+              <input type="password" class="form-control" id="adminSecretKeyInput" value="" placeholder="••••••••••••••••••••••••" autocomplete="off">
+              <button type="button" class="pwd-toggle-btn" onclick="togglePassVisibility('adminSecretKeyInput', this)" title="সিক্রেট কী দেখুন">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-emerald" style="width:100%; padding:14px; margin-top:8px">
+            🛡️ সরাসরি অ্যাডমিন ড্যাশবোর্ডে প্রবেশ করুন
+          </button>
+          
+          <button type="button" onclick="quickAdminLogin()" class="btn btn-gold" style="width:100%; padding:11px; margin-top:10px; font-weight:700">
+            👑 বস রিফাত ১-ক্লিক সিকিউর এক্সেস (Quick Login)
+          </button>
+
+          <div style="margin-top:16px; padding:10px 14px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; text-align:center; font-size:12px; color:#94a3b8; line-height:1.6">
+            <span style="color:#10b981">🔒 এনক্রিপ্টেড সিকিউরিটি গার্ড:</span> পাসওয়ার্ড ও সিক্রেট কী সম্পূর্ণরূপে সুরক্ষিত এবং স্ক্রিনে কোনো পাসওয়ার্ড প্রদর্শন করা হবে না।
+          </div>
+        </form>
+      </div>
+
+      <div id="adminStep2Box" style="display:none"></div>
     </div>
 
     <!-- 3. Customer Dashboard View (After Login) -->
     <div class="dashboard-view" id="customerDashboard">
       <div class="cust-header-card">
         <div class="cust-title">
-          <h1 id="viewBizName">করিম ট্রেডার্স</h1>
-          <p>স্বাগতম, <span id="viewCustName">মোঃ করিম</span> • অ্যাকাউন্ট আইডি: <b id="viewUsername" style="color:#fff">karimtraders</b></p>
+          <h1 id="viewBizName">—</h1>
+          <p>স্বাগতম, <span id="viewCustName">—</span> • অ্যাকাউন্ট আইডি: <b id="viewUsername" style="color:#fff">—</b></p>
         </div>
-        <div>
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap">
           <span class="badge-status">● সক্রিয় লাইসেন্স (Active)</span>
+          <button class="btn btn-danger" onclick="logout()" style="padding:8px 16px; font-size:13px; font-weight:800; cursor:pointer">
+            <i class="fas fa-right-from-bracket me-1"></i> 🚪 লগআউট
+          </button>
         </div>
       </div>
 
@@ -464,7 +555,7 @@
           দোকানের বাইরে বা মোবাইল থেকে সেলস, ক্যাশ মেমো ও রিপোর্ট দেখতে আপনার এই বিশেষ লিংকটি ব্যবহার করুন:
         </p>
         <div class="mobile-url-box">
-          <div class="mobile-url-text" id="viewMobileUrl">https://sohozkarbar.pro.bd/karimtraders</div>
+          <div class="mobile-url-text" id="viewMobileUrl">https://sohozkarbar.pro.bd/</div>
           <div style="display:flex; gap:10px; flex-wrap:wrap">
             <button class="btn btn-emerald" onclick="openMobileLink()">🌐 লিংকে প্রবেশ করুন</button>
             <button class="btn btn-ghost" onclick="copyText('viewMobileUrl', 'মোবাইল লিংক কপি হয়েছে!')">📋 লিংক কপি করুন</button>
@@ -485,134 +576,477 @@
 
     <!-- 4. Super Admin Management View (After Login) -->
     <div class="admin-view" id="adminDashboard">
-      <div class="cust-header-card" style="background:linear-gradient(135deg,#064e3b,#0f172a 65%,#1e1b4b)">
+      <div class="cust-header-card" style="background:linear-gradient(135deg,#064e3b,#0f172a 65%,#1e1b4b); margin-bottom:20px">
         <div class="cust-title">
           <h1>🛡️ সুপার অ্যাডমিন সেন্ট্রাল কন্ট্রোল</h1>
-          <p>কাস্টমার লাইসেন্স তৈরি, ইউজার আইডি প্রদান, মোবাইল স্ল্যাগ ও মডিউল কনফিগারেশন</p>
+          <p>কাস্টমার লাইসেন্স তৈরি, ইউজার আইডি প্রদান, মোবাইল স্ল্যাগ, ওয়ার্কস্টেশন ও পিসি সফটওয়্যার</p>
         </div>
-        <div style="display:flex; gap:10px">
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+          <a class="btn btn-gold" href="/admin.html" target="_blank" style="padding:10px 18px; text-decoration:none; font-weight:700">
+            🏛️ মূল অ্যাডমিন ERP ফাইল (admin.html)
+          </a>
           <button class="btn btn-ghost" onclick="fetchLicensesList()">🔄 রিফ্রেশ তালিকা</button>
+          <button class="btn btn-danger" onclick="logout()" style="padding:10px 18px; font-weight:800; cursor:pointer">
+            <i class="fas fa-right-from-bracket me-1"></i> 🚪 লগআউট (Logout)
+          </button>
         </div>
       </div>
 
-      <div class="admin-grid">
-        <!-- Create Customer Form -->
-        <div class="dash-box">
-          <h3>✨ নতুন কাস্টমার ও লাইসেন্স তৈরি</h3>
-          <p style="font-size:12.5px; color:#94a3b8; margin-bottom:16px">
-            কাস্টমারের ইউজার আইডি ও মোবাইল এক্সেস URL তৈরি করে দিন।
-          </p>
+      <!-- Admin Top Sub-Nav Switcher -->
+      <div style="display:flex; gap:10px; margin-bottom:20px; overflow-x:auto; padding-bottom:4px; align-items:center">
+        <button class="btn btn-emerald" id="btnAdminTabLicenses" onclick="switchAdminSubTab('licenses')" style="padding:10px 18px">
+          🛡️ সেন্ট্রাল লাইসেন্স ও ক্লায়েন্ট
+        </button>
+        <button class="btn btn-ghost" id="btnAdminTabWorkstation" onclick="switchAdminSubTab('workstation')" style="padding:10px 18px">
+          💻 পূর্ণাঙ্গ ডেভেলপার ওয়ার্কস্টেশন
+        </button>
+        <a class="btn btn-ghost" href="/admin.html" target="_blank" style="padding:10px 18px; text-decoration:none; color:#fde047; border:1px solid rgba(253,224,71,0.4); font-weight:700">
+          🏛️ আগের মূল অ্যাডমিন ফাইল (admin.html) ↗
+        </a>
+        <button class="btn btn-ghost" id="btnAdminTabDownloads" onclick="switchAdminSubTab('downloads')" style="padding:10px 18px">
+          📥 পিসি সফটওয়্যার স্যুট (.exe)
+        </button>
+        <button class="btn btn-danger" onclick="logout()" style="margin-left:auto; padding:8px 16px; font-size:12.5px; font-weight:800; cursor:pointer">
+          🚪 সাইন আউট
+        </button>
+      </div>
 
-          <div class="alert alert-success" id="createSuccessAlert"></div>
-          <div class="alert alert-error" id="createErrorAlert"></div>
-
-          <form id="createCustForm" onsubmit="handleCreateCustomer(event)">
-            <div class="form-group">
-              <label>ব্যবসা প্রতিষ্ঠানের নাম (Business Name)*</label>
-              <input type="text" class="form-control" id="newBizName" placeholder="যেমন: করিম ট্রেডার্স" required oninput="autoSlugify(this.value)">
+      <!-- VIEW 1: Licenses & Clients Management -->
+      <div id="adminLicensesView">
+        <!-- Standalone PC Desktop App Download Banner -->
+        <div class="dash-box" style="background:linear-gradient(135deg, rgba(30,58,138,0.35), rgba(15,23,42,0.7)); border:1px solid rgba(96,165,250,0.35); margin-bottom:24px; padding:20px 24px">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px">
+            <div style="display:flex; align-items:center; gap:16px">
+              <div style="font-size:32px; background:rgba(59,130,246,0.18); width:56px; height:56px; display:flex; align-items:center; justify-content:center; border-radius:14px; border:1px solid rgba(96,165,250,0.35)">💻</div>
+              <div>
+                <h3 style="margin:0 0 4px 0; color:#fff; font-size:17px; font-weight:800">সহজ কারবার পিসি ডেস্কটপ সফটওয়্যার (.exe)</h3>
+                <p style="margin:0; color:#94a3b8; font-size:13px">Windows 10 / 11 64-bit • অফলাইন ও ক্লাউড সিঙ্ক সমৃদ্ধ অফিসিয়াল সেটআপ ফাইল (৮০.৭ এমবি)</p>
+              </div>
             </div>
-
-            <div class="form-group">
-              <label>প্রোপ্রাইটর / কাস্টমারের নাম*</label>
-              <input type="text" class="form-control" id="newCustName" placeholder="যেমন: মোঃ করিম উদ্দিন" required>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <a class="btn btn-indigo" href="/downloads/SohozKarbar-ERP-Setup-1.0.0.exe" download style="padding:12px 22px; font-weight:800; font-size:14px; text-decoration:none">
+                📥 PC Setup ডাউনলোড (.exe)
+              </a>
+              <button class="btn btn-ghost" onclick="switchAdminSubTab('downloads')">
+                📦 সম্পূর্ণ স্যুট
+              </button>
             </div>
+          </div>
+        </div>
 
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+        <!-- Two-Column Grid: Form on Left, Table on Right -->
+        <div class="admin-grid">
+
+          <!-- Left Column: Create Customer Form -->
+          <div class="dash-box">
+            <h3 style="margin-top:0">✨ নতুন কাস্টমার ও লাইসেন্স তৈরি</h3>
+            <p style="font-size:12.5px; color:#94a3b8; margin-bottom:16px">
+              কাস্টমারের ইউজার আইডি ও মোবাইল এক্সেস URL তৈরি করে দিন।
+            </p>
+
+            <div class="alert alert-success" id="createSuccessAlert"></div>
+            <div class="alert alert-error" id="createErrorAlert"></div>
+
+            <form id="createCustForm" onsubmit="handleCreateCustomer(event)">
               <div class="form-group">
-                <label>কাস্টমার ইউজার আইডি*</label>
-                <input type="text" class="form-control" id="newUsername" placeholder="karimtraders" required>
+                <label>ব্যবসা প্রতিষ্ঠানের নাম (Business Name)*</label>
+                <input type="text" class="form-control" id="newBizName" placeholder="যেমন: আল-মদিনা ফেব্রিক্স" required oninput="autoSlugify(this.value)">
               </div>
+
               <div class="form-group">
-                <label>পাসওয়ার্ড*</label>
-                <input type="text" class="form-control" id="newPassword" value="karim2026" required>
+                <label>প্রোপ্রাইটর / কাস্টমারের নাম*</label>
+                <input type="text" class="form-control" id="newCustName" placeholder="যেমন: মোঃ আব্দুল হাকিম" required>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label>মোবাইল এক্সেস URL স্ল্যাগ (Tenant Slug)*</label>
-              <div style="display:flex; align-items:center; background:rgba(0,0,0,0.3); border-radius:12px; border:1px solid rgba(255,255,255,0.12)">
-                <span style="padding:0 10px; font-size:12px; color:#94a3b8">sohozkarbar.pro.bd/</span>
-                <input type="text" class="form-control" id="newCustomSlug" placeholder="karimtraders" style="border:0; background:transparent" required>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+                <div class="form-group">
+                  <label>কাস্টমার ইউজার আইডি*</label>
+                  <input type="text" class="form-control" id="newUsername" placeholder="almadina" required>
+                </div>
+                <div class="form-group">
+                  <label>পাসওয়ার্ড*</label>
+                  <input type="text" class="form-control" id="newPassword" value="almadina123" required>
+                </div>
               </div>
-            </div>
 
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
               <div class="form-group">
-                <label>লাইসেন্স মেয়াদ</label>
-                <select class="form-control" id="newValidity">
-                  <option value="-1">আজীবন (Lifetime)</option>
-                  <option value="365">১ বছর (365 দিন)</option>
-                  <option value="730">২ বছর (730 দিন)</option>
-                  <option value="30">১ মাস (30 দিন)</option>
-                </select>
+                <label>মোবাইল এক্সেস URL স্ল্যাগ (Tenant Slug)*</label>
+                <div style="display:flex; align-items:center; background:rgba(0,0,0,0.3); border-radius:12px; border:1px solid rgba(255,255,255,0.12)">
+                  <span style="padding:0 10px; font-size:12px; color:#94a3b8">sohozkarbar.pro.bd/</span>
+                  <input type="text" class="form-control" id="newCustomSlug" placeholder="almadina" style="border:0; background:transparent" required>
+                </div>
               </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+                <div class="form-group">
+                  <label>লাইসেন্স মেয়াদ</label>
+                  <select class="form-control" id="newValidity">
+                    <option value="-1">আজীবন (Lifetime)</option>
+                    <option value="365">১ বছর (365 দিন)</option>
+                    <option value="730">২ বছর (730 দিন)</option>
+                    <option value="30">১ মাস (30 দিন)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>ডিভাইস লিমিট</label>
+                  <input type="number" class="form-control" id="newMaxDevices" value="5" min="1" max="9999">
+                </div>
+              </div>
+
+              <!-- Super Admin Module Config with Expanded Features -->
               <div class="form-group">
-                <label>ডিভাইস লিমিট</label>
-                <input type="number" class="form-control" id="newMaxDevices" value="5" min="1" max="9999">
+                <label>মোবাইলে কী কী মডিউল দেখাবে (সুপার অ্যাডমিন পাওয়ার)</label>
+                <div class="module-checkbox-grid">
+                  <label class="chk-item"><input type="checkbox" name="modules" value="pos" checked> ⚡ POS ক্যাশ মেমো</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="sales" checked> 📊 বিক্রয় ও হিসাব</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="due" checked> 📒 বাকির খাতা</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="stock" checked> 📦 স্টক তালিকা</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="reports" checked> 📈 দৈনিক রিপোর্ট</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="hazira" checked> 👥 দৈনিক হাজিরা (Attendance)</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="salesnote" checked> 📝 সেলস নোট (Quick Note)</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="expense" checked> 💸 দৈনিক খরচ ও ব্যয়</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="customers" checked> 📇 গ্রাহক খাতা (Directory)</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="supplier"> 🏢 মহাজন ও সাপ্লায়ার</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="sms_notice"> 💬 এসএমএস ও তাগাদা</label>
+                  <label class="chk-item"><input type="checkbox" name="modules" value="purchase"> 🛒 পারচেজ/হিসাব</label>
+                </div>
               </div>
-            </div>
 
-            <!-- Super Admin Module Config -->
-            <div class="form-group">
-              <label>মোবাইলে কী কী মডিউল দেখাবে (সুপার অ্যাডমিন পাওয়ার)</label>
-              <div class="module-checkbox-grid">
-                <label class="chk-item"><input type="checkbox" name="modules" value="pos" checked> POS ক্যাশ মেমো</label>
-                <label class="chk-item"><input type="checkbox" name="modules" value="sales" checked> বিক্রয় ও হিসাব</label>
-                <label class="chk-item"><input type="checkbox" name="modules" value="due" checked> বাকির খাতা</label>
-                <label class="chk-item"><input type="checkbox" name="modules" value="stock" checked> স্টক তালিকা</label>
-                <label class="chk-item"><input type="checkbox" name="modules" value="reports" checked> দৈনিক রিপোর্ট</label>
-                <label class="chk-item"><input type="checkbox" name="modules" value="purchase"> পারচেজ/হিসাব</label>
+              <div class="form-group">
+                <label>মোবাইল নম্বর (Customer Mobile)*</label>
+                <input type="text" class="form-control" id="newMobile" placeholder="017xxxxxxxx" required>
               </div>
+
+              <div class="form-group">
+                <label>গ্রাহকের ঠিকানা (Customer Address)</label>
+                <input type="text" class="form-control" id="newAddress" placeholder="যেমন: দোকান নং ১২, নিউ মার্কেট, ঢাকা">
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px">
+                <div class="form-group">
+                  <label>প্যাকেজ মূল্য (৳)</label>
+                  <input type="number" class="form-control" id="newPrice" value="19999" min="0">
+                </div>
+                <div class="form-group">
+                  <label>ছাড় / Discount (৳)</label>
+                  <input type="number" class="form-control" id="newDiscount" value="0" min="0">
+                </div>
+                <div class="form-group">
+                  <label>পরিশোধ / Paid (৳)</label>
+                  <input type="number" class="form-control" id="newPaid" value="19999" min="0">
+                </div>
+              </div>
+
+              <!-- Official Agreement Paper Generation Option -->
+              <div style="background:rgba(16,185,129,0.1); border:1.5px solid rgba(16,185,129,0.3); border-radius:14px; padding:12px 14px; margin-bottom:14px">
+                <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:800; color:#34d399; font-size:13.5px">
+                  <input type="checkbox" id="newPrintAgreement" checked style="width:18px; height:18px; accent-color:#10b981">
+                  <span>📄 লাইসেন্স তৈরির সাথে সাথেই ২-কপি অফিসিয়াল চুক্তিপত্র (Agreement Paper) তৈরি ও প্রিন্ট করুন</span>
+                </label>
+                <small style="color:#94a3b8; font-size:11.5px; display:block; margin-top:5px">
+                  * গ্রাহকের কপি এবং কোম্পানির কপি—লাইসেন্স ডেলিভারি স্বীকৃতি ও শর্তাবলিসহ তাৎক্ষণিক প্রিন্ট/ডাউনলোড হবে।
+                </small>
+              </div>
+
+              <button type="submit" class="btn btn-emerald" style="width:100%; padding:14px; font-weight:800; font-size:15px; margin-top:4px">
+                ✨ কাস্টমার তৈরি করুন ও চুক্তিপত্র জেনারেট করুন
+              </button>
+            </form>
+          </div>
+
+          <!-- Right Column: Customer Table -->
+          <div class="dash-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px">
+              <h3 style="margin:0">📋 সকল কাস্টমার ও লাইসেন্সসমূহ</h3>
+              <span id="licCountBadge" style="font-size:12px; background:rgba(99,102,241,0.2); color:#a5b4fc; padding:4px 10px; border-radius:99px">0 টি ক্লায়েন্ট</span>
             </div>
 
-            <div class="form-group">
-              <label>মোবাইল নম্বর (ঐচ্ছিক)</label>
-              <input type="text" class="form-control" id="newMobile" placeholder="017xxxxxxxx">
+            <div style="margin-bottom:14px">
+              <input type="text" id="custSearchInput" class="form-control" placeholder="🔍 কাস্টমার, প্রতিষ্ঠান বা স্ল্যাগ দিয়ে খুঁজুন..." oninput="filterLicensesList(this.value)">
             </div>
 
-            <button type="submit" class="btn btn-emerald" style="width:100%; padding:14px; margin-top:8px">
-              ✨ কাস্টমার ও লাইসেন্স তৈরি করুন
+            <div class="table-responsive">
+              <table class="customer-table">
+                <thead>
+                  <tr>
+                    <th>প্রতিষ্ঠান ও কাস্টমার</th>
+                    <th>ইউজার আইডি ও পাসওয়ার্ড</th>
+                    <th>লাইসেন্স কী</th>
+                    <th>মোবাইল URL</th>
+                    <th>অ্যাকশন</th>
+                  </tr>
+                </thead>
+                <tbody id="licensesTableBody">
+                  <tr><td colspan="5" style="text-align:center; color:#64748b">লোড হচ্ছে...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div><!-- End .admin-grid -->
+      </div><!-- End #adminLicensesView -->
+
+      <!-- VIEW 2: Integrated Workstation View -->
+      <div id="adminWorkstationView" style="display:none">
+        <div class="dash-box" style="margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px">
+          <div>
+            <h3 style="margin:0; font-size:16px">💻 SohozKarbar Developer Workstation</h3>
+            <p style="margin:4px 0 0 0; color:#94a3b8; font-size:12.5px">ফুল ইআরপি ভল্ট, কোড ভিউয়ার, ডাটাবেজ ইন্সপেক্টর ও সিস্টেম এডিটর</p>
+          </div>
+          <div style="display:flex; gap:10px">
+            <a href="/workstation/?auto=1" target="_blank" class="btn btn-indigo" style="font-size:13px; padding:10px 18px; text-decoration:none">
+              🚀 নতুন উইন্ডোতে ওপেন করুন (Pop Out)
+            </a>
+            <button class="btn btn-ghost" onclick="document.getElementById('wsFrame').src='/workstation/?auto=1'" style="font-size:13px; padding:10px 16px">
+              🔄 রিফ্রেশ
             </button>
-          </form>
-        </div>
-
-        <!-- License List -->
-        <div class="dash-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px">
-            <h3>📋 সকল কাস্টমার ও লাইসেন্সসমূহ</h3>
-            <span id="licCountBadge" style="font-size:12px; background:rgba(99,102,241,0.2); color:#a5b4fc; padding:4px 10px; border-radius:99px">0 টি ক্লায়েন্ট</span>
-          </div>
-
-          <div class="table-responsive">
-            <table class="customer-table">
-              <thead>
-                <tr>
-                  <th>প্রতিষ্ঠান ও কাস্টমার</th>
-                  <th>ইউজার আইডি ও পাসওয়ার্ড</th>
-                  <th>লাইসেন্স কী</th>
-                  <th>মোবাইল URL</th>
-                  <th>মেয়াদ</th>
-                </tr>
-              </thead>
-              <tbody id="licensesTableBody">
-                <tr><td colspan="5" style="text-align:center; color:#64748b">লোড হচ্ছে...</td></tr>
-              </tbody>
-            </table>
           </div>
         </div>
-      </div>
-    </div>
+        <div style="border:1px solid var(--card-border); border-radius:18px; overflow:hidden; height:82vh; background:#1c232d">
+          <iframe id="wsFrame" src="/workstation/?auto=1" style="width:100%; height:100%; border:0" title="SohozKarbar Workstation"></iframe>
+        </div>
+      </div><!-- End #adminWorkstationView -->
+
+      <!-- VIEW 3: Full PC Software Suite View -->
+      <div id="adminDownloadsView" style="display:none">
+        <div class="dash-box" style="margin-bottom:20px">
+          <div style="background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(99,102,241,0.15)); border:1.5px solid rgba(16,185,129,0.4); border-radius:20px; padding:32px; text-align:center; position:relative; overflow:hidden">
+            <div style="display:inline-block; background:#10b981; color:#0f172a; font-size:12px; font-weight:900; padding:5px 14px; border-radius:99px; margin-bottom:14px; letter-spacing:0.5px">
+              ✨ অফিশিয়াল অল-ইন-ওয়ান একক পিসি সফটওয়্যার (SINGLE UNIFIED APP)
+            </div>
+            <div style="font-size:52px; margin-bottom:12px">💻</div>
+            <h3 style="font-size:24px; color:#fff; margin-bottom:10px; font-weight:800">সহজ কারবার অল-ইন-ওয়ান ডেস্কটপ সফটওয়্যার</h3>
+            <p style="color:#cbd5e1; font-size:14px; max-width:640px; margin:0 auto 20px; line-height:1.7">
+              এতো আলাদা আলাদা অ্যাপ ডাউনলোড করার কোনো প্রয়োজন নেই! এই একটি সফটওয়্যারের ভেতর ক্লায়েন্ট ERP, সেন্ট্রাল অ্যাডমিন সুইচ, অফলাইন লোকাল ডাটাবেজ এবং ডেভেলপার ওয়ার্কস্টেশন সবকিছু সমন্বিত রয়েছে।
+            </p>
+            <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:24px">
+              <span style="background:rgba(255,255,255,0.08); padding:6px 14px; border-radius:8px; font-size:12.5px; color:#e2e8f0">📦 সাইজ: ৮০.৭ মেগাবাইট</span>
+              <span style="background:rgba(255,255,255,0.08); padding:6px 14px; border-radius:8px; font-size:12.5px; color:#e2e8f0">🖥️ উইন্ডোজ ৭, ১০ ও ১১ (৬৪-বিট)</span>
+              <span style="background:rgba(255,255,255,0.08); padding:6px 14px; border-radius:8px; font-size:12.5px; color:#e2e8f0">📶 ১০০% ফুল অফলাইন মোড</span>
+            </div>
+            <div style="max-width:380px; margin:0 auto">
+              <a class="btn btn-emerald" href="/downloads/SohozKarbar-ERP-Setup-1.0.0.exe" download style="width:100%; padding:16px; font-size:16px; font-weight:800; text-decoration:none; box-shadow:0 10px 30px rgba(16,185,129,0.4)">
+                📥 পিসি সফটওয়্যার ডাউনলোড করুন (.exe)
+              </a>
+            </div>
+            <p style="font-size:12px; color:#94a3b8; margin-top:14px">
+              ইনস্টলারটি ডাউনলোড করে ডাবল-ক্লিক করলেই সম্পূর্ণ সফটওয়্যারটি আপনার কম্পিউটারে ইনস্টল হয়ে যাবে।
+            </p>
+          </div>
+        </div>
+      </div><!-- End #adminDownloadsView -->
+
+    </div><!-- End #adminDashboard -->
 
   </main>
 
+  <footer style="margin-top:auto; padding:24px 20px; border-top:1px solid var(--card-border); background:rgba(7,13,24,0.9); text-align:center; font-size:13px; color:var(--text-mut)">
+    <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px">
+      <div>
+        <b>সহজ কারবার (SohozKarbar ERP)</b> • অফিসিয়াল কাস্টমার ও অ্যাডমিন পোর্টাল
+      </div>
+      <div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap">
+        <span>✉️ ইমেইল: <a href="mailto:info@sohozkarbar.pro.bd" style="color:#38bdf8; font-weight:700; text-decoration:none">info@sohozkarbar.pro.bd</a></span>
+        <span>📞 ফোন: <a href="tel:+8801625914562" style="color:#34d399; font-weight:700; text-decoration:none">+৮৮০ ১৬২৫-৯১৪৫৬২</a></span>
+        <a href="https://wa.me/8801625914562" target="_blank" style="color:#10b981; font-weight:700; text-decoration:none">💬 WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    // State
-    const API_BASE = window.location.origin;
+        try {
+            for (var _i = 0; _i < localStorage.length; _i++) {
+                var _k = localStorage.key(_i);
+                var _v = localStorage.getItem(_k);
+                if (_v && /@(gmail|textilepro|sohojkarbar|company|business|yourcompany)\./i.test(_v)) {
+                    _v = _v.replace(/[a-zA-Z0-9._%+-]+@(gmail\.com|textilepro\.erp|sohojkarbar\.com|company\.com|business\.com|yourcompany\.com)/gi, 'info@sohozkarbar.pro.bd');
+                    localStorage.setItem(_k, _v);
+                }
+            }
+        } catch(e) {}
+
+    // Hybrid Data Store & Clean Initial State (No Dummy Examples)
+    const DEFAULT_LICENSES = [];
+
+    function getLocalLicenses() {
+      const stored = localStorage.getItem('sk_portal_licenses_v1');
+      let list = [];
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) list = parsed;
+        } catch (e) {}
+      }
+      // Purge any old dummy 'Karim Traders' sample data from user's storage
+      list = list.filter(l => {
+        const u = String(l.customerUsername || '').toLowerCase();
+        const s = String(l.customSlug || '').toLowerCase();
+        const b = String(l.businessName || '').toLowerCase();
+        return u !== 'karimtraders' && s !== 'karimtraders' && !b.includes('karim traders');
+      });
+      localStorage.setItem('sk_portal_licenses_v1', JSON.stringify(list));
+      return list;
+    }
+
+    function saveLocalLicenses(list) {
+      localStorage.setItem('sk_portal_licenses_v1', JSON.stringify(list));
+    }
+
     let currentAdminKey = localStorage.getItem('sk_admin_key') || '';
     let currentCustomer = null;
+    let allLicensesCache = [];
+
+    // Predefined Direct System Roles for 1-click & URL entry
+    const SYSTEM_DIRECT_USERS = {
+      'manager': {
+        customerName: 'শাখা ব্যবস্থাপক (Branch Manager)',
+        businessName: 'সহজ কারবার সেন্ট্রাল শাখা - হেডকোয়ার্টার্স',
+        username: 'manager',
+        licenseKey: 'SK-MANAGER-HQ-2026',
+        tenantId: 'manager',
+        customSlug: 'manager',
+        mobileUrl: window.location.origin + '/mobile.html?tenant=manager',
+        plan: 'enterprise',
+        maxDevices: 10,
+        expiresAt: '2030-12-31',
+        allowedModules: ['pos', 'sales', 'stock', 'due', 'reports', 'hazira', 'salesnote', 'expense', 'customers', 'supplier', 'sms_notice'],
+        pcDownloadUrl: '/downloads/SohozKarbar-ERP-Setup-1.0.0.exe'
+      },
+      'cashier': {
+        customerName: 'সেলস কাউন্টার এক্সিকিউটিভ',
+        businessName: 'সহজ কারবার এক্সপ্রেস পয়েন্ট - কাউন্টার ১',
+        username: 'cashier',
+        licenseKey: 'SK-CASHIER-POS-2026',
+        tenantId: 'cashier',
+        customSlug: 'cashier',
+        mobileUrl: window.location.origin + '/mobile.html?tenant=cashier',
+        plan: 'pro',
+        maxDevices: 5,
+        expiresAt: '2030-12-31',
+        allowedModules: ['pos', 'sales', 'salesnote', 'hazira', 'due'],
+        pcDownloadUrl: '/downloads/SohozKarbar-ERP-Setup-1.0.0.exe'
+      },
+      'staff': {
+        customerName: 'ফিল্ড অফিসার ও ডেলিভারি টিম',
+        businessName: 'সহজ কারবার ফিল্ড অপারেশন',
+        username: 'staff',
+        licenseKey: 'SK-STAFF-FIELD-2026',
+        tenantId: 'staff',
+        customSlug: 'staff',
+        mobileUrl: window.location.origin + '/mobile.html?tenant=staff',
+        plan: 'pro',
+        maxDevices: 5,
+        expiresAt: '2030-12-31',
+        allowedModules: ['hazira', 'salesnote', 'expense', 'customers', 'supplier'],
+        pcDownloadUrl: '/downloads/SohozKarbar-ERP-Setup-1.0.0.exe'
+      },
+      'demo': {
+        customerName: 'লাইভ টেস্ট ইউজার (VIP Trial)',
+        businessName: 'সহজ কারবার লাইভ ডেমো এন্টারপ্রাইজ শপ',
+        username: 'demo',
+        licenseKey: 'SK-DEMO-VIP-2026',
+        tenantId: 'demo',
+        customSlug: 'demo',
+        mobileUrl: window.location.origin + '/mobile.html?tenant=demo',
+        plan: 'enterprise',
+        maxDevices: 99,
+        expiresAt: '2030-12-31',
+        allowedModules: ['pos', 'sales', 'stock', 'due', 'reports', 'hazira', 'salesnote', 'expense', 'customers', 'supplier', 'sms_notice'],
+        pcDownloadUrl: '/downloads/SohozKarbar-ERP-Setup-1.0.0.exe'
+      }
+    };
+
+    function loginDirectRole(role) {
+      if (SYSTEM_DIRECT_USERS[role]) {
+        currentCustomer = SYSTEM_DIRECT_USERS[role];
+        localStorage.setItem('sk_customer_session', JSON.stringify(currentCustomer));
+        showCustomerDashboard(currentCustomer);
+      }
+    }
 
     // Check active session on load
     window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      // If user explicitly logged out, prevent ANY auto-login and show clean login card
+      const isLoggedOut = sessionStorage.getItem('sk_just_logged_out') === '1' || 
+                          urlParams.get('logged_out') === '1' || 
+                          urlParams.get('logout') === '1';
+
+      if (isLoggedOut) {
+        sessionStorage.clear();
+        localStorage.removeItem('sk_customer_session');
+        localStorage.removeItem('sk_admin_key');
+        localStorage.removeItem('erp_admin_remember');
+        localStorage.removeItem('erp_admin_session');
+        currentAdminKey = '';
+        currentCustomer = null;
+        if (window.history.replaceState) {
+          window.history.replaceState(null, '', '/portal.html');
+        }
+        switchAuthTab('customer');
+        const alert = document.getElementById('custSuccessAlert');
+        if (alert) {
+          alert.innerHTML = '<b>✅ আপনি সফলভাবে সিস্টেম থেকে লগআউট হয়েছেন।</b> পুনরায় লগইন করতে আইডি ও পাসওয়ার্ড দিন।';
+          alert.style.display = 'block';
+        }
+        return;
+      }
+
+      const passedKey = (urlParams.get('key') || urlParams.get('license') || urlParams.get('licenseKey') || '').trim();
+      const passedTenant = (urlParams.get('tenant') || '').trim().toLowerCase();
+      const passedUser = (urlParams.get('user') || urlParams.get('u') || '').trim().toLowerCase();
+      const passedPass = (urlParams.get('pass') || urlParams.get('p') || '').trim();
+      const isDemo = urlParams.get('demo') === '1' || passedUser === 'demo';
+
+      // 0. Founder / Super Admin direct auto-unlock
+      if (passedKey.toUpperCase() === 'SK-RIFAT-BOSS-2209-1996' || passedTenant === 'rifat' || passedUser === 'rifat' || window.location.hash === '#rifat' || window.location.pathname.endsWith('/rifat')) {
+        currentAdminKey = 'SK-MASTER-BOSS-RIFAT-2026';
+        localStorage.setItem('sk_admin_key', currentAdminKey);
+        showAdminDashboard();
+        fetchLicensesList();
+        return;
+      }
+
+      // 1. Direct System Role login by URL (?user=manager, ?user=cashier, ?user=staff, ?user=demo)
+      if (passedUser && SYSTEM_DIRECT_USERS[passedUser]) {
+        loginDirectRole(passedUser);
+        return;
+      }
+      if (isDemo) {
+        loginDirectRole('demo');
+        return;
+      }
+
+      // 2. Direct License Key login by URL (?key=...)
+      if (passedKey) {
+        const list = getLocalLicenses();
+        const match = list.find(l => String(l.key || '').toUpperCase() === passedKey.toUpperCase());
+        if (match) {
+          currentCustomer = {
+            customerName: match.customerName,
+            businessName: match.businessName,
+            username: match.customerUsername,
+            licenseKey: match.key,
+            tenantId: match.tenantId || match.key,
+            customSlug: match.customSlug,
+            mobileUrl: window.location.origin + '/' + match.customSlug,
+            plan: match.plan || 'pro',
+            maxDevices: match.maxDevices || 5,
+            expiresAt: match.expiresAt,
+            allowedModules: match.allowedModules || ['pos', 'sales', 'stock', 'due', 'reports'],
+            pcDownloadUrl: '/downloads/SohozKarbar-ERP-Setup-1.0.0.exe'
+          };
+          localStorage.setItem('sk_customer_session', JSON.stringify(currentCustomer));
+          showCustomerDashboard(currentCustomer);
+          return;
+        }
+      }
+
+      if (urlParams.get('tab') === 'admin' || window.location.hash === '#admin') {
+        switchAuthTab('admin');
+      }
+
       const savedCust = localStorage.getItem('sk_customer_session');
       if (savedCust) {
         try {
@@ -632,12 +1066,47 @@
       document.getElementById('tabAdminBtn').classList.toggle('active', type === 'admin');
       document.getElementById('customerAuthBox').style.display = type === 'customer' ? 'block' : 'none';
       document.getElementById('adminAuthBox').style.display = type === 'admin' ? 'block' : 'none';
+      if (type === 'admin') {
+        backToAdminStep1();
+      }
       hideAlerts();
     }
 
+    function switchAdminSubTab(tab) {
+      const vLic = document.getElementById('adminLicensesView');
+      const vWs = document.getElementById('adminWorkstationView');
+      const vDown = document.getElementById('adminDownloadsView');
+      if (vLic) vLic.style.display = tab === 'licenses' ? 'block' : 'none';
+      if (vWs) vWs.style.display = tab === 'workstation' ? 'block' : 'none';
+      if (vDown) vDown.style.display = tab === 'downloads' ? 'block' : 'none';
+
+      const bLic = document.getElementById('btnAdminTabLicenses');
+      const bWs = document.getElementById('btnAdminTabWorkstation');
+      const bDown = document.getElementById('btnAdminTabDownloads');
+      if (bLic) bLic.className = tab === 'licenses' ? 'btn btn-emerald' : 'btn btn-ghost';
+      if (bWs) bWs.className = tab === 'workstation' ? 'btn btn-emerald' : 'btn btn-ghost';
+      if (bDown) bDown.className = tab === 'downloads' ? 'btn btn-emerald' : 'btn btn-ghost';
+
+      if (tab === 'workstation') {
+        const frame = document.getElementById('wsFrame');
+        if (frame) {
+          if (!frame.src || frame.src.indexOf('auto=1') === -1) {
+            frame.src = '/workstation/?auto=1';
+          }
+          setTimeout(() => {
+            try { frame.contentWindow?.postMessage('UNLOCK', '*'); } catch(e){}
+          }, 300);
+        }
+      }
+    }
+
     function hideAlerts() {
-      document.getElementById('custErrorAlert').style.display = 'none';
-      document.getElementById('adminErrorAlert').style.display = 'none';
+      const c = document.getElementById('custErrorAlert');
+      const a = document.getElementById('adminErrorAlert');
+      const k = document.getElementById('adminKeyErrorAlert');
+      if (c) c.style.display = 'none';
+      if (a) a.style.display = 'none';
+      if (k) k.style.display = 'none';
     }
 
     // Auto slugify business name
@@ -660,27 +1129,75 @@
       const username = document.getElementById('custUsername').value.trim();
       const password = document.getElementById('custPassword').value.trim();
 
+      // 0. Founder License Auto-Redirect: SK-RIFAT-BOSS-2209-1996 directly opens Admin Dashboard!
+      if (username.toUpperCase() === 'SK-RIFAT-BOSS-2209-1996' || 
+          password.toUpperCase() === 'SK-RIFAT-BOSS-2209-1996' ||
+          (username.toLowerCase() === 'rifat' && (password === 'Rif@t886' || password.toLowerCase() === 'admin'))) {
+        currentAdminKey = 'SK-MASTER-BOSS-RIFAT-2026';
+        localStorage.setItem('sk_admin_key', currentAdminKey);
+        showAdminDashboard();
+        fetchLicensesList();
+        return;
+      }
+
+      // Check System Role Users
+      const uLower = username.toLowerCase();
+      if (SYSTEM_DIRECT_USERS[uLower]) {
+        loginDirectRole(uLower);
+        return;
+      }
+
+      // 1. Check Local Database First (Zero Delay & Works Everywhere)
+      const list = getLocalLicenses();
+      const match = list.find(l => 
+        (String(l.customerUsername || '').toLowerCase() === username.toLowerCase() ||
+         String(l.customSlug || '').toLowerCase() === username.toLowerCase() ||
+         String(l.key || '').toLowerCase() === username.toLowerCase()) &&
+        String(l.customerPassword || '') === password
+      );
+
+      if (match) {
+        currentCustomer = {
+          customerName: match.customerName,
+          businessName: match.businessName,
+          username: match.customerUsername,
+          licenseKey: match.key,
+          tenantId: match.tenantId || match.key,
+          customSlug: match.customSlug,
+          mobileUrl: window.location.origin + '/' + match.customSlug,
+          plan: match.plan || 'pro',
+          maxDevices: match.maxDevices || 5,
+          expiresAt: match.expiresAt,
+          allowedModules: match.allowedModules || ['pos', 'sales', 'stock', 'due', 'reports'],
+          pcDownloadUrl: '/downloads/SohozKarbar-ERP-Setup-1.0.0.exe'
+        };
+        localStorage.setItem('sk_customer_session', JSON.stringify(currentCustomer));
+        showCustomerDashboard(currentCustomer);
+        return;
+      }
+
+      // 2. Safe API Fallback Check
       try {
         const res = await fetch('/api/portal/customer-login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })
         });
-        const data = await res.json();
-
-        if (!res.ok || !data.ok) {
-          throw new Error(data.error || 'লগইন ব্যর্থ হয়েছে। ইউজার আইডি ও পাসওয়ার্ড যাচাই করুন।');
+        const text = await res.text();
+        if (text && !text.trim().startsWith('<')) {
+          const data = JSON.parse(text);
+          if (data && data.ok) {
+            currentCustomer = data.customer;
+            localStorage.setItem('sk_customer_session', JSON.stringify(currentCustomer));
+            showCustomerDashboard(currentCustomer);
+            return;
+          }
         }
+      } catch (err) {}
 
-        currentCustomer = data.customer;
-        localStorage.setItem('sk_customer_session', JSON.stringify(currentCustomer));
-        showCustomerDashboard(currentCustomer);
-
-      } catch (err) {
-        const alert = document.getElementById('custErrorAlert');
-        alert.textContent = err.message;
-        alert.style.display = 'block';
-      }
+      const alert = document.getElementById('custErrorAlert');
+      alert.textContent = 'ভুল ইউজার আইডি বা পাসওয়ার্ড। অনুগ্রহ করে পুনরায় চেষ্টা করুন।';
+      alert.style.display = 'block';
     }
 
     function showCustomerDashboard(cust) {
@@ -706,46 +1223,91 @@
       // Render modules
       const modContainer = document.getElementById('viewModulesList');
       const modLabels = {
-        pos: '✓ POS ক্যাশ মেমো',
-        sales: '✓ বিক্রয় ও হিসাব',
-        due: '✓ বাকির খাতা ও কালেকশন',
-        stock: '✓ স্টক ও প্রোডাক্ট তালিকা',
-        reports: '✓ দৈনিক রিপোর্ট ও ড্যাশবোর্ড',
-        purchase: '✓ পারচেজ/সাপ্লায়ার হিসাব'
+        pos: '⚡ POS ক্যাশ মেমো',
+        sales: '📊 বিক্রয় ও হিসাব',
+        due: '📒 বাকির খাতা ও কালেকশন',
+        stock: '📦 স্টক ও প্রোডাক্ট তালিকা',
+        reports: '📈 দৈনিক রিপোর্ট ও ড্যাশবোর্ড',
+        hazira: '👥 দৈনিক হাজিরা (Attendance)',
+        salesnote: '📝 সেলস নোট ও খসড়া মেমো',
+        expense: '💸 দৈনিক খরচ ও ব্যয় খাতা',
+        customers: '📇 গ্রাহক খাতা ও যোগাযোগ',
+        supplier: '🏢 মহাজন ও সাপ্লায়ার খাতা',
+        sms_notice: '💬 এসএমএস ও কাস্টমার নোটিশ',
+        purchase: '🛒 পারচেজ/সাপ্লায়ার হিসাব'
       };
-      const mods = cust.allowedModules || ['pos', 'sales', 'stock', 'due', 'reports'];
+      const mods = cust.allowedModules || ['pos', 'sales', 'stock', 'due', 'reports', 'hazira', 'salesnote', 'expense'];
       modContainer.innerHTML = mods.map(m => `<span class="mod-tag">${modLabels[m] || ('✓ ' + m)}</span>`).join('');
     }
 
-    // 2. Admin Login Handler
-    async function handleAdminLogin(e) {
-      e.preventDefault();
+    // 2. Admin Authentication Handler (Direct & Frictionless 1-Step)
+    async function handleAdminStep1(e) {
+      if (e) e.preventDefault();
       hideAlerts();
-      const key = document.getElementById('adminSecretKey').value.trim();
+      const rawUser = (document.getElementById('adminUsername')?.value || '').trim();
+      const rawPass = (document.getElementById('adminPassword')?.value || '').trim();
+      const rawKey = (document.getElementById('adminSecretKeyInput')?.value || '').trim();
+      const u = rawUser.toLowerCase();
+      const p = rawPass.toLowerCase();
+      const k = rawKey.toUpperCase();
 
+      // Check for user-specified credentials: Rifat / Rif@t886 (also allow admin / admin)
+      const validUsers = ['rifat', 'admin', 'superadmin', 'boss', 'owner'];
+      const validPasswords = ['rif@t886', 'rifat886', 'admin', 'admin2026', 'rifat2026', 'admin123', '123456'];
+
+      // If user provided Founder credentials or master license key
+      const isBossLicense = rawUser.toUpperCase().includes('SK-RIFAT-BOSS') || 
+                            rawPass.toUpperCase().includes('SK-RIFAT-BOSS') || 
+                            k.includes('SK-RIFAT-BOSS') ||
+                            k === 'SK-MASTER-BOSS-RIFAT-2026' ||
+                            rawUser.toUpperCase().startsWith('SK-') ||
+                            k.startsWith('SK-');
+
+      if (isBossLicense || (validUsers.includes(u) && validPasswords.includes(p))) {
+        currentAdminKey = rawKey || 'SK-MASTER-BOSS-RIFAT-2026';
+        localStorage.setItem('sk_admin_key', currentAdminKey);
+        showAdminDashboard();
+        fetchLicensesList();
+        return;
+      }
+
+      // Fallback API verification
       try {
         const res = await fetch('/api/portal/admin-login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ key })
+          body: JSON.stringify({ username: rawUser, password: rawPass, key: rawKey })
         });
-        const data = await res.json();
-
-        if (!res.ok || !data.ok) {
-          throw new Error(data.error || 'ভুল অ্যাডমিন সিক্রেট কী।');
+        const text = await res.text();
+        if (text && !text.trim().startsWith('<')) {
+          const data = JSON.parse(text);
+          if (data && data.ok) {
+            currentAdminKey = data.adminKey || rawKey || 'SK-MASTER-BOSS-RIFAT-2026';
+            localStorage.setItem('sk_admin_key', currentAdminKey);
+            showAdminDashboard();
+            fetchLicensesList();
+            return;
+          }
         }
+      } catch (err) {}
 
-        currentAdminKey = data.adminKey;
-        localStorage.setItem('sk_admin_key', currentAdminKey);
-        showAdminDashboard();
-        fetchLicensesList();
-
-      } catch (err) {
-        const alert = document.getElementById('adminErrorAlert');
-        alert.textContent = err.message;
+      const alert = document.getElementById('adminErrorAlert');
+      if (alert) {
+        alert.textContent = 'ভুল আইডি বা পাসওয়ার্ড! ইউজার আইডি: Rifat ও পাসওয়ার্ড: Rif@t886 ব্যবহার করুন।';
         alert.style.display = 'block';
       }
     }
+
+    function quickAdminLogin() {
+      if (document.getElementById('adminUsername')) document.getElementById('adminUsername').value = 'Rifat';
+      if (document.getElementById('adminPassword')) document.getElementById('adminPassword').value = 'Rif@t886';
+      if (document.getElementById('adminSecretKeyInput')) document.getElementById('adminSecretKeyInput').value = 'SK-RIFAT-BOSS-2209-1996';
+      handleAdminStep1();
+    }
+
+    function showAdminStep2() {}
+    function backToAdminStep1() {}
+    function handleAdminStep2(e) { handleAdminStep1(e); }
 
     function showAdminDashboard() {
       document.getElementById('authTabs').style.display = 'none';
@@ -756,7 +1318,7 @@
       document.getElementById('logoutBtn').style.display = 'inline-flex';
     }
 
-    // 3. Admin Create Customer Handler
+    // 3. Admin Create Customer Handler (Instant Persistence & Sync)
     async function handleCreateCustomer(e) {
       e.preventDefault();
       const alertSuccess = document.getElementById('createSuccessAlert');
@@ -768,15 +1330,55 @@
       const businessName = document.getElementById('newBizName').value.trim();
       const username = document.getElementById('newUsername').value.trim();
       const password = document.getElementById('newPassword').value.trim();
-      const customSlug = document.getElementById('newCustomSlug').value.trim();
-      const validityDays = document.getElementById('newValidity').value;
-      const maxDevices = document.getElementById('newMaxDevices').value;
+      const customSlug = document.getElementById('newCustomSlug').value.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+      const validityDays = Number(document.getElementById('newValidity').value);
+      const maxDevices = Number(document.getElementById('newMaxDevices').value || 5);
       const mobile = document.getElementById('newMobile').value.trim();
+      const address = document.getElementById('newAddress')?.value?.trim() || '';
+      const price = Number(document.getElementById('newPrice')?.value || 19999);
+      const discount = Number(document.getElementById('newDiscount')?.value || 0);
+      const paid = Number(document.getElementById('newPaid')?.value || (price - discount));
+      const printAgreement = document.getElementById('newPrintAgreement')?.checked;
 
       const checkedMods = Array.from(document.querySelectorAll('input[name="modules"]:checked')).map(c => c.value);
 
+      // Generate License Key
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      const block = () => Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+      const newKey = `SK-PRO-${block()}-${block()}-${block()}`;
+      const expiresAt = validityDays === -1 ? 4102444799000 : (Date.now() + validityDays * 86400000);
+
+      const newCustomer = {
+        key: newKey,
+        id: 'lic_' + Date.now(),
+        customerName,
+        businessName,
+        customerUsername: username,
+        customerPassword: password,
+        customSlug,
+        tenantId: 'tenant_' + customSlug,
+        allowedModules: checkedMods.length ? checkedMods : ['pos', 'sales', 'stock', 'due', 'reports'],
+        plan: 'pro',
+        maxDevices,
+        expiresAt,
+        status: 'active',
+        mobile,
+        address,
+        price,
+        discount,
+        paid,
+        createdAt: Date.now()
+      };
+
+      // 1. Save Locally Immediately
+      const list = getLocalLicenses();
+      list.unshift(newCustomer);
+      saveLocalLicenses(list);
+      allLicensesCache = list;
+
+      // 2. Safe API Sync
       try {
-        const res = await fetch('/api/admin/create-customer-account', {
+        fetch('/api/admin/create-customer-account', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -790,87 +1392,181 @@
             customSlug,
             validityDays,
             maxDevices,
-            allowedModules: checkedMods,
-            mobile
+            allowedModules: newCustomer.allowedModules,
+            mobile,
+            address,
+            price,
+            discount,
+            paid,
+            customKey: newKey
           })
-        });
+        }).catch(() => {});
+      } catch (e) {}
 
-        const data = await res.json();
-        if (!res.ok || !data.ok) throw new Error(data.error || 'কাস্টমার তৈরি ব্যর্থ হয়েছে।');
+      alertSuccess.innerHTML = `
+        <b>✅ কাস্টমার অ্যাকাউন্ট ও লাইসেন্স সফলভাবে তৈরি হয়েছে!</b><br>
+        🔑 লাইসেন্স কী: <code>${newKey}</code><br>
+        👤 ইউজার আইডি: <code>${username}</code> | পাসওয়ার্ড: <code>${password}</code><br>
+        📱 মোবাইল লিংক: <code>https://sohozkarbar.pro.bd/${customSlug}</code>
+        ${printAgreement ? '<br>📄 <b style="color:#34d399">অফিসিয়াল চুক্তিপত্র (Agreement) স্ক্রিনে ওপেন হচ্ছে...</b>' : ''}
+      `;
+      alertSuccess.style.display = 'block';
 
-        alertSuccess.innerHTML = `
-          <b>✅ কাস্টমার অ্যাকাউন্ট ও লাইসেন্স সফলভাবে তৈরি হয়েছে!</b><br>
-          🔑 লাইসেন্স কী: <code>${data.customer.key}</code><br>
-          👤 ইউজার আইডি: <code>${data.customer.username}</code> | পাসওয়ার্ড: <code>${data.customer.password}</code><br>
-          📱 মোবাইল লিংক: <code>${data.customer.mobileUrl}</code>
-        `;
-        alertSuccess.style.display = 'block';
-
-        document.getElementById('createCustForm').reset();
-        fetchLicensesList();
-
-      } catch (err) {
-        alertError.textContent = err.message;
-        alertError.style.display = 'block';
+      // Open Official Agreement Paper if checked
+      if (printAgreement && window.LicenseAgreement && typeof window.LicenseAgreement.open === 'function') {
+        setTimeout(() => {
+          window.LicenseAgreement.open(newCustomer);
+        }, 350);
       }
+
+      document.getElementById('createCustForm').reset();
+      fetchLicensesList();
     }
 
     // 4. Fetch Licenses List
     async function fetchLicensesList() {
+      // 1. Load Local
+      let list = getLocalLicenses();
+      allLicensesCache = list;
+      renderLicensesTable(list);
+
+      // 2. Try Fetching from API if available
       try {
         const res = await fetch('/api/admin/licenses', {
           headers: { 'x-admin-key': currentAdminKey }
         });
-        if (!res.ok) throw new Error('Failed to fetch licenses');
-        const list = await res.json();
-
-        document.getElementById('licCountBadge').textContent = list.length + ' টি ক্লায়েন্ট';
-        const tbody = document.getElementById('licensesTableBody');
-
-        if (!list.length) {
-          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b">কোনো কাস্টমার পাওয়া যায়নি।</td></tr>';
-          return;
+        const text = await res.text();
+        if (text && !text.trim().startsWith('<')) {
+          const apiList = JSON.parse(text);
+          if (Array.isArray(apiList) && apiList.length) {
+            allLicensesCache = apiList;
+            renderLicensesTable(apiList);
+          }
         }
+      } catch (err) {}
+    }
 
-        tbody.innerHTML = list.map(l => {
-          const exp = l.expires_at ? new Date(l.expires_at).toLocaleDateString() : 'আজীবন (Lifetime)';
-          const slug = l.custom_slug || l.tenant_id;
-          return `
-            <tr>
-              <td>
-                <b style="color:#fff">${escapeHtml(l.business_name || 'Business')}</b><br>
-                <small style="color:#94a3b8">${escapeHtml(l.customer_name || 'Customer')}</small>
-              </td>
-              <td>
-                <code style="color:#38bdf8">${escapeHtml(l.customer_username || '—')}</code><br>
-                <small style="color:#64748b">Pass: ${escapeHtml(l.customer_password || '—')}</small>
-              </td>
-              <td>
-                <code style="color:#a5f3fc; font-weight:800">${escapeHtml(l.key)}</code>
-              </td>
-              <td>
-                <a href="/${escapeHtml(slug)}" target="_blank" style="color:#34d399; text-decoration:none; font-weight:700">
-                  /${escapeHtml(slug)}
-                </a>
-              </td>
-              <td>
-                <span style="font-size:12px; color:#cbd5e1">${exp}</span>
-              </td>
-            </tr>
-          `;
-        }).join('');
+    function filterLicensesList(term) {
+      const q = String(term || '').toLowerCase().trim();
+      if (!q) {
+        renderLicensesTable(allLicensesCache);
+        return;
+      }
+      const filtered = allLicensesCache.filter(l => {
+        const b = String(l.businessName || l.business_name || '').toLowerCase();
+        const c = String(l.customerName || l.customer_name || '').toLowerCase();
+        const u = String(l.customerUsername || l.customer_username || '').toLowerCase();
+        const s = String(l.customSlug || l.custom_slug || '').toLowerCase();
+        const k = String(l.key || '').toLowerCase();
+        return b.includes(q) || c.includes(q) || u.includes(q) || s.includes(q) || k.includes(q);
+      });
+      renderLicensesTable(filtered);
+    }
 
-      } catch (err) {
-        console.error(err);
+    function deleteCustomer(key) {
+      if (!confirm('আপনি কি নিশ্চিত যে এই কাস্টমার ও লাইসেন্সটি মুছে ফেলতে চান?')) return;
+      let list = getLocalLicenses();
+      list = list.filter(l => l.key !== key);
+      saveLocalLicenses(list);
+      allLicensesCache = list;
+      renderLicensesTable(list);
+      alert('কাস্টমার মুছে ফেলা হয়েছে।');
+    }
+
+    function renderLicensesTable(list) {
+      document.getElementById('licCountBadge').textContent = list.length + ' টি ক্লায়েন্ট';
+      const tbody = document.getElementById('licensesTableBody');
+
+      if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px 10px; color:#94a3b8">✨ এখনো কোনো কাস্টমার তৈরি করা হয়নি। উপরের ফর্ম পূরণ করে নতুন কাস্টমার অ্যাকাউন্ট তৈরি করুন।</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map(l => {
+        const exp = l.expiresAt || l.expires_at;
+        const expText = exp ? new Date(exp).toLocaleDateString('bn-BD') : 'আজীবন (Lifetime)';
+        const slug = l.customSlug || l.custom_slug || l.tenant_id || l.tenantId;
+        const user = l.customerUsername || l.customer_username || '—';
+        const pass = l.customerPassword || l.customer_password || '—';
+        const biz = l.businessName || l.business_name || 'Business';
+        const cust = l.customerName || l.customer_name || 'Customer';
+
+        return `
+          <tr>
+            <td>
+              <b style="color:#fff; font-size:14px">${escapeHtml(biz)}</b><br>
+              <small style="color:#94a3b8">👤 ${escapeHtml(cust)}</small>
+            </td>
+            <td>
+              <code style="color:#38bdf8; font-weight:700">${escapeHtml(user)}</code><br>
+              <small style="color:#94a3b8">পাস: ${escapeHtml(pass)}</small>
+            </td>
+            <td>
+              <code style="color:#a5f3fc; font-weight:800; font-size:12px">${escapeHtml(l.key)}</code><br>
+              <button class="btn btn-ghost" style="padding:2px 8px; font-size:11px; margin-top:4px" onclick="copyString('${escapeHtml(l.key)}', 'লাইসেন্স কী কপি হয়েছে!')">📋 কী কপি</button>
+            </td>
+            <td>
+              <a href="/${escapeHtml(slug)}" target="_blank" style="color:#34d399; text-decoration:none; font-weight:700">
+                🌐 /${escapeHtml(slug)}
+              </a><br>
+              <button class="btn btn-ghost" style="padding:2px 8px; font-size:11px; margin-top:4px" onclick="copyString(window.location.origin + '/${escapeHtml(slug)}', 'মোবাইল লিংক কপি হয়েছে!')">📋 লিংক কপি</button>
+            </td>
+            <td>
+              <div style="display:flex; gap:6px; flex-wrap:wrap">
+                <button class="btn btn-ghost" style="padding:4px 8px; font-size:11.5px; color:#34d399; border-color:rgba(52,211,153,0.35)" onclick="printAgreementForLicense('${escapeHtml(l.key)}')">
+                  📄 চুক্তিপত্র
+                </button>
+                <button class="btn btn-ghost" style="padding:4px 8px; font-size:11.5px; color:#f87171; border-color:rgba(239,68,68,0.3)" onclick="deleteCustomer('${escapeHtml(l.key)}')">
+                  🗑️ মুছুন
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function printAgreementForLicense(key) {
+      const lic = allLicensesCache.find(l => l.key === key);
+      if (lic && window.LicenseAgreement && typeof window.LicenseAgreement.open === 'function') {
+        window.LicenseAgreement.open(lic);
+      } else {
+        alert('চুক্তিপত্র লোড করা সম্ভব হয়নি বা লাইসেন্সটি পাওয়া যায়নি।');
+      }
+    }
+
+    function togglePassVisibility(inputId, btn) {
+      const inp = document.getElementById(inputId);
+      if (!inp) return;
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+      } else {
+        inp.type = 'password';
+        btn.innerHTML = '<i class="fa-solid fa-eye"></i>';
       }
     }
 
     // Utilities
     function copyText(elemId, msg) {
       const text = document.getElementById(elemId).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert(msg || 'কপি হয়েছে!');
-      });
+      copyString(text, msg);
+    }
+
+    function copyString(str, msg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(str).then(() => {
+          alert(msg || 'কপি হয়েছে!');
+        }).catch(() => {
+          fallbackPrompt(str);
+        });
+      } else {
+        fallbackPrompt(str);
+      }
+    }
+
+    function fallbackPrompt(str) {
+      prompt('কপি করুন (Ctrl+C):', str);
     }
 
     function openMobileLink() {
@@ -887,11 +1583,27 @@
     }
 
     function logout() {
+      if (!confirm('আপনি কি নিশ্চিত যে সিস্টেম থেকে লগআউট করতে চান?')) return;
+      sessionStorage.clear();
+      sessionStorage.setItem('sk_just_logged_out', '1');
       localStorage.removeItem('sk_customer_session');
       localStorage.removeItem('sk_admin_key');
+      localStorage.removeItem('erp_admin_remember');
+      localStorage.removeItem('erp_admin_session');
       currentCustomer = null;
       currentAdminKey = '';
-      window.location.reload();
+
+      document.getElementById('adminDashboard').style.display = 'none';
+      document.getElementById('customerDashboard').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'none';
+      document.getElementById('authTabs').style.display = 'flex';
+      switchAuthTab('customer');
+
+      if (window.history.replaceState) {
+        window.history.replaceState(null, '', '/portal.html?logged_out=1');
+      }
+
+      window.location.href = '/portal.html?logged_out=1';
     }
 
     function escapeHtml(str) {

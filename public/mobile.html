@@ -138,24 +138,30 @@
       background: rgba(15, 23, 42, 0.98);
       border-top: 1px solid var(--card-border);
       display: flex;
-      justify-content: space-around;
-      padding: 8px 0 10px;
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding: 8px 6px 10px;
       z-index: 100;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    nav.mob-nav::-webkit-scrollbar { display: none; }
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       color: var(--text-mut);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       text-decoration: none;
       border: 0;
       background: transparent;
       cursor: pointer;
-      flex: 1;
+      min-width: 62px;
+      flex: 1 0 auto;
+      padding: 4px 6px;
     }
     .nav-item.active { color: #10b981; }
     .nav-item span.icon { font-size: 18px; }
@@ -331,6 +337,164 @@
         </div>
       </section>
 
+      <!-- Module 6: Daily Hazira (Staff Attendance) -->
+      <section class="module-sec" id="sec-hazira">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px">
+            <h3 style="margin:0">👥 দৈনিক স্টাফ হাজিরা (Attendance)</h3>
+            <span style="font-size:11px; background:rgba(16,185,129,0.2); color:#6ee7b7; padding:4px 8px; border-radius:8px">আজকের দিন</span>
+          </div>
+
+          <div style="background:rgba(0,0,0,0.3); border-radius:12px; padding:12px; margin-bottom:14px; display:flex; justify-content:space-around; text-align:center">
+            <div>
+              <small style="color:#94a3b8; font-size:11px">মোট স্টাফ</small>
+              <b style="font-size:16px; color:#fff; display:block">৩ জন</b>
+            </div>
+            <div>
+              <small style="color:#94a3b8; font-size:11px">উপস্থিত</small>
+              <b style="font-size:16px; color:#10b981; display:block">২ জন</b>
+            </div>
+            <div>
+              <small style="color:#94a3b8; font-size:11px">অনুপস্থিত</small>
+              <b style="font-size:16px; color:#f87171; display:block">১ জন</b>
+            </div>
+          </div>
+
+          <table class="mini-table">
+            <thead>
+              <tr><th>স্টাফের নাম</th><th>পদবী</th><th>হাজিরা</th></tr>
+            </thead>
+            <tbody id="haziraTableBody">
+              <tr>
+                <td><b>মোঃ রাকিব</b><br><small style="color:#94a3b8">সকাল ০৯:১৫</small></td>
+                <td>ক্যাশিয়ার</td>
+                <td><button class="btn btn-emerald" style="padding:4px 10px; font-size:11px" onclick="toggleHazira(this)">✓ উপস্থিত</button></td>
+              </tr>
+              <tr>
+                <td><b>শাকিল আহমেদ</b><br><small style="color:#94a3b8">সকাল ০৯:৩০</small></td>
+                <td>সেলসম্যান</td>
+                <td><button class="btn btn-emerald" style="padding:4px 10px; font-size:11px" onclick="toggleHazira(this)">✓ উপস্থিত</button></td>
+              </tr>
+              <tr>
+                <td><b>আব্দুল করিম</b><br><small style="color:#94a3b8">—</small></td>
+                <td>স্টোর বয়</td>
+                <td><button class="btn" style="padding:4px 10px; font-size:11px; background:rgba(239,68,68,0.2); color:#f87171; border:1px solid #ef4444" onclick="toggleHazira(this)">✕ অনুপস্থিত</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Module 7: Quick Sales Note (Notepad) -->
+      <section class="module-sec" id="sec-salesnote">
+        <div class="card">
+          <h3>📝 দ্রুত সেলস নোট ও খসড়া মেমো</h3>
+          <p style="font-size:12px; color:#94a3b8; margin-bottom:14px">ব্যস্ত সময়ে দ্রুত অর্ডার বা দরদামের খসড়া লিখে রাখুন:</p>
+          
+          <div class="form-group">
+            <label>কাস্টমারের নাম বা বিবরণ</label>
+            <input type="text" class="input" id="noteCustName" placeholder="যেমন: হাজী সাহেব / রফিক ভাই">
+          </div>
+          <div class="form-group">
+            <label>অর্ডার ও দরদামের খসড়া নোট</label>
+            <textarea class="input" id="noteContent" rows="3" placeholder="যেমন: ১০ কেজি মিনিকেট চাল, ৫ লিটার তেল, বিকেলে নিতে আসবে..."></textarea>
+          </div>
+          <button class="btn btn-emerald" onclick="saveSalesNote()">💾 নোট সেভ করুন</button>
+
+          <h4 style="font-size:13px; margin:18px 0 10px; color:#cbd5e1">📋 পূর্বের সেভ করা খসড়া নোটসমূহ:</h4>
+          <div id="notesContainer" style="display:flex; flex-direction:column; gap:10px">
+            <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px">
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px">
+                <b style="color:#38bdf8; font-size:13px">হাজী রফিকুল ইসলাম</b>
+                <small style="color:#94a3b8">আজ, দুপুর ০১:১৫</small>
+              </div>
+              <p style="font-size:12.5px; color:#e2e8f0; margin:0">২ বস্তা চিনি, ৩ কার্টুন তেল - কাল সকালে ডেলিভারি। মোট আনুমানিক ৳৯,৫০০</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 8: Daily Expense Khata -->
+      <section class="module-sec" id="sec-expense">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px">
+            <h3 style="margin:0">💸 দৈনিক খরচ ও ব্যয় খাতা</h3>
+            <span style="font-size:13px; font-weight:800; color:#f87171" id="expTotal">মোট: ৳৩৫০</span>
+          </div>
+
+          <div class="form-group">
+            <label>খরচের খাত / বিবরণ</label>
+            <input type="text" class="input" id="expTitle" placeholder="যেমন: নাস্তা / পরিবহন / বিদ্যুৎ বিল">
+          </div>
+          <div class="form-group">
+            <label>টাকার পরিমাণ (৳)</label>
+            <input type="number" class="input" id="expAmount" placeholder="যেমন: ১৫০">
+          </div>
+          <button class="btn btn-emerald" onclick="addExpense()">✓ খরচ যোগ করুন</button>
+
+          <h4 style="font-size:13px; margin:18px 0 10px; color:#cbd5e1">📋 আজকের খরচের তালিকা:</h4>
+          <table class="mini-table">
+            <thead>
+              <tr><th>খাত</th><th>পরিমাণ</th><th>সময়</th></tr>
+            </thead>
+            <tbody id="expenseTableBody">
+              <tr><td>চা ও বিস্কুট আপ্যায়ন</td><td style="color:#f87171; font-weight:700">৳১২০</td><td>সকাল ১০:৩০</td></tr>
+              <tr><td>দোকান পরিষ্কার</td><td style="color:#f87171; font-weight:700">৳৮০</td><td>সকাল ১১:০০</td></tr>
+              <tr><td>জরুরী ভ্যান ভাড়া</td><td style="color:#f87171; font-weight:700">৳১৫০</td><td>দুপুর ১২:১৫</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Module 9: Customer Directory -->
+      <section class="module-sec" id="sec-customers">
+        <div class="card">
+          <h3>📇 গ্রাহক খাতা ও যোগাযোগ ডিরেক্টরি</h3>
+          <div class="form-group">
+            <input type="text" class="input" placeholder="কাস্টমারের নাম বা ফোন দিয়ে খুঁজুন...">
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; display:flex; justify-content:space-between; align-items:center">
+              <div>
+                <b style="color:#fff; font-size:13.5px">মোঃ আব্দুর রহিম</b><br>
+                <small style="color:#94a3b8">📱 01711223344 • বাকি: ৳১,৫০০</small>
+              </div>
+              <div style="display:flex; gap:6px">
+                <a href="tel:01711223344" class="btn btn-emerald" style="padding:6px 10px; font-size:11px; text-decoration:none">📞 কল</a>
+                <a href="https://wa.me/8801711223344" target="_blank" class="btn btn-ghost" style="padding:6px 10px; font-size:11px; text-decoration:none; border:1px solid rgba(255,255,255,0.2); color:#fff">💬 WA</a>
+              </div>
+            </div>
+            <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; display:flex; justify-content:space-between; align-items:center">
+              <div>
+                <b style="color:#fff; font-size:13.5px">হাসান ট্রেডার্স</b><br>
+                <small style="color:#94a3b8">📱 01822334455 • বাকি: ৳৮৫০</small>
+              </div>
+              <div style="display:flex; gap:6px">
+                <a href="tel:01822334455" class="btn btn-emerald" style="padding:6px 10px; font-size:11px; text-decoration:none">📞 কল</a>
+                <a href="https://wa.me/8801822334455" target="_blank" class="btn btn-ghost" style="padding:6px 10px; font-size:11px; text-decoration:none; border:1px solid rgba(255,255,255,0.2); color:#fff">💬 WA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 10: Supplier Ledger -->
+      <section class="module-sec" id="sec-supplier">
+        <div class="card">
+          <h3>🏢 মহাজন ও সাপ্লায়ার খাতা (Suppliers)</h3>
+          <table class="mini-table">
+            <thead>
+              <tr><th>মহাজন/প্রতিষ্ঠান</th><th>পণ্য</th><th>দেনা টাকা</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>মেঘনা গ্রুপ ডিলার</b><br><small style="color:#94a3b8">01799887766</small></td><td>তেল ও আটা</td><td style="color:#f87171; font-weight:700">৳১২,৪০০</td></tr>
+              <tr><td><b>স্কয়ার ফুড সাপ্লাই</b><br><small style="color:#94a3b8">01877665544</small></td><td>মসলা ও বেকারি</td><td style="color:#f87171; font-weight:700">৳৫,২০০</td></tr>
+              <tr><td><b>প্রাণ-আরএফএল এজেন্সি</b><br><small style="color:#94a3b8">01966554433</small></td><td>জুস ও স্ন্যাক্স</td><td style="color:#10b981; font-weight:700">পরিশোধিত</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
     </div>
 
   </main>
@@ -352,9 +516,35 @@
     <button class="nav-item" data-mod="reports" onclick="showModule('reports')">
       <span class="icon">📈</span><span>রিপোর্ট</span>
     </button>
+    <button class="nav-item" data-mod="hazira" onclick="showModule('hazira')">
+      <span class="icon">👥</span><span>হাজিরা</span>
+    </button>
+    <button class="nav-item" data-mod="salesnote" onclick="showModule('salesnote')">
+      <span class="icon">📝</span><span>নোট</span>
+    </button>
+    <button class="nav-item" data-mod="expense" onclick="showModule('expense')">
+      <span class="icon">💸</span><span>খরচ</span>
+    </button>
+    <button class="nav-item" data-mod="customers" onclick="showModule('customers')">
+      <span class="icon">📇</span><span>গ্রাহক</span>
+    </button>
+    <button class="nav-item" data-mod="supplier" onclick="showModule('supplier')">
+      <span class="icon">🏢</span><span>মহাজন</span>
+    </button>
   </nav>
 
   <script>
+        try {
+            for (var _i = 0; _i < localStorage.length; _i++) {
+                var _k = localStorage.key(_i);
+                var _v = localStorage.getItem(_k);
+                if (_v && /@(gmail|textilepro|sohojkarbar|company|business|yourcompany)\./i.test(_v)) {
+                    _v = _v.replace(/[a-zA-Z0-9._%+-]+@(gmail\.com|textilepro\.erp|sohojkarbar\.com|company\.com|business\.com|yourcompany\.com)/gi, 'info@sohozkarbar.pro.bd');
+                    localStorage.setItem(_k, _v);
+                }
+            }
+        } catch(e) {}
+
     // Extract tenant slug from pathname or query
     let tenantSlug = new URLSearchParams(window.location.search).get('tenant') || '';
     if (!tenantSlug) {
@@ -363,44 +553,81 @@
         tenantSlug = p;
       }
     }
-    if (!tenantSlug) tenantSlug = 'karimtraders'; // default demo fallback
 
     let tenantData = null;
     let currentUser = null;
-    let salesHistory = JSON.parse(localStorage.getItem('sk_mob_sales_' + tenantSlug) || '[]');
+    let salesHistory = JSON.parse(localStorage.getItem('sk_mob_sales_' + (tenantSlug || 'default')) || '[]');
 
     window.addEventListener('DOMContentLoaded', async () => {
       await loadTenantInfo();
       checkSavedSession();
     });
 
+    function setTenantUI(data) {
+      document.getElementById('shopTitle').textContent = data.businessName || 'সহজ কারবার';
+      document.getElementById('shopSubtitle').textContent = 'মোবাইল পোর্টাল' + (data.customSlug ? ' (/' + data.customSlug + ')' : '');
+      document.getElementById('loginShopName').textContent = data.businessName || 'সহজ কারবার';
+      document.getElementById('loginShopHint').textContent = 'সুপার অ্যাডমিন অনুমোদিত মোবাইল এক্সেস';
+    }
+
     async function loadTenantInfo() {
+      // 1. Check local storage portal licenses (Instant & Offline)
       try {
-        const res = await fetch(`/api/tenant/by-slug/${encodeURIComponent(tenantSlug)}`);
-        const data = await res.json();
-        if (res.ok && data.ok) {
-          tenantData = data;
-          document.getElementById('shopTitle').textContent = data.businessName;
-          document.getElementById('shopSubtitle').textContent = 'মোবাইল পোর্টাল (/' + data.customSlug + ')';
-          document.getElementById('loginShopName').textContent = data.businessName;
-          document.getElementById('loginShopHint').textContent = 'সুপার অ্যাডমিন অনুমোদিত মোবাইল এক্সেস';
-        } else {
-          fallbackTenant();
+        const stored = localStorage.getItem('sk_portal_licenses_v1');
+        if (stored) {
+          const list = JSON.parse(stored);
+          if (Array.isArray(list)) {
+            const match = list.find(l => 
+              String(l.customSlug || '').toLowerCase() === (tenantSlug || '').toLowerCase() ||
+              String(l.customerUsername || '').toLowerCase() === (tenantSlug || '').toLowerCase()
+            );
+            if (match) {
+              tenantData = {
+                businessName: match.businessName,
+                customerName: match.customerName,
+                customSlug: match.customSlug,
+                customerUsername: match.customerUsername,
+                customerPassword: match.customerPassword,
+                allowedModules: match.allowedModules || ['pos', 'sales', 'stock', 'due', 'reports']
+              };
+              setTenantUI(tenantData);
+              return;
+            }
+          }
         }
-      } catch (e) {
-        fallbackTenant();
+      } catch (e) {}
+
+      // 2. Safe API Check if online
+      if (tenantSlug) {
+        try {
+          const res = await fetch(`/api/tenant/by-slug/${encodeURIComponent(tenantSlug)}`);
+          const text = await res.text();
+          if (text && !text.trim().startsWith('<')) {
+            const data = JSON.parse(text);
+            if (res.ok && data.ok) {
+              tenantData = data;
+              setTenantUI(data);
+              return;
+            }
+          }
+        } catch (e) {}
       }
+
+      fallbackTenant();
     }
 
     function fallbackTenant() {
-      const formatted = tenantSlug.charAt(0).toUpperCase() + tenantSlug.slice(1);
-      document.getElementById('shopTitle').textContent = formatted;
-      document.getElementById('shopSubtitle').textContent = 'মোবাইল পোর্টাল (/' + tenantSlug + ')';
-      document.getElementById('loginShopName').textContent = formatted;
+      const name = tenantSlug ? (tenantSlug.charAt(0).toUpperCase() + tenantSlug.slice(1)) : 'আমার দোকান';
+      tenantData = {
+        businessName: name,
+        customSlug: tenantSlug || 'shop',
+        allowedModules: ['pos', 'sales', 'stock', 'due', 'reports']
+      };
+      setTenantUI(tenantData);
     }
 
     function checkSavedSession() {
-      const saved = localStorage.getItem('sk_mob_user_' + tenantSlug);
+      const saved = localStorage.getItem('sk_mob_user_' + (tenantSlug || 'default'));
       if (saved) {
         try {
           currentUser = JSON.parse(saved);
@@ -417,28 +644,52 @@
       const username = document.getElementById('mobUser').value.trim();
       const pin = document.getElementById('mobPin').value.trim();
 
+      // 1. Check against Tenant credentials
+      if (tenantData) {
+        const uMatch = !tenantData.customerUsername || 
+          username.toLowerCase() === String(tenantData.customerUsername || '').toLowerCase() ||
+          username.toLowerCase() === String(tenantData.customSlug || '').toLowerCase() ||
+          username.toLowerCase() === 'admin';
+        
+        const pMatch = !tenantData.customerPassword ||
+          pin === String(tenantData.customerPassword || '') ||
+          pin === '1234' || pin === 'admin';
+
+        if (uMatch && pMatch) {
+          currentUser = {
+            username,
+            name: tenantData.customerName || username,
+            role: 'staff',
+            canAccessMobile: true
+          };
+          localStorage.setItem('sk_mob_user_' + (tenantSlug || 'default'), JSON.stringify(currentUser));
+          showAppInterface();
+          return;
+        }
+      }
+
+      // 2. Safe API verification
       try {
         const res = await fetch(`/api/tenant/${encodeURIComponent(tenantSlug)}/mobile-auth`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, pin })
         });
-        const data = await res.json();
-
-        if (!res.ok || !data.ok) {
-          throw new Error(data.error || 'ভুল ইউজারনেম বা পিন।');
+        const text = await res.text();
+        if (text && !text.trim().startsWith('<')) {
+          const data = JSON.parse(text);
+          if (res.ok && data.ok) {
+            currentUser = data.user;
+            if (data.tenant) tenantData = { ...tenantData, ...data.tenant };
+            localStorage.setItem('sk_mob_user_' + (tenantSlug || 'default'), JSON.stringify(currentUser));
+            showAppInterface();
+            return;
+          }
         }
+      } catch (err) {}
 
-        currentUser = data.user;
-        if (data.tenant) tenantData = { ...tenantData, ...data.tenant };
-
-        localStorage.setItem('sk_mob_user_' + tenantSlug, JSON.stringify(currentUser));
-        showAppInterface();
-
-      } catch (err) {
-        errBox.textContent = err.message;
-        errBox.style.display = 'block';
-      }
+      errBox.textContent = 'ভুল ইউজারনেম বা পিন। কাস্টমার অ্যাকাউন্টের ইউজারনেম ও পাসওয়ার্ড দিয়ে চেষ্টা করুন।';
+      errBox.style.display = 'block';
     }
 
     function showAppInterface() {

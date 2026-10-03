@@ -5,7 +5,7 @@ if(window.__SK_UNIVERSAL_UPDATER__)return;
 // UPDATE 210: never run the in-app updater on the public marketing page.
 try{var _p=(location.pathname||'/').replace(/\/+$/,'')||'/';if(_p==='/'||/\/index\.html$/i.test(_p))return;}catch(e){}
 window.__SK_UNIVERSAL_UPDATER__=true;
-var BUILD=1788740000000,CHANNEL='sk-app-update-v1',PROMPT='skauPrompt',OVERLAY='skauOverlay',bc=null,state={checking:false,installing:false,available:null,lastCheck:0};
+var BUILD=1790172500000,CHANNEL='sk-app-update-v1',PROMPT='skauPrompt',OVERLAY='skauOverlay',bc=null,state={checking:false,installing:false,available:null,lastCheck:0};
 try{bc='BroadcastChannel'in window?new BroadcastChannel(CHANNEL):null;}catch(e){}
 function E(s){return String(s==null?'':s).replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];});}
 function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
